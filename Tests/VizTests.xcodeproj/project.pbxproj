@@ -64,6 +64,24 @@
 			<key>fileRef</key>
 			<string>4DC5D19361816951FEE6C9A9</string>
 		</dict>
+		<key>26BC9BABF5D977597D5332AB</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Tests/WebcamTests.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>B80B341E5850FA9F297FA2F1</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>26BC9BABF5D977597D5332AB</string>
+		</dict>
 		<key>36066228C42C42603094E7D3</key>
 		<dict>
 			<key>isa</key>
@@ -171,6 +189,150 @@
 			<string>PBXBuildFile</string>
 			<key>fileRef</key>
 			<string>E2D5D1F302B336158354EE87</string>
+		</dict>
+		<key>2A9F1DFBF3451328CB22F06C</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/SystemWebcamAuthorization.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>05776AA6EE1C9097568284AE</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>2A9F1DFBF3451328CB22F06C</string>
+		</dict>
+		<key>CB165D203B96BA86136E6441</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/VideoSampleDelegate.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>C8CE711610E1CD6DBEC8C681</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>CB165D203B96BA86136E6441</string>
+		</dict>
+		<key>0E1E6CC3166C6C39ECE2C378</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/WebcamAuthorizing.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>CA2068B74B4E6C5662C0C411</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>0E1E6CC3166C6C39ECE2C378</string>
+		</dict>
+		<key>BB7FD47B042DFCDC7169FD90</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/WebcamCaptureBackend.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>657720736D67B2C73F612059</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>BB7FD47B042DFCDC7169FD90</string>
+		</dict>
+		<key>D7D01B4312BCCD6D0F8A886B</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/WebcamCaptureCoordinator.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>10739D34DADB97437A7F4B8C</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>D7D01B4312BCCD6D0F8A886B</string>
+		</dict>
+		<key>8D489C865AB7C965E1484C60</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/WebcamCaptureError.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>F5B64559E51499F561A92897</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>8D489C865AB7C965E1484C60</string>
+		</dict>
+		<key>74D8BB5EACF6B09075CD8081</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/WebcamCaptureWorker.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>79402E48769EA7524E2D836C</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>74D8BB5EACF6B09075CD8081</string>
+		</dict>
+		<key>FB3B1F5A0F28B473BC179190</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/WebcamPreviewSource.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>16CA7B0159CEAC7D22CEBD15</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>FB3B1F5A0F28B473BC179190</string>
 		</dict>
 		<key>9813BE3C10227B9B8F5EB3BF</key>
 		<dict>
@@ -280,12 +442,21 @@
 				<string>3F98E80A2CEF9845739F948D</string>
 				<string>F3A9DD302689BF0A050F8005</string>
 				<string>4DC5D19361816951FEE6C9A9</string>
+				<string>26BC9BABF5D977597D5332AB</string>
 				<string>36066228C42C42603094E7D3</string>
 				<string>2CC460664DC2A798E41E1CC3</string>
 				<string>F436D6B55D2BFC327B8AAF63</string>
 				<string>24927BAACA82A7E27D2ABB42</string>
 				<string>82FFD75C9269E01982368EB0</string>
 				<string>E2D5D1F302B336158354EE87</string>
+				<string>2A9F1DFBF3451328CB22F06C</string>
+				<string>CB165D203B96BA86136E6441</string>
+				<string>0E1E6CC3166C6C39ECE2C378</string>
+				<string>BB7FD47B042DFCDC7169FD90</string>
+				<string>D7D01B4312BCCD6D0F8A886B</string>
+				<string>8D489C865AB7C965E1484C60</string>
+				<string>74D8BB5EACF6B09075CD8081</string>
+				<string>FB3B1F5A0F28B473BC179190</string>
 				<string>E7F08BCC397888750F5CB9BD</string>
 			</array>
 			<key>sourceTree</key>
@@ -302,12 +473,21 @@
 				<string>A9BE9A4D6632FA2400F7F4AE</string>
 				<string>86C787584291F112B138DB06</string>
 				<string>2F4B03BDC651EEED3FBFCBFE</string>
+				<string>B80B341E5850FA9F297FA2F1</string>
 				<string>3093F597B311B007C2C294CE</string>
 				<string>83336AB873C7A7178040E16F</string>
 				<string>C4E435D63FA7AC64ACDDFD5B</string>
 				<string>8ADD00CA08F131DC8DB6E4B8</string>
 				<string>86E92E8F0BDBE8C820ED0089</string>
 				<string>666C6BC5FE9C9E17F9A3E5AF</string>
+				<string>05776AA6EE1C9097568284AE</string>
+				<string>C8CE711610E1CD6DBEC8C681</string>
+				<string>CA2068B74B4E6C5662C0C411</string>
+				<string>657720736D67B2C73F612059</string>
+				<string>10739D34DADB97437A7F4B8C</string>
+				<string>F5B64559E51499F561A92897</string>
+				<string>79402E48769EA7524E2D836C</string>
+				<string>16CA7B0159CEAC7D22CEBD15</string>
 			</array>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<integer>0</integer>

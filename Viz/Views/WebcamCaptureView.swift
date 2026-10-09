@@ -8,182 +8,17 @@
 @preconcurrency import AVFoundation
 import AlinFoundation
 import SwiftUI
-
-class WebcamCaptureManager: ObservableObject {
-    @Published var capturedImage: NSImage?
-    @Published var isPreviewActive: Bool = false
-
-    private var captureSession: AVCaptureSession?
-    private var videoOutput: AVCaptureVideoDataOutput?
-    private var previewLayer: AVCaptureVideoPreviewLayer?
-    private var lastSampleBuffer: CMSampleBuffer?
-    private var videoDelegate: VideoSampleDelegate?
-    private var shouldBeRunning: Bool = false
-
-    var isAuthorized: Bool {
-        get async {
-            let status = AVCaptureDevice.authorizationStatus(for: .video)
-
-            if status == .authorized {
-                return true
-            }
-
-            if status == .notDetermined {
-                return await AVCaptureDevice.requestAccess(for: .video)
-            }
-
-            return false
-        }
-    }
-
-    func setUpCaptureSession() async -> AVCaptureVideoPreviewLayer? {
-        guard await isAuthorized else { return nil }
-
-        await stopSession()
-
-        // Mark that we want the session to be running
-        await MainActor.run {
-            self.shouldBeRunning = true
-        }
-
-        let selectedWebcamID = UserDefaults.standard.string(forKey: "selectedWebcamID") ?? ""
-        let device: AVCaptureDevice?
-
-        if selectedWebcamID.isEmpty {
-            device = AVCaptureDevice.default(for: .video)
-        } else {
-            device = AVCaptureDevice(uniqueID: selectedWebcamID)
-        }
-
-        guard let captureDevice = device else { return nil }
-
-        let session = AVCaptureSession()
-        session.sessionPreset = .high
-
-        do {
-            let input = try AVCaptureDeviceInput(device: captureDevice)
-            if session.canAddInput(input) {
-                session.addInput(input)
-            }
-
-            let videoOutput = AVCaptureVideoDataOutput()
-            let delegate = VideoSampleDelegate { buffer in
-                self.lastSampleBuffer = buffer
-            }
-            videoOutput.setSampleBufferDelegate(delegate, queue: DispatchQueue(label: "videoQueue"))
-
-            // Store delegate to prevent deallocation
-            await MainActor.run {
-                self.videoDelegate = delegate
-            }
-
-            if session.canAddOutput(videoOutput) {
-                session.addOutput(videoOutput)
-            }
-
-            let layer = AVCaptureVideoPreviewLayer(session: session)
-            layer.videoGravity = .resizeAspectFill
-
-            session.startRunning()
-
-            // Check if we should still be running (window might have closed during setup)
-            let stillShouldRun = await MainActor.run { self.shouldBeRunning }
-            if !stillShouldRun {
-                // Window was closed during setup, stop immediately
-                session.stopRunning()
-                return nil
-            }
-
-            await MainActor.run { [captureSession = session, videoOutput = videoOutput] in
-                self.captureSession = captureSession
-                self.videoOutput = videoOutput
-                self.isPreviewActive = true
-            }
-
-            // Use Task.detached to avoid Sendable capture issues
-            Task { @MainActor in
-                self.previewLayer = layer
-            }
-
-            return layer
-        } catch {
-            print("Error setting up webcam capture: \(error)")
-            return nil
-        }
-    }
-
-    func capturePhoto() {
-        guard let sampleBuffer = lastSampleBuffer else {
-            print("No sample buffer available")
-            return
-        }
-
-        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
-            print("Failed to get image buffer")
-            return
-        }
-
-        let ciImage = CIImage(cvImageBuffer: imageBuffer)
-        let context = CIContext()
-
-        guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else {
-            print("Failed to create CGImage")
-            return
-        }
-
-        let nsImage = NSImage(
-            cgImage: cgImage, size: NSSize(width: cgImage.width, height: cgImage.height))
-
-        DispatchQueue.main.async {
-            self.capturedImage = nsImage
-        }
-    }
-
-    func clearCapturedImage() {
-        capturedImage = nil
-    }
-
-    func stopSession() async {
-        await MainActor.run {
-            shouldBeRunning = false
-            captureSession?.stopRunning()
-            captureSession = nil
-            videoOutput = nil
-            previewLayer = nil
-            isPreviewActive = false
-            lastSampleBuffer = nil
-            videoDelegate = nil
-        }
-    }
-}
-
-class VideoSampleDelegate: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
-    private let bufferHandler: (CMSampleBuffer) -> Void
-
-    init(bufferHandler: @escaping (CMSampleBuffer) -> Void) {
-        self.bufferHandler = bufferHandler
-    }
-
-    func captureOutput(
-        _ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer,
-        from connection: AVCaptureConnection
-    ) {
-        bufferHandler(sampleBuffer)
-    }
-}
+import Combine
 
 struct WebcamCaptureView: View {
-    @StateObject private var captureManager = WebcamCaptureManager()
+    @ObservedObject var captureManager: WebcamCaptureCoordinator
     @StateObject private var webcamManager = WebcamManager()
     @AppStorage("selectedWebcamID") private var selectedWebcamID: String = ""
-    @State private var previewLayer: AVCaptureVideoPreviewLayer?
     @State private var isSnipping: Bool = false
     @State private var selectionRect: CGRect = .zero
     @State private var isDragging: Bool = false
     @State private var dragStart: CGPoint = .zero
     @State private var viewSize: CGSize = .zero
-    @State private var permissionDenied: Bool = false
-    @Environment(\.dismiss) private var dismiss
 
     var selectedWebcam: WebcamDevice? {
         if selectedWebcamID.isEmpty {
@@ -257,7 +92,7 @@ struct WebcamCaptureView: View {
                         .clipped()
                         .background(Color.black)
                 }
-            } else if let previewLayer = previewLayer {
+            } else if let previewLayer = captureManager.previewLayer {
                 ZStack(alignment: .bottom) {
                     CameraPreviewView(previewLayer: previewLayer)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -284,7 +119,7 @@ struct WebcamCaptureView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                     .overlay {
                         VStack(spacing: 15) {
-                            if permissionDenied {
+                            if captureManager.permissionDenied {
                                 Image(systemName: "camera.fill")
                                     .font(.system(size: 60))
                                     .foregroundStyle(.red)
@@ -314,7 +149,7 @@ struct WebcamCaptureView: View {
                                 Image(systemName: "camera.fill")
                                     .font(.system(size: 60))
                                     .foregroundStyle(.gray)
-                                Text("Starting Camera")
+                                Text(captureManager.isStarting ? "Starting Camera" : "Camera unavailable")
                                     .foregroundStyle(.gray)
                             }
                         }
@@ -365,10 +200,7 @@ struct WebcamCaptureView: View {
                                 Button {
                                     isSnipping = false
                                     selectionRect = .zero
-                                    captureManager.clearCapturedImage()
-                                    Task {
-                                        previewLayer = await captureManager.setUpCaptureSession()
-                                    }
+                                    captureManager.restart(deviceID: selectedWebcamID)
                                 } label: {
                                     HStack(spacing: 8) {
                                         Image(systemName: "arrow.backward")
@@ -426,10 +258,7 @@ struct WebcamCaptureView: View {
                                 .buttonStyle(.plain)
 
                                 Button {
-                                    captureManager.clearCapturedImage()
-                                    Task {
-                                        previewLayer = await captureManager.setUpCaptureSession()
-                                    }
+                                    captureManager.restart(deviceID: selectedWebcamID)
                                 } label: {
                                     HStack(spacing: 8) {
                                         Image(systemName: "arrow.backward")
@@ -465,7 +294,6 @@ struct WebcamCaptureView: View {
                                         let newID = device.id
                                         if newID != selectedWebcamID {
                                             selectedWebcamID = newID
-                                            updateWebcamPreview()
                                         }
                                     }
                                 }
@@ -488,91 +316,20 @@ struct WebcamCaptureView: View {
         }
         .ignoresSafeArea(.all)
         .onAppear {
-            webcamManager.loadAvailableDevices()
-            if selectedWebcamID.isEmpty {
-                selectedWebcamID = webcamManager.defaultDevice?.id ?? ""
-            }
-            Task {
-                // Check and request permission in background
-                let authorized = await captureManager.isAuthorized
-                if !authorized {
-                    await MainActor.run {
-                        permissionDenied = true
-                    }
-                } else {
-                    await MainActor.run {
-                        permissionDenied = false
-                    }
-                    previewLayer = await captureManager.setUpCaptureSession()
-                }
-            }
+            if selectedWebcamID.isEmpty { selectedWebcamID = webcamManager.defaultDevice?.id ?? "" }
+            captureManager.start(deviceID: selectedWebcamID)
         }
-        .onDisappear {
-            Task {
-                await captureManager.stopSession()
-            }
+        .onDisappear { captureManager.stop() }
+        .onChange(of: selectedWebcamID) {
+            captureManager.start(deviceID: selectedWebcamID)
         }
-        .onReceive(NotificationCenter.default.publisher(for: NSWindow.willCloseNotification)) {
-            notification in
-            // Stop camera when window closes
-            Task {
-                await captureManager.stopSession()
-            }
-        }
-        .onReceive(NotificationCenter.default.publisher(for: NSWindow.didBecomeKeyNotification)) {
-            notification in
-            // Restart camera when window becomes key (visible) again
-            guard let window = notification.object as? NSWindow,
-                window.contentViewController is NSHostingController<WebcamCaptureView>,
-                captureManager.capturedImage == nil,
-                !captureManager.isPreviewActive
-            else { return }
-
-            Task {
-                previewLayer = await captureManager.setUpCaptureSession()
-            }
-        }
-        .onChange(of: captureManager.capturedImage) { image in
-            if let image = image {
-                resizeWindowToFitImage(image)
-            }
-        }
-    }
-
-    private func updateWebcamPreview() {
-        Task {
-            previewLayer = await captureManager.setUpCaptureSession()
-        }
-    }
-
-    private func resizeWindowToFitImage(_ image: NSImage) {
-        guard let window = NSApp.keyWindow else { return }
-
-        let imageSize = image.size
-        let aspectRatio = imageSize.width / imageSize.height
-
-        // Calculate new window size maintaining aspect ratio
-        let maxWidth: CGFloat = 1200
-        let maxHeight: CGFloat = 900
-
-        var newWidth: CGFloat
-        var newHeight: CGFloat
-
-        if aspectRatio > 1 {  // Landscape
-            newWidth = min(maxWidth, imageSize.width * 0.5)
-            newHeight = newWidth / aspectRatio
-        } else {  // Portrait or square
-            newHeight = min(maxHeight, imageSize.height * 0.5)
-            newWidth = newHeight * aspectRatio
-        }
-
-        // Add space for toolbar
-        newHeight += 80
-
-        // Animate the resize
-        NSAnimationContext.runAnimationGroup { context in
-            context.duration = 0.3
-            window.animator().setContentSize(NSSize(width: newWidth, height: newHeight))
+        .alert("Camera capture failed", isPresented: Binding(
+            get: { captureManager.errorMessage != nil },
+            set: { if !$0 { captureManager.dismissError() } }
+        )) {
+            Button("OK") { captureManager.dismissError() }
+        } message: {
+            Text(captureManager.errorMessage ?? "")
         }
     }
 
@@ -622,7 +379,8 @@ struct WebcamDevice: Identifiable, Equatable, Hashable {
     let name: String
 }
 
-class WebcamManager: ObservableObject {
+@MainActor
+final class WebcamManager: ObservableObject {
     @Published var availableDevices: [WebcamDevice] = []
     @Published var defaultDevice: WebcamDevice?
 

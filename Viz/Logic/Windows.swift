@@ -19,38 +19,7 @@ func openAbout() {
     WindowManager.shared.open(id: "about", with: AboutView(), width: 400, height: 450)
 }
 
-@MainActor private var webcamWindow: NSWindow?
-
 @MainActor
 func openWebcamCapture() {
-    // Show existing window if already open
-    if let existingWindow = webcamWindow, existingWindow.isVisible {
-        DispatchQueue.main.async {
-            existingWindow.makeKeyAndOrderFront(nil)
-            NSApp.activate(ignoringOtherApps: true)
-        }
-        return
-    }
-    
-    // Close existing window
-    webcamWindow?.close()
-    webcamWindow = nil
-    
-    // Create window on main thread (SwiftUI requirement)
-    DispatchQueue.main.async {
-        let hostingController = NSHostingController(rootView: WebcamCaptureView())
-        let window = NSWindow(contentViewController: hostingController)
-        window.setContentSize(NSSize(width: 650, height: 450))
-        window.styleMask = [.titled, .closable, .resizable, .fullSizeContentView]
-        window.titlebarAppearsTransparent = true
-        window.titleVisibility = .hidden
-        window.level = .normal
-        window.isReleasedWhenClosed = false
-        window.center()
-        window.minSize = NSSize(width: 320, height: 240)
-        
-        NSApp.activate(ignoringOtherApps: true)
-        window.makeKeyAndOrderFront(nil)
-        webcamWindow = window
-    }
+    WebcamWindowController.shared.show()
 }
