@@ -535,6 +535,9 @@
 				<string>3DC10F50A7366DDCC0C3FE8A</string>
 				<string>F49677B99C76AAC963F8558A</string>
 				<string>3B6BB7433796EC6EA1B6B066</string>
+				<string>17B04907318E38E60B14FCE8</string>
+				<string>53FB76122BAFFD0A44CF5163</string>
+				<string>D52FE784BE09FD9D2125C711</string>
 			</array>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
@@ -588,6 +591,9 @@
 				<string>BAB6B28AD560DD29E59E537D</string>
 				<string>4F2D99F09BD8B1234306CE61</string>
 				<string>94D91EDEE75B459DDC4C04AC</string>
+				<string>66ED4A03BF2EB6FA187367E1</string>
+				<string>66E28455741CFF24372618AE</string>
+				<string>56F2417E9054A43AD7CE7029</string>
 			</array>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<integer>0</integer>
@@ -1011,6 +1017,60 @@
 			<string>PBXBuildFile</string>
 			<key>fileRef</key>
 			<string>3B6BB7433796EC6EA1B6B066</string>
+		</dict>
+		<key>17B04907318E38E60B14FCE8</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/HistoryFilter.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>66ED4A03BF2EB6FA187367E1</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>17B04907318E38E60B14FCE8</string>
+		</dict>
+		<key>53FB76122BAFFD0A44CF5163</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/CopyFeedbackController.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>66E28455741CFF24372618AE</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>53FB76122BAFFD0A44CF5163</string>
+		</dict>
+		<key>D52FE784BE09FD9D2125C711</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Tests/HistoryActionTests.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>56F2417E9054A43AD7CE7029</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>D52FE784BE09FD9D2125C711</string>
 		</dict>
 	</dict>
 	<key>rootObject</key>

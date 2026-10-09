@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D8ADBEA828873B44D485251D /* HistoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5A1A22FACE0FC6981D3B49 /* HistoryRow.swift */; };
+		BE6EE61689F187DE5FA23F35 /* CopyFeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C3C78C9C4B81171FA25525 /* CopyFeedbackController.swift */; };
+		B9EB4B0942AB269FD179AE38 /* HistoryFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B012BD111F2B475F4540202E /* HistoryFilter.swift */; };
 		33A241DA3042475B2B073BB6 /* CaptureNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2295835C31B445C5E7361B2 /* CaptureNoticeView.swift */; };
 		E43A553C32760C5553CB75D7 /* CaptureNoticePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44523F50C9C75B030B889E9 /* CaptureNoticePresenter.swift */; };
 		4B7833479A93B99886286BDD /* ScreenCaptureWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B615CD8EC9638C3D426D23E5 /* ScreenCaptureWorker.swift */; };
@@ -69,6 +72,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6A5A1A22FACE0FC6981D3B49 /* HistoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRow.swift; sourceTree = "<group>"; };
+		85C3C78C9C4B81171FA25525 /* CopyFeedbackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyFeedbackController.swift; sourceTree = "<group>"; };
+		B012BD111F2B475F4540202E /* HistoryFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryFilter.swift; sourceTree = "<group>"; };
 		C2295835C31B445C5E7361B2 /* CaptureNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureNoticeView.swift; sourceTree = "<group>"; };
 		B44523F50C9C75B030B889E9 /* CaptureNoticePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureNoticePresenter.swift; sourceTree = "<group>"; };
 		B615CD8EC9638C3D426D23E5 /* ScreenCaptureWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenCaptureWorker.swift; sourceTree = "<group>"; };
@@ -187,6 +193,7 @@
 		C74D7C952D95CF2C009A8C48 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6A5A1A22FACE0FC6981D3B49 /* HistoryRow.swift */,
 				C2295835C31B445C5E7361B2 /* CaptureNoticeView.swift */,
 				46859055098872DCF1CEEB77 /* QualityPickerView.swift */,
 				7E36D8DF92B2950D0E5CAFA3 /* LanguagePickerView.swift */,
@@ -204,6 +211,8 @@
 		C74D7C962D95CF84009A8C48 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				85C3C78C9C4B81171FA25525 /* CopyFeedbackController.swift */,
+				B012BD111F2B475F4540202E /* HistoryFilter.swift */,
 				B44523F50C9C75B030B889E9 /* CaptureNoticePresenter.swift */,
 				B615CD8EC9638C3D426D23E5 /* ScreenCaptureWorker.swift */,
 				F9D66FD1688188C3607F9BC9 /* ScreenCaptureOperationState.swift */,
@@ -329,6 +338,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8ADBEA828873B44D485251D /* HistoryRow.swift in Sources */,
+				BE6EE61689F187DE5FA23F35 /* CopyFeedbackController.swift in Sources */,
+				B9EB4B0942AB269FD179AE38 /* HistoryFilter.swift in Sources */,
 				33A241DA3042475B2B073BB6 /* CaptureNoticeView.swift in Sources */,
 				E43A553C32760C5553CB75D7 /* CaptureNoticePresenter.swift in Sources */,
 				4B7833479A93B99886286BDD /* ScreenCaptureWorker.swift in Sources */,

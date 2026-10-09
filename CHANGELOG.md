@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Expose separate keyboard-accessible history copy, link, delete, and clear actions; keep Delete available during Copied feedback and use stable filter identifiers with localizable labels.
 - Preserve semantic Close/Clear button labels in custom styles and give processing output a flexible width instead of an infinite fixed width.
 - Preserve accessible switch labels, expose shortcut badges as keyboard-operable buttons, and explicitly name Settings, Updates, and Quit controls.
 - Read screen selections only from operation-owned temporary files, clean up canceled captures, and report capture or recognition failures separately from recognized text even with previews disabled.
