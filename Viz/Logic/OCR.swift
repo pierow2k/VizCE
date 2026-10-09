@@ -49,7 +49,7 @@ struct TextRecognition {
         guard !failed else { return }
         copyTextItemsToClipboard(textItems: recognizedContent.items)
         playSound(for: .text(item))
-        historyState.historyItems.append(.text(item))
+        historyState.append(.text(item))
         guard options.processing else { return }
         let contentSnapshot = recognizedContent.items.map(\.text).joined(separator: "\n")
         let state = AppState.shared

@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Load and atomically save local history off the UI actor, serialize pending snapshots, and flush pending writes before quitting. Report persistence failures with retry actions.
 - Snapshot recognition settings and captured text before asynchronous work,
   isolate shared UI state on the main actor, and run Vision recognition and shell
   processing off the UI thread.

@@ -37,6 +37,16 @@ struct HistoryView: View {
                 .font(.title)
                 .padding(.vertical)
 
+            if historyState.repository.isLoading {
+                ProgressView("Loading history")
+            }
+            if let failure = historyState.repository.failure {
+                VStack {
+                    Text(failure).foregroundStyle(.red)
+                    Button("Retry") { historyState.repository.retry() }
+                }
+                .padding()
+            }
             Spacer()
 
             if filteredItems.isEmpty {
@@ -131,11 +141,11 @@ struct HistoryView: View {
                                     switch item {
                                     case .text(let textItem):
                                         if tappedItemID != textItem.id {
-                                            historyState.historyItems.removeAll { $0.id == item.id }
+                                            historyState.delete(id: item.id)
                                         }
                                     case .color(let colorItem):
                                         if tappedItemID != colorItem.id {
-                                            historyState.historyItems.removeAll { $0.id == item.id }
+                                            historyState.delete(id: item.id)
                                         }
                                     }
                                 }) {

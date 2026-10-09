@@ -37,7 +37,7 @@ func clearClipboard() {
     AppState.shared.invalidateCaptures()
     CaptureService.shared.recognizedContent.items.removeAll()
     CaptureService.shared.pasteboard.clearContents()
-    HistoryState.shared.historyItems.removeAll()
+    HistoryState.shared.clear()
     PreviewWindowController.shared.close()
 }
 
@@ -76,7 +76,7 @@ func processColor() {
         AppState.shared.colorSample = result
         let colorItem = ColorItem(hex: result.hex, rgb: result.rgb)
         let entry = HistoryEntry.color(colorItem)
-        HistoryState.shared.historyItems.append(entry)
+        HistoryState.shared.append(entry)
         await MainActor.run {
             showPreviewWindow(contentView: ColorPreviewView())
         }

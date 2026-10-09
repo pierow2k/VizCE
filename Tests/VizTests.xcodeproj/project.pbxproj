@@ -515,6 +515,14 @@
 				<string>74D8BB5EACF6B09075CD8081</string>
 				<string>FB3B1F5A0F28B473BC179190</string>
 				<string>E7F08BCC397888750F5CB9BD</string>
+				<string>C3DF9F2556A6EA21B3AAC4AC</string>
+				<string>53EDE76AD5ED8ADE7FA52B97</string>
+				<string>8F8730DB9D0B2F5D8327F12B</string>
+				<string>D0DEC70FE1882573BBF6A1CD</string>
+				<string>8B2E870979FB1574DAE3C404</string>
+				<string>9C57084A5A0450E7BBD9B348</string>
+				<string>7D05EA2ECD98FF03A3E0726C</string>
+				<string>70F9851F3134FAF606BC4FE4</string>
 			</array>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
@@ -548,6 +556,14 @@
 				<string>F5B64559E51499F561A92897</string>
 				<string>79402E48769EA7524E2D836C</string>
 				<string>16CA7B0159CEAC7D22CEBD15</string>
+				<string>A2DC02E980EAC7B6C016DA58</string>
+				<string>FBAE6FA95B96C6FBAC67DBDA</string>
+				<string>D55B39D131A03D969E3D9820</string>
+				<string>994A81CC0A1679D192B9C7DD</string>
+				<string>E936A9F3D1BAA4F0E60C8DB2</string>
+				<string>3ED9242607012645BAB9099C</string>
+				<string>D17CAE0869496DD66ADDADEA</string>
+				<string>EE184FCFB133CCEFF4FCC00D</string>
 			</array>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<integer>0</integer>
@@ -611,6 +627,150 @@
 			<array>
 				<string>E5B4A42C1A9B11F842B19C64</string>
 			</array>
+		</dict>
+		<key>C3DF9F2556A6EA21B3AAC4AC</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/StoredTextItem.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>A2DC02E980EAC7B6C016DA58</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>C3DF9F2556A6EA21B3AAC4AC</string>
+		</dict>
+		<key>53EDE76AD5ED8ADE7FA52B97</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/StoredColorItem.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>FBAE6FA95B96C6FBAC67DBDA</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>53EDE76AD5ED8ADE7FA52B97</string>
+		</dict>
+		<key>8F8730DB9D0B2F5D8327F12B</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/StoredHistoryEntry.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>D55B39D131A03D969E3D9820</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>8F8730DB9D0B2F5D8327F12B</string>
+		</dict>
+		<key>D0DEC70FE1882573BBF6A1CD</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/HistoryStoring.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>994A81CC0A1679D192B9C7DD</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>D0DEC70FE1882573BBF6A1CD</string>
+		</dict>
+		<key>8B2E870979FB1574DAE3C404</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/HistoryFileStore.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>E936A9F3D1BAA4F0E60C8DB2</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>8B2E870979FB1574DAE3C404</string>
+		</dict>
+		<key>9C57084A5A0450E7BBD9B348</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/HistoryMutation.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>3ED9242607012645BAB9099C</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>9C57084A5A0450E7BBD9B348</string>
+		</dict>
+		<key>7D05EA2ECD98FF03A3E0726C</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/HistoryRepository.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>D17CAE0869496DD66ADDADEA</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>7D05EA2ECD98FF03A3E0726C</string>
+		</dict>
+		<key>70F9851F3134FAF606BC4FE4</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Tests/HistoryPersistenceTests.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>EE184FCFB133CCEFF4FCC00D</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>70F9851F3134FAF606BC4FE4</string>
 		</dict>
 	</dict>
 	<key>rootObject</key>

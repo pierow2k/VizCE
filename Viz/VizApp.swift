@@ -41,6 +41,36 @@ struct VizApp: App {
 @MainActor
 class AppDelegate: NSObject, NSApplicationDelegate {
     private let windowController = WindowManager.shared
+    private var quitWithoutSaving = false
+
+    func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
+        guard !quitWithoutSaving else { return .terminateNow }
+        Task { @MainActor in
+            do {
+                try await HistoryState.shared.flush()
+                sender.reply(toApplicationShouldTerminate: true)
+            } catch {
+                sender.reply(toApplicationShouldTerminate: false)
+                NSApp.activate()
+                let alert = NSAlert()
+                alert.messageText = String(localized: "History could not be saved")
+                alert.informativeText = error.localizedDescription
+                alert.addButton(withTitle: String(localized: "Retry"))
+                alert.addButton(withTitle: String(localized: "Cancel"))
+                alert.addButton(withTitle: String(localized: "Quit Without Saving"))
+                switch alert.runModal() {
+                case .alertFirstButtonReturn:
+                    HistoryState.shared.repository.retry()
+                    sender.terminate(nil)
+                case .alertThirdButtonReturn:
+                    self.quitWithoutSaving = true
+                    sender.terminate(nil)
+                default: break
+                }
+            }
+        }
+        return .terminateLater
+    }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
 

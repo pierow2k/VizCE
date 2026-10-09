@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		20608B128842981928A5A441 /* HistoryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE13BE1358B3CA33E9740E75 /* HistoryState.swift */; };
+		9E6E9466A2DC8A7018AC08F4 /* HistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6750740051D4063BC0C4898B /* HistoryRepository.swift */; };
+		5CFEEF330BC762C96D98ABA2 /* HistoryMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC07CECA11BF46F12FAE041 /* HistoryMutation.swift */; };
+		ECF67336C664B0DD3F9A27A6 /* HistoryFileStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC25E297EAAAE7D907AB189A /* HistoryFileStore.swift */; };
+		6A2C059E9F19AE257819B3EB /* HistoryStoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97523C9E22A8600102C3B894 /* HistoryStoring.swift */; };
+		9FD5C37ADB68D8991DFCB0AF /* StoredHistoryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F749A140B764943FCFE70F5 /* StoredHistoryEntry.swift */; };
+		E55A2E46E48AB62CBED99949 /* StoredColorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D075EBC103F583A970CE2AF /* StoredColorItem.swift */; };
+		8A1F9749F03C045120E9B520 /* StoredTextItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB94BFD003717549AFAC2E63 /* StoredTextItem.swift */; };
 		F3B9E2C2FB1C0E05096FF918 /* MenuPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893BFBB377A8B0F7096708D9 /* MenuPresentationController.swift */; };
 		10947E536EC9F7C228465A5B /* PreviewExpiry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A740FC8C7C6087A9A78D11 /* PreviewExpiry.swift */; };
 		20825E5C03EB4CC1C78AE8DB /* ShellTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA739B02138CA07CF1750940 /* ShellTemplate.swift */; };
@@ -47,6 +55,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EE13BE1358B3CA33E9740E75 /* HistoryState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryState.swift; sourceTree = "<group>"; };
+		6750740051D4063BC0C4898B /* HistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRepository.swift; sourceTree = "<group>"; };
+		0DC07CECA11BF46F12FAE041 /* HistoryMutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMutation.swift; sourceTree = "<group>"; };
+		FC25E297EAAAE7D907AB189A /* HistoryFileStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryFileStore.swift; sourceTree = "<group>"; };
+		97523C9E22A8600102C3B894 /* HistoryStoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryStoring.swift; sourceTree = "<group>"; };
+		4F749A140B764943FCFE70F5 /* StoredHistoryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredHistoryEntry.swift; sourceTree = "<group>"; };
+		5D075EBC103F583A970CE2AF /* StoredColorItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredColorItem.swift; sourceTree = "<group>"; };
+		EB94BFD003717549AFAC2E63 /* StoredTextItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredTextItem.swift; sourceTree = "<group>"; };
 		893BFBB377A8B0F7096708D9 /* MenuPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPresentationController.swift; sourceTree = "<group>"; };
 		014B8F42E292ED5B3748EA35 /* PostProcessingRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostProcessingRunner.swift; sourceTree = "<group>"; };
 		05C773716FEF479F36F233A9 /* WebcamPreviewSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamPreviewSource.swift; sourceTree = "<group>"; };
@@ -157,6 +173,14 @@
 		C74D7C962D95CF84009A8C48 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				EE13BE1358B3CA33E9740E75 /* HistoryState.swift */,
+				6750740051D4063BC0C4898B /* HistoryRepository.swift */,
+				0DC07CECA11BF46F12FAE041 /* HistoryMutation.swift */,
+				FC25E297EAAAE7D907AB189A /* HistoryFileStore.swift */,
+				97523C9E22A8600102C3B894 /* HistoryStoring.swift */,
+				4F749A140B764943FCFE70F5 /* StoredHistoryEntry.swift */,
+				5D075EBC103F583A970CE2AF /* StoredColorItem.swift */,
+				EB94BFD003717549AFAC2E63 /* StoredTextItem.swift */,
 				893BFBB377A8B0F7096708D9 /* MenuPresentationController.swift */,
 				A8410CA3759E6B0114BF38C7 /* ImageSelectionState.swift */,
 				18984167139B876EAD3C286D /* ImageCropTransform.swift */,
@@ -263,6 +287,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20608B128842981928A5A441 /* HistoryState.swift in Sources */,
+				9E6E9466A2DC8A7018AC08F4 /* HistoryRepository.swift in Sources */,
+				5CFEEF330BC762C96D98ABA2 /* HistoryMutation.swift in Sources */,
+				ECF67336C664B0DD3F9A27A6 /* HistoryFileStore.swift in Sources */,
+				6A2C059E9F19AE257819B3EB /* HistoryStoring.swift in Sources */,
+				9FD5C37ADB68D8991DFCB0AF /* StoredHistoryEntry.swift in Sources */,
+				E55A2E46E48AB62CBED99949 /* StoredColorItem.swift in Sources */,
+				8A1F9749F03C045120E9B520 /* StoredTextItem.swift in Sources */,
 				F3B9E2C2FB1C0E05096FF918 /* MenuPresentationController.swift in Sources */,
 				FEC113CE810A5D8142F06074 /* ImageSelectionState.swift in Sources */,
 				F114D0D9F34E0B2362F5BC47 /* ImageCropTransform.swift in Sources */,
