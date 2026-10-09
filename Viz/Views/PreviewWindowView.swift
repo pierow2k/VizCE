@@ -10,9 +10,9 @@ import AppKit
 import SwiftUI
 import AlinFoundation
 
-var previewWindow: NSWindow?
-var cmdOutputWindow: NSWindow?
-var colorWindow: NSWindow?
+@MainActor var previewWindow: NSWindow?
+@MainActor var cmdOutputWindow: NSWindow?
+@MainActor var colorWindow: NSWindow?
 
 
 struct PreviewContentView: View {
@@ -119,6 +119,7 @@ struct ColorPreviewView: View {
 
 
 
+@MainActor
 func showPreviewWindow<Content: View>(contentView: Content) {
     @AppStorage("previewSeconds") var seconds: Double = 5.0
     @AppStorage("processing") var processingIsEnabled: Bool = false

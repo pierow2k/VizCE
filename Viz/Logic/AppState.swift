@@ -6,20 +6,36 @@
 //
 
 import Foundation
+import Combine
 import ServiceManagement
 import SwiftUI
 import AlinFoundation
 import Vision
 
-class RecognizedContent: ObservableObject {
+@MainActor
+final class RecognizedContent: ObservableObject {
     static let shared = RecognizedContent()
     @Published var items = [TextItem]()
 }
 
-class AppState: ObservableObject {
+@MainActor
+final class AppState: ObservableObject {
     static let shared = AppState()
     @Published var isLaunchAtLoginEnabled: Bool = false
     @Published var cmdOutput: String = ""
+    let captureIdentity = OperationIdentity()
+    private(set) var clearGeneration: UInt64 = 0
+
+    @discardableResult
+    func beginCapture() -> UInt64 {
+        cmdOutput = ""
+        return captureIdentity.advance()
+    }
+
+    func invalidateCaptures() {
+        clearGeneration &+= 1
+        beginCapture()
+    }
     @Published var colorSample: ColorItem = ColorItem(hex: "", rgb: "")
     @AppStorage("selectedLanguageCode") private var selectedLanguageCode: String = "All"
     @AppStorage("selectedQuality") private var selectedQualityRaw: String = TextRecognitionQuality.accurate.rawValue
@@ -49,13 +65,7 @@ class AppState: ObservableObject {
     }
 
     func fetchLaunchAtLoginStatus() {
-        // Fetch the actual launch at login status asynchronously
-        DispatchQueue.global(qos: .background).async {
-            let launchStatus = SMAppService.mainApp.status == .enabled
-            DispatchQueue.main.async {
-                self.isLaunchAtLoginEnabled = launchStatus
-            }
-        }
+        isLaunchAtLoginEnabled = SMAppService.mainApp.status == .enabled
     }
 
 }
@@ -95,7 +105,8 @@ enum TextRecognitionQuality: String, CaseIterable, Identifiable {
     var id: String { self.rawValue }
 }
 
-class HistoryState: ObservableObject {
+@MainActor
+final class HistoryState: ObservableObject {
     static let shared = HistoryState()
     @Published var historyItems: [HistoryEntry] = [] {
         didSet {

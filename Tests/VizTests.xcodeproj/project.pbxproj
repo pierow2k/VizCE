@@ -28,6 +28,42 @@
 			<key>fileRef</key>
 			<string>3F98E80A2CEF9845739F948D</string>
 		</dict>
+		<key>4DC5D19361816951FEE6C9A9</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Tests/RecognitionTests.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>2F4B03BDC651EEED3FBFCBFE</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>4DC5D19361816951FEE6C9A9</string>
+		</dict>
+		<key>36066228C42C42603094E7D3</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/OperationIdentity.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>3093F597B311B007C2C294CE</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>36066228C42C42603094E7D3</string>
+		</dict>
 		<key>2CC460664DC2A798E41E1CC3</key>
 		<dict>
 			<key>isa</key>
@@ -45,6 +81,42 @@
 			<string>PBXBuildFile</string>
 			<key>fileRef</key>
 			<string>2CC460664DC2A798E41E1CC3</string>
+		</dict>
+		<key>24927BAACA82A7E27D2ABB42</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/RecognitionOptions.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>8ADD00CA08F131DC8DB6E4B8</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>24927BAACA82A7E27D2ABB42</string>
+		</dict>
+		<key>82FFD75C9269E01982368EB0</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/RecognitionWorker.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>86E92E8F0BDBE8C820ED0089</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>82FFD75C9269E01982368EB0</string>
 		</dict>
 		<key>E2D5D1F302B336158354EE87</key>
 		<dict>
@@ -170,7 +242,11 @@
 			<key>children</key>
 			<array>
 				<string>3F98E80A2CEF9845739F948D</string>
+				<string>4DC5D19361816951FEE6C9A9</string>
+				<string>36066228C42C42603094E7D3</string>
 				<string>2CC460664DC2A798E41E1CC3</string>
+				<string>24927BAACA82A7E27D2ABB42</string>
+				<string>82FFD75C9269E01982368EB0</string>
 				<string>E2D5D1F302B336158354EE87</string>
 				<string>E7F08BCC397888750F5CB9BD</string>
 			</array>
@@ -186,7 +262,11 @@
 			<key>files</key>
 			<array>
 				<string>A9BE9A4D6632FA2400F7F4AE</string>
+				<string>2F4B03BDC651EEED3FBFCBFE</string>
+				<string>3093F597B311B007C2C294CE</string>
 				<string>83336AB873C7A7178040E16F</string>
+				<string>8ADD00CA08F131DC8DB6E4B8</string>
+				<string>86E92E8F0BDBE8C820ED0089</string>
 				<string>666C6BC5FE9C9E17F9A3E5AF</string>
 			</array>
 			<key>runOnlyForDeploymentPostprocessing</key>

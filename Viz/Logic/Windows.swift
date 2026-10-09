@@ -9,16 +9,19 @@ import SwiftUI
 import AlinFoundation
 import AVFoundation
 
+@MainActor
 func openHistory() {
     WindowManager.shared.open(id: "history", with: HistoryView(), width: 500, height: 600)
 }
 
+@MainActor
 func openAbout() {
     WindowManager.shared.open(id: "about", with: AboutView(), width: 400, height: 450)
 }
 
-private var webcamWindow: NSWindow?
+@MainActor private var webcamWindow: NSWindow?
 
+@MainActor
 func openWebcamCapture() {
     // Show existing window if already open
     if let existingWindow = webcamWindow, existingWindow.isVisible {

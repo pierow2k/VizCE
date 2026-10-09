@@ -27,6 +27,9 @@
 		C7FAA9C12E623E3100680DB2 /* ImageSnipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FAA9C02E623E3100680DB2 /* ImageSnipView.swift */; };
 		20825E5C03EB4CC1C78AE8DB /* ShellTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA739B02138CA07CF1750940; };
 		36C0B2A8D3780B05A5DEFF5C /* PostProcessingRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014B8F42E292ED5B3748EA35; };
+		627F2AEEBF750E9493E6365E /* RecognitionOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3846F2808D69B364E6F5F543; };
+		E3F460D6EB699F5803CF150F /* RecognitionWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F44336FAFED7A16C7E13393; };
+		304675F0004164A1DFC5B5AC /* OperationIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3F14F82BEC260463A582E; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +57,9 @@
 		C7FAA9C02E623E3100680DB2 /* ImageSnipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSnipView.swift; sourceTree = "<group>"; };
 		AA739B02138CA07CF1750940 /* ShellTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShellTemplate.swift; sourceTree = "<group>"; };
 		014B8F42E292ED5B3748EA35 /* PostProcessingRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostProcessingRunner.swift; sourceTree = "<group>"; };
+		3846F2808D69B364E6F5F543 /* RecognitionOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionOptions.swift; sourceTree = "<group>"; };
+		0F44336FAFED7A16C7E13393 /* RecognitionWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionWorker.swift; sourceTree = "<group>"; };
+		4DB3F14F82BEC260463A582E /* OperationIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationIdentity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +127,9 @@
 		C74D7C962D95CF84009A8C48 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				4DB3F14F82BEC260463A582E /* OperationIdentity.swift */,
+				0F44336FAFED7A16C7E13393 /* RecognitionWorker.swift */,
+				3846F2808D69B364E6F5F543 /* RecognitionOptions.swift */,
 				014B8F42E292ED5B3748EA35 /* PostProcessingRunner.swift */,
 				AA739B02138CA07CF1750940 /* ShellTemplate.swift */,
 				C77DD6022D961EB90046AD9F /* Windows.swift */,
@@ -210,6 +219,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				304675F0004164A1DFC5B5AC /* OperationIdentity.swift in Sources */,
+				E3F460D6EB699F5803CF150F /* RecognitionWorker.swift in Sources */,
+				627F2AEEBF750E9493E6365E /* RecognitionOptions.swift in Sources */,
 				36C0B2A8D3780B05A5DEFF5C /* PostProcessingRunner.swift in Sources */,
 				20825E5C03EB4CC1C78AE8DB /* ShellTemplate.swift in Sources */,
 				C77DD6032D961EBF0046AD9F /* Windows.swift in Sources */,

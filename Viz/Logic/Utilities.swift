@@ -15,6 +15,7 @@ import ServiceManagement
 
 
 
+@MainActor
 func copyTextItemsToClipboard(textItems: [TextItem]) {
     let pasteboard = NSPasteboard.general
     pasteboard.clearContents()
@@ -23,6 +24,7 @@ func copyTextItemsToClipboard(textItems: [TextItem]) {
     pasteboard.setString(combinedText, forType: .string)
 }
 
+@MainActor
 func copyColorsToClipboard(color: ColorItem) {
     let pasteboard = NSPasteboard.general
     pasteboard.clearContents()
@@ -30,17 +32,18 @@ func copyColorsToClipboard(color: ColorItem) {
 }
 
 
+@MainActor
 func clearClipboard() {
-    DispatchQueue.main.async {
-        CaptureService.shared.recognizedContent.items.removeAll()
-        CaptureService.shared.pasteboard.clearContents()
-        HistoryState.shared.historyItems.removeAll()
-        previewWindow?.orderOut(nil)
-        previewWindow = nil
-    }
+    AppState.shared.invalidateCaptures()
+    CaptureService.shared.recognizedContent.items.removeAll()
+    CaptureService.shared.pasteboard.clearContents()
+    HistoryState.shared.historyItems.removeAll()
+    previewWindow?.orderOut(nil)
+    previewWindow = nil
 }
 
 
+@MainActor
 func pickColor() async -> ColorItem {
     await withCheckedContinuation { continuation in
         NSColorSampler().show { selectedColor in
@@ -51,7 +54,6 @@ func pickColor() async -> ColorItem {
                 let blue = Int(color.blueComponent * 255)
                 let hex = String(format: "#%02X%02X%02X", red, green, blue)
                 let rgb = "(\(red),\(green),\(blue))"
-                copyColorsToClipboard(color: ColorItem(hex: hex, rgb: rgb))
                 continuation.resume(returning: ColorItem(hex: hex, rgb: rgb))
             } else {
                 continuation.resume(returning: ColorItem(hex: "", rgb: ""))
@@ -60,12 +62,17 @@ func pickColor() async -> ColorItem {
     }
 }
 
+@MainActor
 func processColor() {
+    let state = AppState.shared
+    state.beginCapture()
+    let clearToken = state.clearGeneration
     Task {
         let result = await pickColor()
 
-        guard !result.hex.isEmpty else { return }
+        guard state.clearGeneration == clearToken, !result.hex.isEmpty else { return }
 
+        copyColorsToClipboard(color: result)
         playSound(for: .color(ColorItem(hex: "", rgb: "")))
         AppState.shared.colorSample = result
         let colorItem = ColorItem(hex: result.hex, rgb: result.rgb)
@@ -125,6 +132,7 @@ struct MovableWindowAccessor: NSViewRepresentable {
 }
 
 
+@MainActor
 func playSound(for entry: HistoryEntry) {
     @AppStorage("mute") var mute: Bool = false
 
@@ -145,9 +153,10 @@ func playSound(for entry: HistoryEntry) {
 }
 
 
-class ScreenCaptureUtility {
+@MainActor
+final class ScreenCaptureUtility {
 
-    func captureScreenSelectionToClipboard(completion: @escaping (NSImage?) -> Void) {
+    func captureScreenSelectionToClipboard(completion: @escaping @MainActor @Sendable (NSImage?) -> Void) {
         let process = Process()
         process.launchPath = "/usr/sbin/screencapture"
         process.arguments = ["-cix"]  // '-c' for clipboard, '-i' for interactive selection, '-x' for no capture sounds
@@ -170,7 +179,7 @@ class ScreenCaptureUtility {
 
 
 // Check app directory based on user permission
-func checkAppDirectoryAndUserRole(completion: @escaping ((isInCorrectDirectory: Bool, isAdmin: Bool)) -> Void) {
+func checkAppDirectoryAndUserRole(completion: @escaping @Sendable ((isInCorrectDirectory: Bool, isAdmin: Bool)) -> Void) {
     isCurrentUserAdmin { isAdmin in
         let bundlePath = Bundle.main.bundlePath as NSString
         let applicationsDir = "/Applications"
@@ -194,7 +203,7 @@ func checkAppDirectoryAndUserRole(completion: @escaping ((isInCorrectDirectory: 
 
 
 // Check if user is admin or standard user
-func isCurrentUserAdmin(completion: @escaping (Bool) -> Void) {
+func isCurrentUserAdmin(completion: @escaping @Sendable (Bool) -> Void) {
     let process = Process()
     process.executableURL = URL(fileURLWithPath: "/bin/zsh") // Using zsh, macOS default shell
     process.arguments = ["-c", "groups $(whoami) | grep -q ' admin '"]
@@ -213,6 +222,7 @@ func isCurrentUserAdmin(completion: @escaping (Bool) -> Void) {
 }
 
 // Relaunch app
+@MainActor
 func relaunchApp(afterDelay seconds: TimeInterval = 0.5) -> Never {
     let task = Process()
     task.launchPath = "/bin/sh"
@@ -225,6 +235,7 @@ func relaunchApp(afterDelay seconds: TimeInterval = 0.5) -> Never {
 
 
 
+@MainActor
 func updateLaunchAtLoginStatus(newValue: Bool) {
     do {
         if newValue {
@@ -241,15 +252,14 @@ func updateLaunchAtLoginStatus(newValue: Bool) {
 }
 
 
-func updateOnMain(after delay: Double? = nil, _ updates: @escaping () -> Void) {
-    if let delay = delay {
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
-            updates()
+@MainActor
+func updateOnMain(after delay: Double? = nil, _ updates: @escaping @MainActor () -> Void) {
+    Task { @MainActor in
+        if let delay {
+            do { try await Task.sleep(for: .seconds(delay)) }
+            catch { return }
         }
-    } else {
-        DispatchQueue.main.async {
-            updates()
-        }
+        updates()
     }
 }
 

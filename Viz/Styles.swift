@@ -293,10 +293,10 @@ struct Switch: View {
 }
 
 
-struct SimpleSearchStyle: TextFieldStyle {
+@MainActor
+struct SimpleSearchStyle: @preconcurrency TextFieldStyle {
     @State private var isHovered = false
     @State var trash: Bool = false
-    @EnvironmentObject var appState: AppState
     @AppStorage("postcommands") private var text: String = "say [ocr];"
 
     func _body(configuration: TextField<Self._Label>) -> some View {
