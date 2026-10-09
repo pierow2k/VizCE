@@ -240,7 +240,7 @@ struct SpacedProcessingToggle: ToggleStyle {
                         .frame(width: 350, height: 100)
                         .scrollContentBackground(.hidden)
                     Divider()
-                    Text("Execute any shell commands after capture is completed. You may also use the [ocr] token in the commands.\nExample: say [ocr]; echo [ocr] > capture.txt")
+                    Text("Execute any shell commands after capture is completed. Use [ocr], \"[ocr]\", or '[ocr]' as a whole argument. Embedded placeholders, substitutions, and heredocs are unsupported.\nExample: say [ocr]; echo [ocr] > capture.txt")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                         .textSelection(.disabled)

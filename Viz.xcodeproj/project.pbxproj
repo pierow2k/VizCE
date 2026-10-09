@@ -25,6 +25,8 @@
 		C7E780DE2BC700060053B311 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = C7E780DD2BC700060053B311 /* KeyboardShortcuts */; };
 		C7FAA9BF2E623C9500680DB2 /* WebcamCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FAA9BE2E623C9500680DB2 /* WebcamCaptureView.swift */; };
 		C7FAA9C12E623E3100680DB2 /* ImageSnipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FAA9C02E623E3100680DB2 /* ImageSnipView.swift */; };
+		20825E5C03EB4CC1C78AE8DB /* ShellTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA739B02138CA07CF1750940; };
+		36C0B2A8D3780B05A5DEFF5C /* PostProcessingRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014B8F42E292ED5B3748EA35; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +52,8 @@
 		C7C0C0BD2D94D253002140DD /* water.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = water.mp3; sourceTree = "<group>"; };
 		C7FAA9BE2E623C9500680DB2 /* WebcamCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamCaptureView.swift; sourceTree = "<group>"; };
 		C7FAA9C02E623E3100680DB2 /* ImageSnipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSnipView.swift; sourceTree = "<group>"; };
+		AA739B02138CA07CF1750940 /* ShellTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShellTemplate.swift; sourceTree = "<group>"; };
+		014B8F42E292ED5B3748EA35 /* PostProcessingRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostProcessingRunner.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,8 @@
 		C74D7C962D95CF84009A8C48 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				014B8F42E292ED5B3748EA35 /* PostProcessingRunner.swift */,
+				AA739B02138CA07CF1750940 /* ShellTemplate.swift */,
 				C77DD6022D961EB90046AD9F /* Windows.swift */,
 				C7174CA22BC06F1200DBEF75 /* OCR.swift */,
 				C7174CB02BC0C6A800DBEF75 /* Utilities.swift */,
@@ -204,6 +210,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36C0B2A8D3780B05A5DEFF5C /* PostProcessingRunner.swift in Sources */,
+				20825E5C03EB4CC1C78AE8DB /* ShellTemplate.swift in Sources */,
 				C77DD6032D961EBF0046AD9F /* Windows.swift in Sources */,
 				C7174CA32BC06F1200DBEF75 /* OCR.swift in Sources */,
 				C76920112BC5EB5E00D23CEC /* MainView.swift in Sources */,

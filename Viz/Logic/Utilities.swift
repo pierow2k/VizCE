@@ -276,24 +276,3 @@ extension Bundle {
         infoDictionary?["CFBundleVersion"] as? String ?? "N/A"
     }
 }
-
-
-func replaceContentToken(in command: String, with content: String) -> String {
-    return command.replacingOccurrences(of: "[ocr]", with: "\"\(content)\"")
-}
-
-func executeShellCommand(_ command: String) -> String {
-    let process = Process()
-    let pipe = Pipe()
-
-    process.standardOutput = pipe
-    process.standardError = pipe
-    process.arguments = ["-c", command]
-    process.launchPath = "/bin/zsh"
-    process.launch()
-
-    let data = pipe.fileHandleForReading.readDataToEndOfFile()
-    let output = String(data: data, encoding: .utf8) ?? "Error executing command"
-
-    return output
-}

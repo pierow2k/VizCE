@@ -142,8 +142,12 @@ struct TextRecognition {
             }
             Task(priority: .userInitiated) {
                 let combinedText = self.recognizedContent.items.map { $0.text }.joined(separator: "\n")
-                let command = replaceContentToken(in: postCommands, with: combinedText)
-                let result = executeShellCommand(command)
+                let result: String
+                do {
+                    result = try await PostProcessingRunner().run(template: postCommands, content: combinedText)
+                } catch {
+                    result = "Post-processing failed: \(error.localizedDescription)"
+                }
                 updateOnMain {
                     AppState.shared.cmdOutput = result
                 }
