@@ -17,6 +17,17 @@ struct RecognitionWorker: Sendable {
         }
     }
 
+    func outcome(imageData: Data, options: RecognitionOptions) async -> RecognitionOutcome {
+        guard !Task.isCancelled else { return .cancelled }
+        do {
+            let text = try await recognize(imageData: imageData, options: options)
+            guard !Task.isCancelled else { return .cancelled }
+            return text.isEmpty ? .noContent : .content(text)
+        } catch {
+            return Task.isCancelled ? .cancelled : .failure(.recognition(error.localizedDescription))
+        }
+    }
+
     private static func perform(imageData: Data, options: RecognitionOptions) throws -> String {
         let textRequest = VNRecognizeTextRequest()
         textRequest.recognitionLevel = options.fast ? .fast : .accurate

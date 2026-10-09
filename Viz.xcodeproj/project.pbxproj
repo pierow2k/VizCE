@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		33A241DA3042475B2B073BB6 /* CaptureNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2295835C31B445C5E7361B2 /* CaptureNoticeView.swift */; };
+		E43A553C32760C5553CB75D7 /* CaptureNoticePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44523F50C9C75B030B889E9 /* CaptureNoticePresenter.swift */; };
+		4B7833479A93B99886286BDD /* ScreenCaptureWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B615CD8EC9638C3D426D23E5 /* ScreenCaptureWorker.swift */; };
+		746BC5748A8FC83DE7730081 /* ScreenCaptureOperationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D66FD1688188C3607F9BC9 /* ScreenCaptureOperationState.swift */; };
+		E3FFDEE9C22145C34EDE91EF /* ScreenCaptureOutcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF8B28B7AB12DE412E8A6D9 /* ScreenCaptureOutcome.swift */; };
+		A0F56E39498DEC2630CAE5C7 /* RecognitionDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D533625CB9FCA717061E51C /* RecognitionDelivery.swift */; };
+		D5049F4124B27522DAE99C66 /* RecognitionOutcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83E5775E14CBD35C8D7E552 /* RecognitionOutcome.swift */; };
+		9F1FCCD124646802ACCE8FC2 /* CaptureFailure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 561240D57F4E5CBD6E4CCE65 /* CaptureFailure.swift */; };
 		407C1F3260F54233CB7B464F /* QualityPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46859055098872DCF1CEEB77 /* QualityPickerView.swift */; };
 		1EA25D13BFE36D89EE2C9353 /* LanguagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E36D8DF92B2950D0E5CAFA3 /* LanguagePickerView.swift */; };
 		753330DE026C13B1849448F2 /* RecognitionLanguageName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39338C0EB346FD6745FC3A2D /* RecognitionLanguageName.swift */; };
@@ -61,6 +69,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C2295835C31B445C5E7361B2 /* CaptureNoticeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureNoticeView.swift; sourceTree = "<group>"; };
+		B44523F50C9C75B030B889E9 /* CaptureNoticePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureNoticePresenter.swift; sourceTree = "<group>"; };
+		B615CD8EC9638C3D426D23E5 /* ScreenCaptureWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenCaptureWorker.swift; sourceTree = "<group>"; };
+		F9D66FD1688188C3607F9BC9 /* ScreenCaptureOperationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenCaptureOperationState.swift; sourceTree = "<group>"; };
+		0FF8B28B7AB12DE412E8A6D9 /* ScreenCaptureOutcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenCaptureOutcome.swift; sourceTree = "<group>"; };
+		3D533625CB9FCA717061E51C /* RecognitionDelivery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionDelivery.swift; sourceTree = "<group>"; };
+		C83E5775E14CBD35C8D7E552 /* RecognitionOutcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionOutcome.swift; sourceTree = "<group>"; };
+		561240D57F4E5CBD6E4CCE65 /* CaptureFailure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureFailure.swift; sourceTree = "<group>"; };
 		46859055098872DCF1CEEB77 /* QualityPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualityPickerView.swift; sourceTree = "<group>"; };
 		7E36D8DF92B2950D0E5CAFA3 /* LanguagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagePickerView.swift; sourceTree = "<group>"; };
 		39338C0EB346FD6745FC3A2D /* RecognitionLanguageName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionLanguageName.swift; sourceTree = "<group>"; };
@@ -171,6 +187,7 @@
 		C74D7C952D95CF2C009A8C48 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C2295835C31B445C5E7361B2 /* CaptureNoticeView.swift */,
 				46859055098872DCF1CEEB77 /* QualityPickerView.swift */,
 				7E36D8DF92B2950D0E5CAFA3 /* LanguagePickerView.swift */,
 				C77DD6002D960F9F0046AD9F /* SettingsView.swift */,
@@ -187,6 +204,13 @@
 		C74D7C962D95CF84009A8C48 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				B44523F50C9C75B030B889E9 /* CaptureNoticePresenter.swift */,
+				B615CD8EC9638C3D426D23E5 /* ScreenCaptureWorker.swift */,
+				F9D66FD1688188C3607F9BC9 /* ScreenCaptureOperationState.swift */,
+				0FF8B28B7AB12DE412E8A6D9 /* ScreenCaptureOutcome.swift */,
+				3D533625CB9FCA717061E51C /* RecognitionDelivery.swift */,
+				C83E5775E14CBD35C8D7E552 /* RecognitionOutcome.swift */,
+				561240D57F4E5CBD6E4CCE65 /* CaptureFailure.swift */,
 				39338C0EB346FD6745FC3A2D /* RecognitionLanguageName.swift */,
 				656C25B3FFCF519C8FC1A43B /* RecognitionLanguageSelection.swift */,
 				C276E5B2532070FCB50F7129 /* RecognitionLanguageCatalog.swift */,
@@ -305,6 +329,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				33A241DA3042475B2B073BB6 /* CaptureNoticeView.swift in Sources */,
+				E43A553C32760C5553CB75D7 /* CaptureNoticePresenter.swift in Sources */,
+				4B7833479A93B99886286BDD /* ScreenCaptureWorker.swift in Sources */,
+				746BC5748A8FC83DE7730081 /* ScreenCaptureOperationState.swift in Sources */,
+				E3FFDEE9C22145C34EDE91EF /* ScreenCaptureOutcome.swift in Sources */,
+				A0F56E39498DEC2630CAE5C7 /* RecognitionDelivery.swift in Sources */,
+				D5049F4124B27522DAE99C66 /* RecognitionOutcome.swift in Sources */,
+				9F1FCCD124646802ACCE8FC2 /* CaptureFailure.swift in Sources */,
 				407C1F3260F54233CB7B464F /* QualityPickerView.swift in Sources */,
 				1EA25D13BFE36D89EE2C9353 /* LanguagePickerView.swift in Sources */,
 				753330DE026C13B1849448F2 /* RecognitionLanguageName.swift in Sources */,

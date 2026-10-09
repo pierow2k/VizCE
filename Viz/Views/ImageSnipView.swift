@@ -105,8 +105,8 @@ struct ImageSnipView: View {
                 
         // Crop the image based on selection
         if let croppedImage = cropImage(image: image, rect: selectionRect) {
-            TextRecognition(recognizedContent: RecognizedContent.shared, image: croppedImage, historyState: HistoryState.shared) {
-                showPreviewWindow(contentView: PreviewContentView())
+            TextRecognition(recognizedContent: RecognizedContent.shared, image: croppedImage, historyState: HistoryState.shared) { outcome in
+                if case .content = outcome { showPreviewWindow(contentView: PreviewContentView()) }
             }.recognizeContent()
             
             dismiss()

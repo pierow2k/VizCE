@@ -35,6 +35,8 @@ func copyColorsToClipboard(color: ColorItem) {
 @MainActor
 func clearClipboard() {
     AppState.shared.invalidateCaptures()
+    CaptureService.shared.cancelCapture()
+    CaptureNoticePresenter.shared.close()
     CaptureService.shared.recognizedContent.items.removeAll()
     CaptureService.shared.pasteboard.clearContents()
     HistoryState.shared.clear()
@@ -150,31 +152,6 @@ func playSound(for entry: HistoryEntry) {
         sound.play()
     }
 }
-
-
-@MainActor
-final class ScreenCaptureUtility {
-
-    func captureScreenSelectionToClipboard(completion: @escaping @MainActor @Sendable (NSImage?) -> Void) {
-        let process = Process()
-        process.launchPath = "/usr/sbin/screencapture"
-        process.arguments = ["-cix"]  // '-c' for clipboard, '-i' for interactive selection, '-x' for no capture sounds
-
-        process.terminationHandler = { _ in
-            DispatchQueue.main.async {
-                let pasteboard = NSPasteboard.general
-                if let image = pasteboard.readObjects(forClasses: [NSImage.self], options: [:])?.first as? NSImage {
-                    completion(image)
-                } else {
-                    completion(nil)
-                }
-            }
-        }
-
-        process.launch()
-    }
-}
-
 
 
 // Check app directory based on user permission

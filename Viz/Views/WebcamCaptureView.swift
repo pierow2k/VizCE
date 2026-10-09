@@ -207,8 +207,8 @@ struct WebcamCaptureView: View {
                                         recognizedContent: RecognizedContent.shared,
                                         image: captureManager.capturedImage!,
                                         historyState: HistoryState.shared
-                                    ) {
-                                        showPreviewWindow(contentView: PreviewContentView())
+                                    ) { outcome in
+                                        if case .content = outcome { showPreviewWindow(contentView: PreviewContentView()) }
                                     }.recognizeContent()
                                 } label: {
                                     HStack(spacing: 8) {
@@ -324,8 +324,8 @@ struct WebcamCaptureView: View {
             TextRecognition(
                 recognizedContent: RecognizedContent.shared, image: croppedImage,
                 historyState: HistoryState.shared
-            ) {
-                showPreviewWindow(contentView: PreviewContentView())
+            ) { outcome in
+                if case .content = outcome { showPreviewWindow(contentView: PreviewContentView()) }
             }.recognizeContent()
 
             // Reset to captured image view
