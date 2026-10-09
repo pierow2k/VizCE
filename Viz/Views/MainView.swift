@@ -5,6 +5,7 @@
 //  Created by Alin Lupascu on 4/9/24.
 //
 
+import AppKit
 import Foundation
 import SwiftUI
 import KeyboardShortcuts
@@ -45,6 +46,7 @@ struct ContentView: View {
 
                     Button {
                         UserDefaults.standard.set(updater.updateAvailable ? 2 : 0, forKey: "settingsSelectedTab")
+                        NSApp.activate()
                         openSettings()
                         dismiss()
                     } label: {

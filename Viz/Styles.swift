@@ -5,6 +5,7 @@
 //  Created by Alin Lupascu on 6/3/24.
 //
 
+import AppKit
 import Foundation
 import SwiftUI
 import KeyboardShortcuts
@@ -174,6 +175,7 @@ struct ShortcutEditorView: View {
                     }
                     .onTapGesture {
                         UserDefaults.standard.set(0, forKey: "settingsSelectedTab")
+                        NSApp.activate()
                         openSettings()
                         dismiss()
                     }
