@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		71B11E9135D5189181AD4955 /* UpdaterSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B810ED079643983751ECCB0 /* UpdaterSettingsView.swift */; };
+		6E6B48E5C41DE9FBC6D122C2 /* ShortcutsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68639B60D6F35E6DCF26DFC /* ShortcutsSettingsView.swift */; };
+		5AE934AFDD91F87232307B3D /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA0BCBD9284DBB1DE12820 /* GeneralSettingsView.swift */; };
+		21672BB8F238CEC773352B11 /* AdaptiveSettingsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7179A6DF124378DB7076FE8 /* AdaptiveSettingsRow.swift */; };
 		F138FCD5CE66BB7558747286 /* LaunchAtLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CBD2809A9BDC29043038C5 /* LaunchAtLoginView.swift */; };
 		018621A6C49C0994D9BF2CED /* LaunchAtLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC65D86AD3A9821A2E891C /* LaunchAtLoginController.swift */; };
 		8B18F205BEB41616DFF928DA /* SystemLaunchAtLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44FBE762F6C7E68F17BDEAB /* SystemLaunchAtLoginService.swift */; };
@@ -77,6 +81,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B810ED079643983751ECCB0 /* UpdaterSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdaterSettingsView.swift; sourceTree = "<group>"; };
+		A68639B60D6F35E6DCF26DFC /* ShortcutsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutsSettingsView.swift; sourceTree = "<group>"; };
+		19FA0BCBD9284DBB1DE12820 /* GeneralSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
+		A7179A6DF124378DB7076FE8 /* AdaptiveSettingsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveSettingsRow.swift; sourceTree = "<group>"; };
 		D2CBD2809A9BDC29043038C5 /* LaunchAtLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginView.swift; sourceTree = "<group>"; };
 		ECCC65D86AD3A9821A2E891C /* LaunchAtLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginController.swift; sourceTree = "<group>"; };
 		A44FBE762F6C7E68F17BDEAB /* SystemLaunchAtLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemLaunchAtLoginService.swift; sourceTree = "<group>"; };
@@ -203,6 +211,10 @@
 		C74D7C952D95CF2C009A8C48 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1B810ED079643983751ECCB0 /* UpdaterSettingsView.swift */,
+				A68639B60D6F35E6DCF26DFC /* ShortcutsSettingsView.swift */,
+				19FA0BCBD9284DBB1DE12820 /* GeneralSettingsView.swift */,
+				A7179A6DF124378DB7076FE8 /* AdaptiveSettingsRow.swift */,
 				D2CBD2809A9BDC29043038C5 /* LaunchAtLoginView.swift */,
 				6A5A1A22FACE0FC6981D3B49 /* HistoryRow.swift */,
 				C2295835C31B445C5E7361B2 /* CaptureNoticeView.swift */,
@@ -353,6 +365,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71B11E9135D5189181AD4955 /* UpdaterSettingsView.swift in Sources */,
+				6E6B48E5C41DE9FBC6D122C2 /* ShortcutsSettingsView.swift in Sources */,
+				5AE934AFDD91F87232307B3D /* GeneralSettingsView.swift in Sources */,
+				21672BB8F238CEC773352B11 /* AdaptiveSettingsRow.swift in Sources */,
 				F138FCD5CE66BB7558747286 /* LaunchAtLoginView.swift in Sources */,
 				018621A6C49C0994D9BF2CED /* LaunchAtLoginController.swift in Sources */,
 				8B18F205BEB41616DFF928DA /* SystemLaunchAtLoginService.swift in Sources */,
