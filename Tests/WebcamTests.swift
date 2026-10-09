@@ -127,7 +127,8 @@ final class WebcamTests: XCTestCase {
         let failing = WebcamCaptureCoordinator(authorization: AllowedAuthorization(), backend: FakeWebcamBackend(failStart: true))
         failing.start(deviceID: "missing")
         await failing.waitForPendingOperation()
-        XCTAssertNotNil(failing.errorMessage)
+        guard case .failed(let message) = failing.state else { return XCTFail("Expected failure state") }
+        XCTAssertFalse(message.isEmpty)
         XCTAssertFalse(failing.isStarting)
         XCTAssertFalse(failing.isPreviewActive)
     }

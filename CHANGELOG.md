@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Show explicit camera authorization, startup, capture, and failure states with Retry and refreshed camera choices, preserving disconnected saved selections until the user chooses a replacement.
 - Keep every Settings tab scrollable at short heights, adapt recognition/dimension rows, and size release notes from the tab viewport with an explicit minimum window size.
 - Reflect the actual launch-at-login service status after requests, report failures, explain approval requirements, and refresh external changes without unnecessary registration.
 - Expose separate keyboard-accessible history copy, link, delete, and clear actions; keep Delete available during Copied feedback and use stable filter identifiers with localizable labels.
@@ -48,7 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   preview. Cancel expiry when replacing or manually closing a preview, or clearing
   captures.
 - Serialize webcam session configuration, frame access, conversion, and teardown;
-  release the delegate relationship and reject stale startup or capture results.
+  reuse the Core Image context across captures, release the delegate relationship and reject stale startup or capture results.
 - Bind webcam startup, stopping, closing, and resizing to the owning window;
   cancel superseded operations and restart the preview when returning with Back.
 - Map webcam crop selections through the displayed aspect-fill transform to image

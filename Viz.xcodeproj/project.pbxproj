@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CA3D9B4E788880B539D6B33A /* WebcamRecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C58A8700FACB0FD2FB88C3E /* WebcamRecoveryView.swift */; };
+		348E0D3A8F82CFF7EADC3842 /* WebcamManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DC76786BDA6689B0D6FE91E /* WebcamManager.swift */; };
+		9CEC5B3636EF42DD4541D43B /* SystemWebcamDeviceCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77D281D49099EF5485DA64F0 /* SystemWebcamDeviceCatalog.swift */; };
+		2607F92CE6BE4065C550DF95 /* WebcamDeviceDiscovering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAF0C348B33E332FC95AE93 /* WebcamDeviceDiscovering.swift */; };
+		CEE778BE8A8FAE8159765FDD /* WebcamDevices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9501838E528F755F7D3B80 /* WebcamDevices.swift */; };
+		692DAF6250A7344B535A5C56 /* WebcamDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFC3030D9F5350DFAF66660 /* WebcamDevice.swift */; };
+		25628865F87B07FDF6B555F5 /* WebcamState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D760754B807C50AA5D6BDEA /* WebcamState.swift */; };
 		71B11E9135D5189181AD4955 /* UpdaterSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B810ED079643983751ECCB0 /* UpdaterSettingsView.swift */; };
 		6E6B48E5C41DE9FBC6D122C2 /* ShortcutsSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A68639B60D6F35E6DCF26DFC /* ShortcutsSettingsView.swift */; };
 		5AE934AFDD91F87232307B3D /* GeneralSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FA0BCBD9284DBB1DE12820 /* GeneralSettingsView.swift */; };
@@ -81,6 +88,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6C58A8700FACB0FD2FB88C3E /* WebcamRecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamRecoveryView.swift; sourceTree = "<group>"; };
+		4DC76786BDA6689B0D6FE91E /* WebcamManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamManager.swift; sourceTree = "<group>"; };
+		77D281D49099EF5485DA64F0 /* SystemWebcamDeviceCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemWebcamDeviceCatalog.swift; sourceTree = "<group>"; };
+		9AAF0C348B33E332FC95AE93 /* WebcamDeviceDiscovering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamDeviceDiscovering.swift; sourceTree = "<group>"; };
+		1F9501838E528F755F7D3B80 /* WebcamDevices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamDevices.swift; sourceTree = "<group>"; };
+		3EFC3030D9F5350DFAF66660 /* WebcamDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamDevice.swift; sourceTree = "<group>"; };
+		2D760754B807C50AA5D6BDEA /* WebcamState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamState.swift; sourceTree = "<group>"; };
 		1B810ED079643983751ECCB0 /* UpdaterSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdaterSettingsView.swift; sourceTree = "<group>"; };
 		A68639B60D6F35E6DCF26DFC /* ShortcutsSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutsSettingsView.swift; sourceTree = "<group>"; };
 		19FA0BCBD9284DBB1DE12820 /* GeneralSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsView.swift; sourceTree = "<group>"; };
@@ -211,6 +225,7 @@
 		C74D7C952D95CF2C009A8C48 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6C58A8700FACB0FD2FB88C3E /* WebcamRecoveryView.swift */,
 				1B810ED079643983751ECCB0 /* UpdaterSettingsView.swift */,
 				A68639B60D6F35E6DCF26DFC /* ShortcutsSettingsView.swift */,
 				19FA0BCBD9284DBB1DE12820 /* GeneralSettingsView.swift */,
@@ -234,6 +249,12 @@
 		C74D7C962D95CF84009A8C48 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				4DC76786BDA6689B0D6FE91E /* WebcamManager.swift */,
+				77D281D49099EF5485DA64F0 /* SystemWebcamDeviceCatalog.swift */,
+				9AAF0C348B33E332FC95AE93 /* WebcamDeviceDiscovering.swift */,
+				1F9501838E528F755F7D3B80 /* WebcamDevices.swift */,
+				3EFC3030D9F5350DFAF66660 /* WebcamDevice.swift */,
+				2D760754B807C50AA5D6BDEA /* WebcamState.swift */,
 				ECCC65D86AD3A9821A2E891C /* LaunchAtLoginController.swift */,
 				A44FBE762F6C7E68F17BDEAB /* SystemLaunchAtLoginService.swift */,
 				F96B1A4F42A4D390987CE22B /* LaunchAtLoginServicing.swift */,
@@ -365,6 +386,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA3D9B4E788880B539D6B33A /* WebcamRecoveryView.swift in Sources */,
+				348E0D3A8F82CFF7EADC3842 /* WebcamManager.swift in Sources */,
+				9CEC5B3636EF42DD4541D43B /* SystemWebcamDeviceCatalog.swift in Sources */,
+				2607F92CE6BE4065C550DF95 /* WebcamDeviceDiscovering.swift in Sources */,
+				CEE778BE8A8FAE8159765FDD /* WebcamDevices.swift in Sources */,
+				692DAF6250A7344B535A5C56 /* WebcamDevice.swift in Sources */,
+				25628865F87B07FDF6B555F5 /* WebcamState.swift in Sources */,
 				71B11E9135D5189181AD4955 /* UpdaterSettingsView.swift in Sources */,
 				6E6B48E5C41DE9FBC6D122C2 /* ShortcutsSettingsView.swift in Sources */,
 				5AE934AFDD91F87232307B3D /* GeneralSettingsView.swift in Sources */,

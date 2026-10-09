@@ -73,7 +73,8 @@ struct WebcamCaptureView: View {
                         .clipped()
                         .background(Color.black)
                 }
-            } else if let previewLayer = captureManager.previewLayer {
+            } else if let previewLayer = captureManager.previewLayer,
+                      captureManager.state == .previewing || captureManager.state == .capturing {
                 ZStack(alignment: .bottom) {
                     CameraPreviewView(previewLayer: previewLayer)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -95,46 +96,11 @@ struct WebcamCaptureView: View {
                     .padding(.bottom, 20)
                 }
             } else {
-                Rectangle()
-                    .fill(Color.black)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .overlay {
-                        VStack(spacing: 15) {
-                            if captureManager.permissionDenied {
-                                Image(systemName: "camera.fill")
-                                    .font(.system(size: 60))
-                                    .foregroundStyle(.red)
-                                Text("Camera access denied")
-                                    .foregroundStyle(.red)
-                                    .font(.headline)
-
-                                Button {
-                                    NSWorkspace.shared.open(
-                                        URL(
-                                            string:
-                                                "x-apple.systempreferences:com.apple.preference.security?Privacy_Camera"
-                                        )!)
-                                } label: {
-                                    HStack(spacing: 8) {
-                                        Image(systemName: "gear")
-                                            .font(.system(size: 14))
-                                        Text("Open Settings")
-                                    }
-                                    .padding(.horizontal, 12)
-                                    .padding(.vertical, 8)
-                                    .background(
-                                        .ultraThinMaterial, in: RoundedRectangle(cornerRadius: 18))
-                                }
-                                .buttonStyle(.plain)
-                            } else {
-                                Image(systemName: "camera.fill")
-                                    .font(.system(size: 60))
-                                    .foregroundStyle(.gray)
-                                Text(captureManager.isStarting ? "Starting Camera" : "Camera unavailable")
-                                    .foregroundStyle(.gray)
-                            }
-                        }
-                    }
+                WebcamRecoveryView(state: captureManager.state, devices: webcamManager.availableDevices,
+                                   retry: {
+                                       webcamManager.refresh()
+                                       captureManager.restart(deviceID: selectedWebcamID)
+                                   }, refresh: { webcamManager.refresh() }, choose: { selectedWebcamID = $0 })
             }
 
             // Bottom toolbar overlay
@@ -269,7 +235,7 @@ struct WebcamCaptureView: View {
                     HStack {
                         Spacer()
 
-                        if webcamManager.availableDevices.count > 1 {
+                        if !webcamManager.availableDevices.isEmpty {
                             Menu {
                                 ForEach(webcamManager.availableDevices) { device in
                                     Button(device.name) {
@@ -298,7 +264,6 @@ struct WebcamCaptureView: View {
         }
         .ignoresSafeArea(.all)
         .onAppear {
-            if selectedWebcamID.isEmpty { selectedWebcamID = webcamManager.defaultDevice?.id ?? "" }
             captureManager.start(deviceID: selectedWebcamID)
         }
         .onDisappear { captureManager.stop() }
@@ -306,14 +271,7 @@ struct WebcamCaptureView: View {
         .onChange(of: selectedWebcamID) {
             captureManager.start(deviceID: selectedWebcamID)
         }
-        .alert("Camera capture failed", isPresented: Binding(
-            get: { captureManager.errorMessage != nil },
-            set: { if !$0 { captureManager.dismissError() } }
-        )) {
-            Button("OK") { captureManager.dismissError() }
-        } message: {
-            Text(captureManager.errorMessage ?? "")
-        }
+
     }
 
     private func extractFromSelection() {
@@ -349,44 +307,6 @@ struct WebcamCaptureView: View {
         return NSImage(cgImage: cropped, size: NSSize(width: cropped.width, height: cropped.height))
     }
 
-}
-
-struct WebcamDevice: Identifiable, Equatable, Hashable {
-    let id: String
-    let name: String
-}
-
-@MainActor
-final class WebcamManager: ObservableObject {
-    @Published var availableDevices: [WebcamDevice] = []
-    @Published var defaultDevice: WebcamDevice?
-
-    init() {
-        loadAvailableDevices()
-    }
-
-    func loadAvailableDevices() {
-        let discoverySession = AVCaptureDevice.DiscoverySession(
-            deviceTypes: [.builtInWideAngleCamera, .externalUnknown],
-            mediaType: .video,
-            position: .unspecified
-        )
-
-        var devices: [WebcamDevice] = []
-        var builtInDevice: WebcamDevice?
-
-        for device in discoverySession.devices {
-            let webcamDevice = WebcamDevice(id: device.uniqueID, name: device.localizedName)
-            devices.append(webcamDevice)
-
-            if device.deviceType == .builtInWideAngleCamera {
-                builtInDevice = webcamDevice
-            }
-        }
-
-        self.availableDevices = devices
-        self.defaultDevice = builtInDevice ?? devices.first
-    }
 }
 
 struct CameraPreviewView: NSViewRepresentable {
