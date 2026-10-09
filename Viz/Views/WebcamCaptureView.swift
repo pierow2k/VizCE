@@ -26,11 +26,8 @@ struct WebcamCaptureView: View {
 
     var body: some View {
         GeometryReader { geometry in
-            // Insets identify the space reserved for title-bar and adaptive controls.
-            let insets = geometry.safeAreaInsets
-            let viewport = CGSize(
-                width: max(0, geometry.size.width - insets.leading - insets.trailing),
-                height: max(0, geometry.size.height - insets.top - insets.bottom))
+            // The parent insets already reduce this reader to the image's available space.
+            let viewport = geometry.size
             ZStack {
                 if let image = captureManager.capturedImage {
                     imageViewport(image, size: viewport)
@@ -46,7 +43,6 @@ struct WebcamCaptureView: View {
                 }
             }
             .frame(width: viewport.width, height: viewport.height)
-            .offset(x: insets.leading, y: insets.top)
         }
         .background { Color.black.ignoresSafeArea() }
         .safeAreaInset(edge: .bottom, spacing: 0) {
@@ -73,6 +69,7 @@ struct WebcamCaptureView: View {
                     choose: { selectedWebcamID = $0 })
             }
         }
+        .frame(minWidth: 320, minHeight: 240)
         .onAppear { captureManager.start(deviceID: selectedWebcamID) }
         .onDisappear { captureManager.stop() }
         .onChange(of: captureManager.capturedImage) {

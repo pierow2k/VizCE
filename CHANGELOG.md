@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Measure the webcam image viewport after reserved controls and title-bar space, avoiding duplicate safe-area subtraction and extra image gaps; enforce the minimum size in the hosted content so capture controls cannot collapse below it.
 - Resolve history defaults inside main-actor entry points to avoid concurrency warnings in signed development builds.
 - Honor Reduce Motion for webcam window resizing and custom-button scale/rotation feedback while retaining immediate pressed and hover feedback.
 - Adapt webcam capture/extraction controls to narrow windows, reserve safe-area space for controls and camera selection, and map crops using the remaining visible image viewport.
