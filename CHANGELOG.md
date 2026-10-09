@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Adapt webcam capture/extraction controls to narrow windows, reserve safe-area space for controls and camera selection, and map crops using the remaining visible image viewport.
 - Show explicit camera authorization, startup, capture, and failure states with Retry and refreshed camera choices, preserving disconnected saved selections until the user chooses a replacement.
 - Keep every Settings tab scrollable at short heights, adapt recognition/dimension rows, and size release notes from the tab viewport with an explicit minimum window size.
 - Reflect the actual launch-at-login service status after requests, report failures, explain approval requirements, and refresh external changes without unnecessary registration.
