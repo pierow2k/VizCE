@@ -123,16 +123,7 @@ struct GeneralSettingsView: View {
                         .toggleStyle(SpacedToggle())
                         .help("Mute the screen capture notification sound")
 
-                    Toggle("Launch at login", isOn: Binding(
-                        get: { appState.isLaunchAtLoginEnabled },
-                        set: { newValue in
-                            updateOnMain {
-                                appState.isLaunchAtLoginEnabled = newValue
-                                updateLaunchAtLoginStatus(newValue: newValue)
-                            }
-                        }
-                    ))
-                    .toggleStyle(SpacedToggle())
+                    LaunchAtLoginView(controller: appState.launchAtLogin)
 
                     HStack {
                         Text("Capture Window Dimensions")

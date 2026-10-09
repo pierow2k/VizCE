@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F138FCD5CE66BB7558747286 /* LaunchAtLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CBD2809A9BDC29043038C5 /* LaunchAtLoginView.swift */; };
+		018621A6C49C0994D9BF2CED /* LaunchAtLoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECCC65D86AD3A9821A2E891C /* LaunchAtLoginController.swift */; };
+		8B18F205BEB41616DFF928DA /* SystemLaunchAtLoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44FBE762F6C7E68F17BDEAB /* SystemLaunchAtLoginService.swift */; };
+		30DC57EE5ADFF82585827B43 /* LaunchAtLoginServicing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96B1A4F42A4D390987CE22B /* LaunchAtLoginServicing.swift */; };
+		1CECC6250E8805AD038DB8C7 /* LaunchAtLoginStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673EA8A0D56DE14C7DF75F4C /* LaunchAtLoginStatus.swift */; };
 		D8ADBEA828873B44D485251D /* HistoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5A1A22FACE0FC6981D3B49 /* HistoryRow.swift */; };
 		BE6EE61689F187DE5FA23F35 /* CopyFeedbackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85C3C78C9C4B81171FA25525 /* CopyFeedbackController.swift */; };
 		B9EB4B0942AB269FD179AE38 /* HistoryFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B012BD111F2B475F4540202E /* HistoryFilter.swift */; };
@@ -72,6 +77,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D2CBD2809A9BDC29043038C5 /* LaunchAtLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginView.swift; sourceTree = "<group>"; };
+		ECCC65D86AD3A9821A2E891C /* LaunchAtLoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginController.swift; sourceTree = "<group>"; };
+		A44FBE762F6C7E68F17BDEAB /* SystemLaunchAtLoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemLaunchAtLoginService.swift; sourceTree = "<group>"; };
+		F96B1A4F42A4D390987CE22B /* LaunchAtLoginServicing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginServicing.swift; sourceTree = "<group>"; };
+		673EA8A0D56DE14C7DF75F4C /* LaunchAtLoginStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginStatus.swift; sourceTree = "<group>"; };
 		6A5A1A22FACE0FC6981D3B49 /* HistoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRow.swift; sourceTree = "<group>"; };
 		85C3C78C9C4B81171FA25525 /* CopyFeedbackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CopyFeedbackController.swift; sourceTree = "<group>"; };
 		B012BD111F2B475F4540202E /* HistoryFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryFilter.swift; sourceTree = "<group>"; };
@@ -193,6 +203,7 @@
 		C74D7C952D95CF2C009A8C48 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D2CBD2809A9BDC29043038C5 /* LaunchAtLoginView.swift */,
 				6A5A1A22FACE0FC6981D3B49 /* HistoryRow.swift */,
 				C2295835C31B445C5E7361B2 /* CaptureNoticeView.swift */,
 				46859055098872DCF1CEEB77 /* QualityPickerView.swift */,
@@ -211,6 +222,10 @@
 		C74D7C962D95CF84009A8C48 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				ECCC65D86AD3A9821A2E891C /* LaunchAtLoginController.swift */,
+				A44FBE762F6C7E68F17BDEAB /* SystemLaunchAtLoginService.swift */,
+				F96B1A4F42A4D390987CE22B /* LaunchAtLoginServicing.swift */,
+				673EA8A0D56DE14C7DF75F4C /* LaunchAtLoginStatus.swift */,
 				85C3C78C9C4B81171FA25525 /* CopyFeedbackController.swift */,
 				B012BD111F2B475F4540202E /* HistoryFilter.swift */,
 				B44523F50C9C75B030B889E9 /* CaptureNoticePresenter.swift */,
@@ -338,6 +353,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F138FCD5CE66BB7558747286 /* LaunchAtLoginView.swift in Sources */,
+				018621A6C49C0994D9BF2CED /* LaunchAtLoginController.swift in Sources */,
+				8B18F205BEB41616DFF928DA /* SystemLaunchAtLoginService.swift in Sources */,
+				30DC57EE5ADFF82585827B43 /* LaunchAtLoginServicing.swift in Sources */,
+				1CECC6250E8805AD038DB8C7 /* LaunchAtLoginStatus.swift in Sources */,
 				D8ADBEA828873B44D485251D /* HistoryRow.swift in Sources */,
 				BE6EE61689F187DE5FA23F35 /* CopyFeedbackController.swift in Sources */,
 				B9EB4B0942AB269FD179AE38 /* HistoryFilter.swift in Sources */,

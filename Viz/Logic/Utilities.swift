@@ -212,23 +212,6 @@ func relaunchApp(afterDelay seconds: TimeInterval = 0.5) -> Never {
 
 
 @MainActor
-func updateLaunchAtLoginStatus(newValue: Bool) {
-    do {
-        if newValue {
-            if SMAppService.mainApp.status == .enabled {
-                try SMAppService.mainApp.unregister()
-            }
-            try SMAppService.mainApp.register()
-        } else {
-            try SMAppService.mainApp.unregister()
-        }
-    } catch {
-        print("Failed to \(newValue ? "enable" : "disable") launch at login: \(error.localizedDescription)")
-    }
-}
-
-
-@MainActor
 func updateOnMain(after delay: Double? = nil, _ updates: @escaping @MainActor () -> Void) {
     Task { @MainActor in
         if let delay {

@@ -538,6 +538,11 @@
 				<string>17B04907318E38E60B14FCE8</string>
 				<string>53FB76122BAFFD0A44CF5163</string>
 				<string>D52FE784BE09FD9D2125C711</string>
+				<string>873CFEEEC4EBB8284DFB6786</string>
+				<string>EF639EA06217B3FF9671C8E3</string>
+				<string>B1DD4F29F6E7DD3EF20AB29D</string>
+				<string>D9E13C34C8A76932D6C8B2A7</string>
+				<string>5E9D933D0F7CAE08A046409B</string>
 			</array>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
@@ -594,6 +599,11 @@
 				<string>66ED4A03BF2EB6FA187367E1</string>
 				<string>66E28455741CFF24372618AE</string>
 				<string>56F2417E9054A43AD7CE7029</string>
+				<string>3B923A455209B1AE79E697EA</string>
+				<string>79513B42AC1474D3505999C9</string>
+				<string>6E35D1ECA5D5F9839F8C28FE</string>
+				<string>584241EFBD2BE0DFB7FE762A</string>
+				<string>43DC798D676ECC9001B0F5D7</string>
 			</array>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<integer>0</integer>
@@ -1071,6 +1081,96 @@
 			<string>PBXBuildFile</string>
 			<key>fileRef</key>
 			<string>D52FE784BE09FD9D2125C711</string>
+		</dict>
+		<key>873CFEEEC4EBB8284DFB6786</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/LaunchAtLoginStatus.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>3B923A455209B1AE79E697EA</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>873CFEEEC4EBB8284DFB6786</string>
+		</dict>
+		<key>EF639EA06217B3FF9671C8E3</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/LaunchAtLoginServicing.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>79513B42AC1474D3505999C9</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>EF639EA06217B3FF9671C8E3</string>
+		</dict>
+		<key>B1DD4F29F6E7DD3EF20AB29D</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/SystemLaunchAtLoginService.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>6E35D1ECA5D5F9839F8C28FE</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>B1DD4F29F6E7DD3EF20AB29D</string>
+		</dict>
+		<key>D9E13C34C8A76932D6C8B2A7</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/LaunchAtLoginController.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>584241EFBD2BE0DFB7FE762A</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>D9E13C34C8A76932D6C8B2A7</string>
+		</dict>
+		<key>5E9D933D0F7CAE08A046409B</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Tests/LaunchAtLoginTests.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>43DC798D676ECC9001B0F5D7</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>5E9D933D0F7CAE08A046409B</string>
 		</dict>
 	</dict>
 	<key>rootObject</key>

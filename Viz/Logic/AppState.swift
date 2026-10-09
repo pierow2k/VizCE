@@ -7,7 +7,6 @@
 
 import Foundation
 import Combine
-import ServiceManagement
 import SwiftUI
 import AlinFoundation
 import Vision
@@ -21,7 +20,7 @@ final class RecognizedContent: ObservableObject {
 @MainActor
 final class AppState: ObservableObject {
     static let shared = AppState()
-    @Published var isLaunchAtLoginEnabled: Bool = false
+    let launchAtLogin = LaunchAtLoginController()
     @Published var cmdOutput: String = ""
     let captureIdentity = OperationIdentity()
     private(set) var clearGeneration: UInt64 = 0
@@ -67,14 +66,10 @@ final class AppState: ObservableObject {
     }
 
     init() {
-        fetchLaunchAtLoginStatus()
         languageSubscription = languages.objectWillChange.sink { [weak self] _ in self?.objectWillChange.send() }
         refreshLanguages()
     }
 
-    func fetchLaunchAtLoginStatus() {
-        isLaunchAtLoginEnabled = SMAppService.mainApp.status == .enabled
-    }
 
 }
 
