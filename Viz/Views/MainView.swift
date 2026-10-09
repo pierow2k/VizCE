@@ -18,6 +18,7 @@ struct ContentView: View {
     @Environment(\.openSettings) private var openSettings
     @EnvironmentObject var updater: Updater
     @State private var windowController = WindowManager.shared
+    @State private var menuRegistration: UUID?
 
 
     var body: some View {
@@ -141,5 +142,12 @@ struct ContentView: View {
         }
         .background(Color("bg"))
         .frame(width: 600)
+        .onAppear {
+            menuRegistration = MenuPresentationController.shared.register { dismiss() }
+        }
+        .onDisappear {
+            if let menuRegistration { MenuPresentationController.shared.unregister(menuRegistration) }
+            menuRegistration = nil
+        }
     }
 }

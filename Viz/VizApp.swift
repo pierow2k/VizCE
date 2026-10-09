@@ -38,9 +38,9 @@ struct VizApp: App {
 }
 
 
+@MainActor
 class AppDelegate: NSObject, NSApplicationDelegate {
-    @Environment(\.dismiss) private var dismiss
-    @State private var windowController = WindowManager.shared
+    private let windowController = WindowManager.shared
 
     func applicationDidFinishLaunching(_ notification: Notification) {
 
@@ -49,7 +49,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         KeyboardShortcuts.onKeyUp(for: .captureWebcam) {
-            self.dismiss()
+            MenuPresentationController.shared.dismiss()
             openWebcamCapture()
         }
 
@@ -58,8 +58,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         KeyboardShortcuts.onKeyUp(for: .history) {
+            MenuPresentationController.shared.dismiss()
             self.windowController.open(id: "history", with: HistoryView(), width: 500, height: 600, material: .sidebar)
-            self.dismiss()
         }
 
         KeyboardShortcuts.onKeyUp(for: .clear) {

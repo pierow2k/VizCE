@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F3B9E2C2FB1C0E05096FF918 /* MenuPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893BFBB377A8B0F7096708D9 /* MenuPresentationController.swift */; };
 		10947E536EC9F7C228465A5B /* PreviewExpiry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A740FC8C7C6087A9A78D11 /* PreviewExpiry.swift */; };
 		20825E5C03EB4CC1C78AE8DB /* ShellTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA739B02138CA07CF1750940 /* ShellTemplate.swift */; };
 		304675F0004164A1DFC5B5AC /* OperationIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3F14F82BEC260463A582E /* OperationIdentity.swift */; };
@@ -46,6 +47,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		893BFBB377A8B0F7096708D9 /* MenuPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPresentationController.swift; sourceTree = "<group>"; };
 		014B8F42E292ED5B3748EA35 /* PostProcessingRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostProcessingRunner.swift; sourceTree = "<group>"; };
 		05C773716FEF479F36F233A9 /* WebcamPreviewSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamPreviewSource.swift; sourceTree = "<group>"; };
 		065FA2FD22D755E90EA781B8 /* WebcamAuthorizing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamAuthorizing.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 		C74D7C962D95CF84009A8C48 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				893BFBB377A8B0F7096708D9 /* MenuPresentationController.swift */,
 				A8410CA3759E6B0114BF38C7 /* ImageSelectionState.swift */,
 				18984167139B876EAD3C286D /* ImageCropTransform.swift */,
 				93EC2071F02883B9AAC787ED /* WebcamWindowController.swift */,
@@ -260,6 +263,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3B9E2C2FB1C0E05096FF918 /* MenuPresentationController.swift in Sources */,
 				FEC113CE810A5D8142F06074 /* ImageSelectionState.swift in Sources */,
 				F114D0D9F34E0B2362F5BC47 /* ImageCropTransform.swift in Sources */,
 				BD765450C896C2719FFA23C4 /* WebcamWindowController.swift in Sources */,
