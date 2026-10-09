@@ -56,9 +56,14 @@ final class WebcamWindowController: NSObject, NSWindowDelegate {
             height = min(900, size.height * 0.5)
             width = height * ratio
         }
+        let newSize = NSSize(width: width, height: height + 80)
+        if NSWorkspace.shared.accessibilityDisplayShouldReduceMotion {
+            window.setContentSize(newSize)
+            return
+        }
         NSAnimationContext.runAnimationGroup { context in
             context.duration = 0.3
-            window.animator().setContentSize(NSSize(width: width, height: height + 80))
+            window.animator().setContentSize(newSize)
         }
     }
 }

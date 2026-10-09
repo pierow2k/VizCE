@@ -71,6 +71,7 @@ struct InfoButton: View {
 
 
 struct SimpleButtonBrightStyle: ButtonStyle {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var hovered = false
     let help: String
     let color: Color
@@ -82,14 +83,17 @@ struct SimpleButtonBrightStyle: ButtonStyle {
             .foregroundStyle(hovered ? color.opacity(0.5) : color)
             .padding(5)
             .onHover { hovering in
-                withAnimation { hovered = hovering }
+                hovered = hovering
             }
-            .scaleEffect(configuration.isPressed ? 0.95 : 1)
+            .scaleEffect(!reduceMotion && configuration.isPressed ? 0.95 : 1)
+            .opacity(reduceMotion && configuration.isPressed ? 0.7 : 1)
+            .animation(reduceMotion ? nil : .default, value: hovered)
             .help(help)
     }
 }
 
 struct RoundedRectangleButtonStyle: ButtonStyle {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var isHovered = false
     let image: String
     let size: CGFloat
@@ -128,9 +132,10 @@ struct RoundedRectangleButtonStyle: ButtonStyle {
             RoundedRectangle(cornerRadius: 10)
                 .strokeBorder(.primary.opacity(0.2), lineWidth: 1)
         )
-        .animation(.easeInOut(duration: 0.3), value: isHovered)
+        .animation(reduceMotion ? nil : .easeInOut(duration: 0.3), value: isHovered)
         .cornerRadius(10)
-        .scaleEffect(configuration.isPressed ? 0.95 : 1.0)
+        .scaleEffect(!reduceMotion && configuration.isPressed ? 0.95 : 1.0)
+        .opacity(reduceMotion && configuration.isPressed ? 0.7 : 1)
         .onHover { inside in
             isHovered = inside
         }
@@ -356,6 +361,7 @@ extension NSTextView {
 
 
 struct SimpleButtonStyle: ButtonStyle {
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var hovered = false
     let help: String
     var color: Color = .primary
@@ -368,15 +374,16 @@ struct SimpleButtonStyle: ButtonStyle {
             .labelStyle(.iconOnly)
             .font(.system(size: size))
             .frame(width: size, height: size)
-            .scaleEffect(hovered ? 1.1 : 1)
-            .rotationEffect(.degrees(rotate && hovered ? 90 : 0))
-            .animation(.easeInOut(duration: 0.2), value: hovered)
+            .scaleEffect(!reduceMotion && hovered ? 1.1 : 1)
+            .rotationEffect(.degrees(!reduceMotion && rotate && hovered ? 90 : 0))
+            .animation(reduceMotion ? nil : .easeInOut(duration: 0.2), value: hovered)
             .foregroundStyle(hovered ? color : color.opacity(0.5))
             .padding(padding)
             .onHover { hovering in
-                withAnimation { hovered = hovering }
+                hovered = hovering
             }
-            .scaleEffect(configuration.isPressed ? 0.95 : 1)
+            .scaleEffect(!reduceMotion && configuration.isPressed ? 0.95 : 1)
+            .opacity(reduceMotion && configuration.isPressed ? 0.7 : 1)
             .help(help)
     }
 }
