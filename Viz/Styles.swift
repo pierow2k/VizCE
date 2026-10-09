@@ -72,37 +72,22 @@ struct InfoButton: View {
 
 struct SimpleButtonBrightStyle: ButtonStyle {
     @State private var hovered = false
-    let icon: String
     let help: String
     let color: Color
-    let shield: Bool?
 
-    init(icon: String, help: String, color: Color, shield: Bool? = nil) {
-        self.icon = icon
-        self.help = help
-        self.color = color
-        self.shield = shield
-    }
-
-    func makeBody(configuration: Self.Configuration) -> some View {
-        HStack {
-            Image(systemName: icon)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 20)
-                .foregroundColor(hovered ? color.opacity(0.5) : color)
-        }
-        .padding(5)
-        .onHover { hovering in
-            withAnimation() {
-                hovered = hovering
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .labelStyle(.iconOnly)
+            .font(.system(size: 20))
+            .foregroundStyle(hovered ? color.opacity(0.5) : color)
+            .padding(5)
+            .onHover { hovering in
+                withAnimation { hovered = hovering }
             }
-        }
-        .scaleEffect(configuration.isPressed ? 0.95 : 1)
-        .help(help)
+            .scaleEffect(configuration.isPressed ? 0.95 : 1)
+            .help(help)
     }
 }
-
 
 struct RoundedRectangleButtonStyle: ButtonStyle {
     @State private var isHovered = false
@@ -313,10 +298,12 @@ struct SimpleSearchStyle: @preconcurrency TextFieldStyle {
                     Spacer()
 
                     if trash && text != "" {
-                        Button("") {
+                        Button {
                             text = ""
+                        } label: {
+                            Label("Clear text", systemImage: "xmark.circle.fill")
                         }
-                        .buttonStyle(SimpleButtonStyle(icon: "xmark.circle.fill", help: "Clear text", size: 14, padding: 0))
+                        .buttonStyle(SimpleButtonStyle(help: "Clear text", size: 14, padding: 0))
                     }
                 }
 
@@ -370,47 +357,26 @@ extension NSTextView {
 
 struct SimpleButtonStyle: ButtonStyle {
     @State private var hovered = false
-    let icon: String
-    let iconFlip: String
-    let label: String
     let help: String
-    let color: Color
-    let size: CGFloat
-    let padding: CGFloat
-    let rotate: Bool
+    var color: Color = .primary
+    var size: CGFloat = 20
+    var padding: CGFloat = 5
+    var rotate: Bool = false
 
-    init(icon: String, iconFlip: String = "", label: String = "", help: String, color: Color = .primary, size: CGFloat = 20, padding: CGFloat = 5, rotate: Bool = false) {
-        self.icon = icon
-        self.iconFlip = iconFlip
-        self.label = label
-        self.help = help
-        self.color = color
-        self.size = size
-        self.padding = padding
-        self.rotate = rotate
-    }
-
-    func makeBody(configuration: Self.Configuration) -> some View {
-        HStack(alignment: .center) {
-            Image(systemName: (hovered && !iconFlip.isEmpty) ? iconFlip : icon)
-                .resizable()
-                .scaledToFit()
-                .frame(width: size, height: size)
-                .scaleEffect(hovered ? 1.1 : 1.0)
-                .rotationEffect(.degrees(rotate ? (hovered ? 90 : 0) : 0))
-                .animation(.easeInOut(duration: 0.2), value: hovered)
-            if !label.isEmpty {
-                Text(label)
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .labelStyle(.iconOnly)
+            .font(.system(size: size))
+            .frame(width: size, height: size)
+            .scaleEffect(hovered ? 1.1 : 1)
+            .rotationEffect(.degrees(rotate && hovered ? 90 : 0))
+            .animation(.easeInOut(duration: 0.2), value: hovered)
+            .foregroundStyle(hovered ? color : color.opacity(0.5))
+            .padding(padding)
+            .onHover { hovering in
+                withAnimation { hovered = hovering }
             }
-        }
-        .foregroundColor(hovered ? color : color.opacity(0.5))
-        .padding(padding)
-        .onHover { hovering in
-            withAnimation() {
-                hovered = hovering
-            }
-        }
-        .scaleEffect(configuration.isPressed ? 0.95 : 1)
-        .help(help)
+            .scaleEffect(configuration.isPressed ? 0.95 : 1)
+            .help(help)
     }
 }

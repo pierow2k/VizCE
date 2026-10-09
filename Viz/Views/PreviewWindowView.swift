@@ -23,10 +23,12 @@ struct PreviewContentView: View {
             HStack {
                 Spacer()
 
-                Button("Close") {
+                Button {
                     PreviewWindowController.shared.close()
+                } label: {
+                    Label("Close preview", systemImage: "x.circle.fill")
                 }
-                .buttonStyle(SimpleButtonStyle(icon: "x.circle.fill", help: "Close", color: .primary, size: 14))
+                .buttonStyle(SimpleButtonStyle(help: "Close", color: .primary, size: 14))
             }
             .padding(2)
 
@@ -70,7 +72,7 @@ struct PreviewContentView: View {
                     Text(appState.cmdOutput)
                         .font(.system(size: 12, weight: .regular, design: .monospaced))
                         .textSelection(.enabled)
-                        .frame(width: .infinity, alignment: .leading)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .scrollIndicators(.visible)
                 .padding([.horizontal, .bottom])
@@ -92,10 +94,12 @@ struct ColorPreviewView: View {
             HStack {
                 Spacer()
 
-                Button("Close") {
+                Button {
                     PreviewWindowController.shared.close()
+                } label: {
+                    Label("Close preview", systemImage: "x.circle.fill")
                 }
-                .buttonStyle(SimpleButtonStyle(icon: "x.circle.fill", help: "Close", color: .primary, size: 14))
+                .buttonStyle(SimpleButtonStyle(help: "Close", color: .primary, size: 14))
             }
             .padding(2)
 
