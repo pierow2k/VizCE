@@ -15,10 +15,7 @@ struct WebcamCaptureView: View {
     @StateObject private var webcamManager = WebcamManager()
     @AppStorage("selectedWebcamID") private var selectedWebcamID: String = ""
     @State private var isSnipping: Bool = false
-    @State private var selectionRect: CGRect = .zero
-    @State private var isDragging: Bool = false
-    @State private var dragStart: CGPoint = .zero
-    @State private var viewSize: CGSize = .zero
+    @State private var selection = ImageSelectionState()
 
     var selectedWebcam: WebcamDevice? {
         if selectedWebcamID.isEmpty {
@@ -37,43 +34,27 @@ struct WebcamCaptureView: View {
                             Image(nsImage: capturedImage)
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .frame(width: geometry.size.width, height: geometry.size.height, alignment: .center)
                                 .clipped()
 
                             // Selection overlay
                             Rectangle()
                                 .stroke(Color.blue, lineWidth: 2)
                                 .background(Color.blue.opacity(0.1))
-                                .frame(width: selectionRect.width, height: selectionRect.height)
-                                .position(x: selectionRect.midX, y: selectionRect.midY)
-                                .opacity(selectionRect != .zero ? 1 : 0)
+                                .frame(width: selection.rect.width, height: selection.rect.height)
+                                .position(x: selection.rect.midX, y: selection.rect.midY)
+                                .opacity(selection.rect != .zero ? 1 : 0)
                         }
-                        .onAppear {
-                            viewSize = geometry.size
-                        }
-                        .onChange(of: geometry.size) { newSize in
-                            viewSize = newSize
-                        }
+                        .frame(width: geometry.size.width, height: geometry.size.height)
+                        .contentShape(Rectangle())
+                        .onAppear { selection.updateViewport(geometry.size) }
+                        .onChange(of: geometry.size) { selection.updateViewport(geometry.size) }
                         .gesture(
                             DragGesture(coordinateSpace: .local)
                                 .onChanged { value in
-                                    if !isDragging {
-                                        isDragging = true
-                                        dragStart = value.startLocation
-                                    }
-
-                                    let currentLocation = value.location
-                                    let minX = min(dragStart.x, currentLocation.x)
-                                    let minY = min(dragStart.y, currentLocation.y)
-                                    let width = abs(currentLocation.x - dragStart.x)
-                                    let height = abs(currentLocation.y - dragStart.y)
-
-                                    selectionRect = CGRect(
-                                        x: minX, y: minY, width: width, height: height)
+                                    selection.drag(start: value.startLocation, current: value.location)
                                 }
-                                .onEnded { _ in
-                                    isDragging = false
-                                }
+                                .onEnded { _ in selection.endDrag() }
                         )
                     }
                     .background(Color.black)
@@ -179,10 +160,10 @@ struct WebcamCaptureView: View {
                                         .ultraThinMaterial, in: RoundedRectangle(cornerRadius: 18))
                                 }
                                 .buttonStyle(.plain)
-                                .disabled(selectionRect == .zero)
+                                .disabled(selectionCropRect == nil)
 
                                 Button {
-                                    selectionRect = .zero
+                                    selection.clear()
                                 } label: {
                                     HStack(spacing: 8) {
                                         Image(systemName: "xmark")
@@ -195,11 +176,11 @@ struct WebcamCaptureView: View {
                                         .ultraThinMaterial, in: RoundedRectangle(cornerRadius: 18))
                                 }
                                 .buttonStyle(.plain)
-                                .disabled(selectionRect == .zero)
+                                .disabled(selection.rect == .zero)
 
                                 Button {
                                     isSnipping = false
-                                    selectionRect = .zero
+                                    selection.clear()
                                     captureManager.restart(deviceID: selectedWebcamID)
                                 } label: {
                                     HStack(spacing: 8) {
@@ -243,6 +224,7 @@ struct WebcamCaptureView: View {
                                 .buttonStyle(.plain)
 
                                 Button {
+                                    selection.clear()
                                     isSnipping = true
                                 } label: {
                                     HStack(spacing: 8) {
@@ -320,6 +302,7 @@ struct WebcamCaptureView: View {
             captureManager.start(deviceID: selectedWebcamID)
         }
         .onDisappear { captureManager.stop() }
+        .onChange(of: captureManager.capturedImage) { selection.clear() }
         .onChange(of: selectedWebcamID) {
             captureManager.start(deviceID: selectedWebcamID)
         }
@@ -334,10 +317,10 @@ struct WebcamCaptureView: View {
     }
 
     private func extractFromSelection() {
-        guard let image = captureManager.capturedImage, selectionRect != .zero else { return }
+        guard let image = captureManager.capturedImage, selection.rect != .zero else { return }
 
         // Crop the image based on selection
-        if let croppedImage = cropImage(image: image, rect: selectionRect) {
+        if let croppedImage = cropImage(image: image, rect: selection.rect) {
             TextRecognition(
                 recognizedContent: RecognizedContent.shared, image: croppedImage,
                 historyState: HistoryState.shared
@@ -347,31 +330,25 @@ struct WebcamCaptureView: View {
 
             // Reset to captured image view
             isSnipping = false
-            selectionRect = .zero
+            selection.clear()
         }
+    }
+
+    private var selectionCropRect: CGRect? {
+        guard let image = captureManager.capturedImage,
+              let pixels = image.cgImage(forProposedRect: nil, context: nil, hints: nil) else { return nil }
+        return ImageCropTransform.map(selection: selection.rect, viewport: selection.viewport,
+                                      pixels: CGSize(width: pixels.width, height: pixels.height))
     }
 
     private func cropImage(image: NSImage, rect: CGRect) -> NSImage? {
-        let imageSize = image.size
-
-        // Convert selection rect to image coordinates using actual view size
-        let cropRect = CGRect(
-            x: rect.minX / viewSize.width * imageSize.width,
-            y: rect.minY / viewSize.height * imageSize.height,
-            width: rect.width / viewSize.width * imageSize.width,
-            height: rect.height / viewSize.height * imageSize.height
-        )
-
-        guard let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil) else {
-            return nil
-        }
-
-        guard let croppedCGImage = cgImage.cropping(to: cropRect) else { return nil }
-
-        return NSImage(
-            cgImage: croppedCGImage,
-            size: NSSize(width: croppedCGImage.width, height: croppedCGImage.height))
+        guard let pixels = image.cgImage(forProposedRect: nil, context: nil, hints: nil),
+              let crop = ImageCropTransform.map(selection: rect, viewport: selection.viewport,
+                                                pixels: CGSize(width: pixels.width, height: pixels.height)),
+              let cropped = pixels.cropping(to: crop) else { return nil }
+        return NSImage(cgImage: cropped, size: NSSize(width: cropped.width, height: cropped.height))
     }
+
 }
 
 struct WebcamDevice: Identifiable, Equatable, Hashable {

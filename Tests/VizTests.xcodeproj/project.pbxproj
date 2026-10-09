@@ -10,6 +10,24 @@
 	<dict/>
 	<key>objects</key>
 	<dict>
+		<key>89452BDA4799A098EC15489C</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Tests/ImageCropTests.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>839A00D6C9EE4832125B0F90</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>89452BDA4799A098EC15489C</string>
+		</dict>
 		<key>3F98E80A2CEF9845739F948D</key>
 		<dict>
 			<key>isa</key>
@@ -81,6 +99,42 @@
 			<string>PBXBuildFile</string>
 			<key>fileRef</key>
 			<string>26BC9BABF5D977597D5332AB</string>
+		</dict>
+		<key>D22832FCB9EEEBE2C6513040</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/ImageCropTransform.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>585F033D3AFD9EE33B21521A</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>D22832FCB9EEEBE2C6513040</string>
+		</dict>
+		<key>D6155DB34A5858243D339B5F</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/ImageSelectionState.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>9FF02D63E6E3F0A2A27FEC7C</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>D6155DB34A5858243D339B5F</string>
 		</dict>
 		<key>36066228C42C42603094E7D3</key>
 		<dict>
@@ -439,10 +493,13 @@
 			<string>PBXGroup</string>
 			<key>children</key>
 			<array>
+				<string>89452BDA4799A098EC15489C</string>
 				<string>3F98E80A2CEF9845739F948D</string>
 				<string>F3A9DD302689BF0A050F8005</string>
 				<string>4DC5D19361816951FEE6C9A9</string>
 				<string>26BC9BABF5D977597D5332AB</string>
+				<string>D22832FCB9EEEBE2C6513040</string>
+				<string>D6155DB34A5858243D339B5F</string>
 				<string>36066228C42C42603094E7D3</string>
 				<string>2CC460664DC2A798E41E1CC3</string>
 				<string>F436D6B55D2BFC327B8AAF63</string>
@@ -470,10 +527,13 @@
 			<integer>2147483647</integer>
 			<key>files</key>
 			<array>
+				<string>839A00D6C9EE4832125B0F90</string>
 				<string>A9BE9A4D6632FA2400F7F4AE</string>
 				<string>86C787584291F112B138DB06</string>
 				<string>2F4B03BDC651EEED3FBFCBFE</string>
 				<string>B80B341E5850FA9F297FA2F1</string>
+				<string>585F033D3AFD9EE33B21521A</string>
+				<string>9FF02D63E6E3F0A2A27FEC7C</string>
 				<string>3093F597B311B007C2C294CE</string>
 				<string>83336AB873C7A7178040E16F</string>
 				<string>C4E435D63FA7AC64ACDDFD5B</string>

@@ -41,6 +41,8 @@
 		DB74B92318DFCEF2E7056A72 /* VideoSampleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2877F8EA972E04B181C370; };
 		DC8F046C6822BD633D7292C9 /* WebcamCaptureCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92D5A9AA80767808B207833; };
 		BD765450C896C2719FFA23C4 /* WebcamWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EC2071F02883B9AAC787ED; };
+		F114D0D9F34E0B2362F5BC47 /* ImageCropTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18984167139B876EAD3C286D; };
+		FEC113CE810A5D8142F06074 /* ImageSelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8410CA3759E6B0114BF38C7; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,6 +84,8 @@
 		DF2877F8EA972E04B181C370 /* VideoSampleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSampleDelegate.swift; sourceTree = "<group>"; };
 		E92D5A9AA80767808B207833 /* WebcamCaptureCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamCaptureCoordinator.swift; sourceTree = "<group>"; };
 		93EC2071F02883B9AAC787ED /* WebcamWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamWindowController.swift; sourceTree = "<group>"; };
+		18984167139B876EAD3C286D /* ImageCropTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCropTransform.swift; sourceTree = "<group>"; };
+		A8410CA3759E6B0114BF38C7 /* ImageSelectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelectionState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +153,8 @@
 		C74D7C962D95CF84009A8C48 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				A8410CA3759E6B0114BF38C7 /* ImageSelectionState.swift */,
+				18984167139B876EAD3C286D /* ImageCropTransform.swift */,
 				93EC2071F02883B9AAC787ED /* WebcamWindowController.swift */,
 				E92D5A9AA80767808B207833 /* WebcamCaptureCoordinator.swift */,
 				DF2877F8EA972E04B181C370 /* VideoSampleDelegate.swift */,
@@ -252,6 +258,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FEC113CE810A5D8142F06074 /* ImageSelectionState.swift in Sources */,
+				F114D0D9F34E0B2362F5BC47 /* ImageCropTransform.swift in Sources */,
 				BD765450C896C2719FFA23C4 /* WebcamWindowController.swift in Sources */,
 				DC8F046C6822BD633D7292C9 /* WebcamCaptureCoordinator.swift in Sources */,
 				DB74B92318DFCEF2E7056A72 /* VideoSampleDelegate.swift in Sources */,
