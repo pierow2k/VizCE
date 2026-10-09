@@ -10,7 +10,6 @@ import AppKit
 import SwiftUI
 import AlinFoundation
 
-@MainActor var previewWindow: NSWindow?
 @MainActor var cmdOutputWindow: NSWindow?
 @MainActor var colorWindow: NSWindow?
 
@@ -25,8 +24,7 @@ struct PreviewContentView: View {
                 Spacer()
 
                 Button("Close") {
-                    previewWindow?.orderOut(nil)
-                    previewWindow = nil
+                    PreviewWindowController.shared.close()
                 }
                 .buttonStyle(SimpleButtonStyle(icon: "x.circle.fill", help: "Close", color: .primary, size: 14))
             }
@@ -95,8 +93,7 @@ struct ColorPreviewView: View {
                 Spacer()
 
                 Button("Close") {
-                    previewWindow?.orderOut(nil)
-                    previewWindow = nil
+                    PreviewWindowController.shared.close()
                 }
                 .buttonStyle(SimpleButtonStyle(icon: "x.circle.fill", help: "Close", color: .primary, size: 14))
             }
@@ -121,43 +118,5 @@ struct ColorPreviewView: View {
 
 @MainActor
 func showPreviewWindow<Content: View>(contentView: Content) {
-    @AppStorage("previewSeconds") var seconds: Double = 5.0
-    @AppStorage("processing") var processingIsEnabled: Bool = false
-    @AppStorage("showPreview") var showPreview: Bool = true
-    @AppStorage("viewWidth") var viewWidth: Double = 300.0
-    @AppStorage("viewHeight") var viewHeight: Double = 200.0
-
-    guard showPreview else { return }
-
-    previewWindow?.orderOut(nil)
-    previewWindow = nil
-
-    let height: CGFloat = (processingIsEnabled && contentView is PreviewContentView) ? viewHeight + 100 : viewHeight
-    let hostingView = NSHostingView(rootView: contentView)
-    hostingView.frame = CGRect(x: 0, y: 0, width: viewWidth, height: height)
-
-    previewWindow = NSWindow(contentRect: NSRect(x: 0, y: 0, width: viewWidth, height: height),
-                             styleMask: .borderless,
-                             backing: .buffered,
-                             defer: false)
-    previewWindow?.contentView = hostingView
-    previewWindow?.contentView?.wantsLayer = true
-    previewWindow?.contentView?.layer?.cornerRadius = 10
-    previewWindow?.contentView?.layer?.masksToBounds = true
-    previewWindow?.level = .floating
-    previewWindow?.isOpaque = false
-    previewWindow?.backgroundColor = .clear
-
-    if let screen = NSScreen.main {
-        let screenRect = screen.visibleFrame
-        let windowX = screenRect.maxX - viewWidth - 30
-        let windowY = screenRect.maxY - height - 30
-        previewWindow?.setFrameOrigin(NSPoint(x: windowX, y: windowY))
-    }
-
-    previewWindow?.orderFront(nil)
-    DispatchQueue.main.asyncAfter(deadline: .now() + seconds) {
-        previewWindow?.orderOut(nil)
-        previewWindow = nil
-    }
+    PreviewWindowController.shared.show(contentView)
 }

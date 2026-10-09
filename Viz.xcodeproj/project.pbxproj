@@ -30,6 +30,8 @@
 		627F2AEEBF750E9493E6365E /* RecognitionOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3846F2808D69B364E6F5F543; };
 		E3F460D6EB699F5803CF150F /* RecognitionWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F44336FAFED7A16C7E13393; };
 		304675F0004164A1DFC5B5AC /* OperationIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3F14F82BEC260463A582E; };
+		10947E536EC9F7C228465A5B /* PreviewExpiry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A740FC8C7C6087A9A78D11; };
+		D6BCF0832206425A5EA6E54F /* PreviewWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3345C2A700F4A5336373AF8; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +62,8 @@
 		3846F2808D69B364E6F5F543 /* RecognitionOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionOptions.swift; sourceTree = "<group>"; };
 		0F44336FAFED7A16C7E13393 /* RecognitionWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionWorker.swift; sourceTree = "<group>"; };
 		4DB3F14F82BEC260463A582E /* OperationIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationIdentity.swift; sourceTree = "<group>"; };
+		30A740FC8C7C6087A9A78D11 /* PreviewExpiry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewExpiry.swift; sourceTree = "<group>"; };
+		D3345C2A700F4A5336373AF8 /* PreviewWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewWindowController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +131,8 @@
 		C74D7C962D95CF84009A8C48 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				D3345C2A700F4A5336373AF8 /* PreviewWindowController.swift */,
+				30A740FC8C7C6087A9A78D11 /* PreviewExpiry.swift */,
 				4DB3F14F82BEC260463A582E /* OperationIdentity.swift */,
 				0F44336FAFED7A16C7E13393 /* RecognitionWorker.swift */,
 				3846F2808D69B364E6F5F543 /* RecognitionOptions.swift */,
@@ -219,6 +225,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6BCF0832206425A5EA6E54F /* PreviewWindowController.swift in Sources */,
+				10947E536EC9F7C228465A5B /* PreviewExpiry.swift in Sources */,
 				304675F0004164A1DFC5B5AC /* OperationIdentity.swift in Sources */,
 				E3F460D6EB699F5803CF150F /* RecognitionWorker.swift in Sources */,
 				627F2AEEBF750E9493E6365E /* RecognitionOptions.swift in Sources */,
