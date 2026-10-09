@@ -156,6 +156,7 @@ struct RoundedRectangleButtonStyle: ButtonStyle {
 
 struct ShortcutEditorView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.openSettings) private var openSettings
     @EnvironmentObject var appState: AppState
     let name: KeyboardShortcuts.Name
 
@@ -172,7 +173,8 @@ struct ShortcutEditorView: View {
                             .fill(Color.secondary.opacity(0.2))
                     }
                     .onTapGesture {
-                        openAppSettings()
+                        UserDefaults.standard.set(0, forKey: "settingsSelectedTab")
+                        openSettings()
                         dismiss()
                     }
             }

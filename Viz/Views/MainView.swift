@@ -14,6 +14,7 @@ struct ContentView: View {
     @EnvironmentObject var appState: AppState
     @EnvironmentObject var historyState: HistoryState
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.openSettings) private var openSettings
     @EnvironmentObject var updater: Updater
     @State private var windowController = WindowManager.shared
 
@@ -43,7 +44,8 @@ struct ContentView: View {
                 HStack() {
 
                     Button {
-                        openAppSettings(selectedTab: updater.updateAvailable ? 2 : 0)
+                        UserDefaults.standard.set(updater.updateAvailable ? 2 : 0, forKey: "settingsSelectedTab")
+                        openSettings()
                         dismiss()
                     } label: {
                         Image(systemName: updater.updateAvailable ? "arrow.down.circle" : "gear")

@@ -17,19 +17,6 @@ func openAbout() {
     WindowManager.shared.open(id: "about", with: AboutView(), width: 400, height: 450)
 }
 
-func openAppSettings(selectedTab: Int = 0) {
-    if #available(macOS 14.0, *) {
-        // For macOS 14+, we need to use a different approach since we can't directly control tab selection with openSettings
-        // We'll store the selected tab and let SettingsView read it
-        UserDefaults.standard.set(selectedTab, forKey: "settingsSelectedTab")
-        @Environment(\.openSettings) var openSettings
-        openSettings()
-    } else {
-        UserDefaults.standard.set(selectedTab, forKey: "settingsSelectedTab")
-        NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
-    }
-}
-
 private var webcamWindow: NSWindow?
 
 func openWebcamCapture() {
