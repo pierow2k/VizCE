@@ -523,6 +523,11 @@
 				<string>9C57084A5A0450E7BBD9B348</string>
 				<string>7D05EA2ECD98FF03A3E0726C</string>
 				<string>70F9851F3134FAF606BC4FE4</string>
+				<string>2105087D5C38AE9B4CE7C78F</string>
+				<string>C7773B80D28B2E35A3B7ED34</string>
+				<string>30FDD7E9BF3337C43224C4EC</string>
+				<string>0B547637EFBA98F98029ECB4</string>
+				<string>D52F7F044516490B849AB508</string>
 			</array>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
@@ -564,6 +569,11 @@
 				<string>3ED9242607012645BAB9099C</string>
 				<string>D17CAE0869496DD66ADDADEA</string>
 				<string>EE184FCFB133CCEFF4FCC00D</string>
+				<string>7AB88A90CCAA8D77C82A6212</string>
+				<string>6C7CB6276991F24A624F11F4</string>
+				<string>7F70E6E18D53A8EE0EE66E35</string>
+				<string>75A757156CA704B38DA2E6CE</string>
+				<string>02A943B44CED1C2BAB937355</string>
 			</array>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<integer>0</integer>
@@ -771,6 +781,96 @@
 			<string>PBXBuildFile</string>
 			<key>fileRef</key>
 			<string>70F9851F3134FAF606BC4FE4</string>
+		</dict>
+		<key>2105087D5C38AE9B4CE7C78F</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/RecognitionConfiguration.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>7AB88A90CCAA8D77C82A6212</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>2105087D5C38AE9B4CE7C78F</string>
+		</dict>
+		<key>C7773B80D28B2E35A3B7ED34</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/RecognitionLanguageCatalog.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>6C7CB6276991F24A624F11F4</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>C7773B80D28B2E35A3B7ED34</string>
+		</dict>
+		<key>30FDD7E9BF3337C43224C4EC</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/RecognitionLanguageSelection.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>7F70E6E18D53A8EE0EE66E35</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>30FDD7E9BF3337C43224C4EC</string>
+		</dict>
+		<key>0B547637EFBA98F98029ECB4</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/RecognitionLanguageName.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>75A757156CA704B38DA2E6CE</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>0B547637EFBA98F98029ECB4</string>
+		</dict>
+		<key>D52F7F044516490B849AB508</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Tests/RecognitionLanguageTests.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>02A943B44CED1C2BAB937355</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>D52F7F044516490B849AB508</string>
 		</dict>
 	</dict>
 	<key>rootObject</key>

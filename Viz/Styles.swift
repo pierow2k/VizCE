@@ -267,7 +267,7 @@ struct SpacedToggleSeconds: ToggleStyle {
 
             configuration.label
 
-            Picker("", selection: $seconds) {
+            Picker("Preview duration", selection: $seconds) {
                 Text("3s").tag(3.0)
                 Text("5s").tag(5.0)
                 Text("10s").tag(10.0)
@@ -276,6 +276,7 @@ struct SpacedToggleSeconds: ToggleStyle {
                 Text("60s").tag(60.0)
             }
             .buttonStyle(.borderless)
+            .labelsHidden()
 
             Spacer() // Adds space between the label and the switch
 

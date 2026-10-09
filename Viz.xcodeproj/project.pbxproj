@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		407C1F3260F54233CB7B464F /* QualityPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46859055098872DCF1CEEB77 /* QualityPickerView.swift */; };
+		1EA25D13BFE36D89EE2C9353 /* LanguagePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E36D8DF92B2950D0E5CAFA3 /* LanguagePickerView.swift */; };
+		753330DE026C13B1849448F2 /* RecognitionLanguageName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39338C0EB346FD6745FC3A2D /* RecognitionLanguageName.swift */; };
+		DC23F17667DF1423AC4CBEBD /* RecognitionLanguageSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656C25B3FFCF519C8FC1A43B /* RecognitionLanguageSelection.swift */; };
+		5E3D1985BE97570CD4D2F3D6 /* RecognitionLanguageCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C276E5B2532070FCB50F7129 /* RecognitionLanguageCatalog.swift */; };
+		D7951D4A9F738E4D3DE57BA7 /* RecognitionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF34B15DFB478060C2B866EA /* RecognitionConfiguration.swift */; };
 		20608B128842981928A5A441 /* HistoryState.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE13BE1358B3CA33E9740E75 /* HistoryState.swift */; };
 		9E6E9466A2DC8A7018AC08F4 /* HistoryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6750740051D4063BC0C4898B /* HistoryRepository.swift */; };
 		5CFEEF330BC762C96D98ABA2 /* HistoryMutation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DC07CECA11BF46F12FAE041 /* HistoryMutation.swift */; };
@@ -55,6 +61,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		46859055098872DCF1CEEB77 /* QualityPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QualityPickerView.swift; sourceTree = "<group>"; };
+		7E36D8DF92B2950D0E5CAFA3 /* LanguagePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagePickerView.swift; sourceTree = "<group>"; };
+		39338C0EB346FD6745FC3A2D /* RecognitionLanguageName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionLanguageName.swift; sourceTree = "<group>"; };
+		656C25B3FFCF519C8FC1A43B /* RecognitionLanguageSelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionLanguageSelection.swift; sourceTree = "<group>"; };
+		C276E5B2532070FCB50F7129 /* RecognitionLanguageCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionLanguageCatalog.swift; sourceTree = "<group>"; };
+		CF34B15DFB478060C2B866EA /* RecognitionConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionConfiguration.swift; sourceTree = "<group>"; };
 		EE13BE1358B3CA33E9740E75 /* HistoryState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryState.swift; sourceTree = "<group>"; };
 		6750740051D4063BC0C4898B /* HistoryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryRepository.swift; sourceTree = "<group>"; };
 		0DC07CECA11BF46F12FAE041 /* HistoryMutation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryMutation.swift; sourceTree = "<group>"; };
@@ -159,6 +171,8 @@
 		C74D7C952D95CF2C009A8C48 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				46859055098872DCF1CEEB77 /* QualityPickerView.swift */,
+				7E36D8DF92B2950D0E5CAFA3 /* LanguagePickerView.swift */,
 				C77DD6002D960F9F0046AD9F /* SettingsView.swift */,
 				C77DD5FE2D960B4A0046AD9F /* HistoryView.swift */,
 				C73944BB2BC449C800EE7EBF /* AboutView.swift */,
@@ -173,6 +187,10 @@
 		C74D7C962D95CF84009A8C48 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				39338C0EB346FD6745FC3A2D /* RecognitionLanguageName.swift */,
+				656C25B3FFCF519C8FC1A43B /* RecognitionLanguageSelection.swift */,
+				C276E5B2532070FCB50F7129 /* RecognitionLanguageCatalog.swift */,
+				CF34B15DFB478060C2B866EA /* RecognitionConfiguration.swift */,
 				EE13BE1358B3CA33E9740E75 /* HistoryState.swift */,
 				6750740051D4063BC0C4898B /* HistoryRepository.swift */,
 				0DC07CECA11BF46F12FAE041 /* HistoryMutation.swift */,
@@ -287,6 +305,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				407C1F3260F54233CB7B464F /* QualityPickerView.swift in Sources */,
+				1EA25D13BFE36D89EE2C9353 /* LanguagePickerView.swift in Sources */,
+				753330DE026C13B1849448F2 /* RecognitionLanguageName.swift in Sources */,
+				DC23F17667DF1423AC4CBEBD /* RecognitionLanguageSelection.swift in Sources */,
+				5E3D1985BE97570CD4D2F3D6 /* RecognitionLanguageCatalog.swift in Sources */,
+				D7951D4A9F738E4D3DE57BA7 /* RecognitionConfiguration.swift in Sources */,
 				20608B128842981928A5A441 /* HistoryState.swift in Sources */,
 				9E6E9466A2DC8A7018AC08F4 /* HistoryRepository.swift in Sources */,
 				5CFEEF330BC762C96D98ABA2 /* HistoryMutation.swift in Sources */,

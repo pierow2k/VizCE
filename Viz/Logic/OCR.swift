@@ -15,7 +15,7 @@ struct TextRecognition {
         let state = AppState.shared
         let options = RecognitionOptions(
             fast: state.selectedQuality == .fast,
-            languageCode: state.selectedLanguage.code,
+            languageCode: state.selectedLanguageCode == "All" ? nil : state.selectedLanguageCode,
             keepLineBreaks: preferences.object(forKey: "keepLineBreaks") as? Bool ?? true,
             append: preferences.bool(forKey: "appendRecognizedText"),
             processing: preferences.bool(forKey: "processing"),
@@ -29,7 +29,11 @@ struct TextRecognition {
         }
         Task { @MainActor in
             do {
-                let text = try await RecognitionWorker().recognize(imageData: imageData, options: options)
+                let configuration = RecognitionConfiguration(fast: options.fast)
+                let code = try await RecognitionLanguageCatalog.shared.effectiveCode(options.languageCode, for: configuration)
+                let resolved = RecognitionOptions(fast: options.fast, languageCode: code, keepLineBreaks: options.keepLineBreaks,
+                                                  append: options.append, processing: options.processing, commandTemplate: options.commandTemplate)
+                let text = try await RecognitionWorker().recognize(imageData: imageData, options: resolved)
                 guard state.clearGeneration == clearToken else { return }
                 apply(text: text, options: options, token: token)
             } catch {
