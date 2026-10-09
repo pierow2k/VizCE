@@ -6,7 +6,9 @@ struct HistoryView: View {
     @StateObject private var feedback = CopyFeedbackController()
     @State private var filterSelection = HistoryFilter.all
 
-    init(historyState: HistoryState = .shared) { self.historyState = historyState }
+    init(historyState: HistoryState? = nil) {
+        self.historyState = historyState ?? .shared
+    }
 
     private var filteredItems: [HistoryEntry] {
         historyState.historyItems.reversed().filter { entry in

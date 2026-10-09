@@ -33,13 +33,13 @@ func copyColorsToClipboard(color: ColorItem) {
 
 
 @MainActor
-func clearClipboard(historyState: HistoryState = .shared) {
+func clearClipboard(historyState: HistoryState? = nil) {
     AppState.shared.invalidateCaptures()
     CaptureService.shared.cancelCapture()
     CaptureNoticePresenter.shared.close()
     CaptureService.shared.recognizedContent.items.removeAll()
     CaptureService.shared.pasteboard.clearContents()
-    historyState.clear()
+    (historyState ?? .shared).clear()
     PreviewWindowController.shared.close()
 }
 
