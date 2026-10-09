@@ -25,7 +25,7 @@ struct AboutView: View {
                 .padding(.vertical, 4)
 
             Button {
-                NSWorkspace.shared.open(URL(string: "https://github.com/alienator88/Viz")!)
+                NSWorkspace.shared.open(URL(string: "https://github.com/pierow2k/Viz")!)
             } label: {
                 Label("GitHub", systemImage: "paperplane")
                     .padding(5)
@@ -39,7 +39,7 @@ struct AboutView: View {
             HStack(spacing: 0){
                 Spacer()
                 Text("Made with ❤️ by ")
-                Text("Alin Lupascu")
+                Text("Pierow2k and the Viz Community")
                     .bold()
                 Spacer()
             }

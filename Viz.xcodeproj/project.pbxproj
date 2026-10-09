@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10947E536EC9F7C228465A5B /* PreviewExpiry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A740FC8C7C6087A9A78D11 /* PreviewExpiry.swift */; };
+		20825E5C03EB4CC1C78AE8DB /* ShellTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA739B02138CA07CF1750940 /* ShellTemplate.swift */; };
+		304675F0004164A1DFC5B5AC /* OperationIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3F14F82BEC260463A582E /* OperationIdentity.swift */; };
+		36C0B2A8D3780B05A5DEFF5C /* PostProcessingRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014B8F42E292ED5B3748EA35 /* PostProcessingRunner.swift */; };
+		627F2AEEBF750E9493E6365E /* RecognitionOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3846F2808D69B364E6F5F543 /* RecognitionOptions.swift */; };
+		6A15093178CDDD2A737DFE31 /* SystemWebcamAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6162E61DDDBECE2441A13CE /* SystemWebcamAuthorization.swift */; };
+		8E04CA8479E7EA3C3DA72873 /* WebcamCaptureWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2726777BBDF93D8822C9D5 /* WebcamCaptureWorker.swift */; };
+		A146DA4D9E3710511C91CCDB /* WebcamAuthorizing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065FA2FD22D755E90EA781B8 /* WebcamAuthorizing.swift */; };
+		AFA966D20019182481B96C3A /* WebcamPreviewSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C773716FEF479F36F233A9 /* WebcamPreviewSource.swift */; };
+		BD765450C896C2719FFA23C4 /* WebcamWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EC2071F02883B9AAC787ED /* WebcamWindowController.swift */; };
 		C7174C942BC06EE500DBEF75 /* VizApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7174C932BC06EE500DBEF75 /* VizApp.swift */; };
 		C7174C982BC06EE600DBEF75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C7174C972BC06EE600DBEF75 /* Assets.xcassets */; };
 		C7174CA32BC06F1200DBEF75 /* OCR.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7174CA22BC06F1200DBEF75 /* OCR.swift */; };
@@ -21,32 +31,37 @@
 		C77DD6012D960FA30046AD9F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77DD6002D960F9F0046AD9F /* SettingsView.swift */; };
 		C77DD6032D961EBF0046AD9F /* Windows.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77DD6022D961EB90046AD9F /* Windows.swift */; };
 		C783473E2C0E1B1400F4EE76 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = C783473D2C0E1B1400F4EE76 /* Styles.swift */; };
+		C79F86CE554827F4C8E6EA5E /* WebcamCaptureError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECA35DB6F8F31AB37F13F8F /* WebcamCaptureError.swift */; };
 		C7C0C0BE2D94D253002140DD /* water.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C7C0C0BD2D94D253002140DD /* water.mp3 */; };
 		C7E780DE2BC700060053B311 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = C7E780DD2BC700060053B311 /* KeyboardShortcuts */; };
 		C7FAA9BF2E623C9500680DB2 /* WebcamCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FAA9BE2E623C9500680DB2 /* WebcamCaptureView.swift */; };
 		C7FAA9C12E623E3100680DB2 /* ImageSnipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FAA9C02E623E3100680DB2 /* ImageSnipView.swift */; };
-		20825E5C03EB4CC1C78AE8DB /* ShellTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA739B02138CA07CF1750940; };
-		36C0B2A8D3780B05A5DEFF5C /* PostProcessingRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014B8F42E292ED5B3748EA35; };
-		627F2AEEBF750E9493E6365E /* RecognitionOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3846F2808D69B364E6F5F543; };
-		E3F460D6EB699F5803CF150F /* RecognitionWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F44336FAFED7A16C7E13393; };
-		304675F0004164A1DFC5B5AC /* OperationIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3F14F82BEC260463A582E; };
-		10947E536EC9F7C228465A5B /* PreviewExpiry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30A740FC8C7C6087A9A78D11; };
-		D6BCF0832206425A5EA6E54F /* PreviewWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3345C2A700F4A5336373AF8; };
-		DB2F8B467A06E4B2ED76E534 /* WebcamCaptureBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D164E75DB1A3A74C9FE046A; };
-		A146DA4D9E3710511C91CCDB /* WebcamAuthorizing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065FA2FD22D755E90EA781B8; };
-		6A15093178CDDD2A737DFE31 /* SystemWebcamAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6162E61DDDBECE2441A13CE; };
-		AFA966D20019182481B96C3A /* WebcamPreviewSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05C773716FEF479F36F233A9; };
-		C79F86CE554827F4C8E6EA5E /* WebcamCaptureError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECA35DB6F8F31AB37F13F8F; };
-		8E04CA8479E7EA3C3DA72873 /* WebcamCaptureWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C2726777BBDF93D8822C9D5; };
-		DB74B92318DFCEF2E7056A72 /* VideoSampleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2877F8EA972E04B181C370; };
-		DC8F046C6822BD633D7292C9 /* WebcamCaptureCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92D5A9AA80767808B207833; };
-		BD765450C896C2719FFA23C4 /* WebcamWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EC2071F02883B9AAC787ED; };
-		F114D0D9F34E0B2362F5BC47 /* ImageCropTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18984167139B876EAD3C286D; };
-		FEC113CE810A5D8142F06074 /* ImageSelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8410CA3759E6B0114BF38C7; };
+		D6BCF0832206425A5EA6E54F /* PreviewWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3345C2A700F4A5336373AF8 /* PreviewWindowController.swift */; };
+		DB2F8B467A06E4B2ED76E534 /* WebcamCaptureBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D164E75DB1A3A74C9FE046A /* WebcamCaptureBackend.swift */; };
+		DB74B92318DFCEF2E7056A72 /* VideoSampleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2877F8EA972E04B181C370 /* VideoSampleDelegate.swift */; };
+		DC8F046C6822BD633D7292C9 /* WebcamCaptureCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92D5A9AA80767808B207833 /* WebcamCaptureCoordinator.swift */; };
+		E3F460D6EB699F5803CF150F /* RecognitionWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F44336FAFED7A16C7E13393 /* RecognitionWorker.swift */; };
+		F114D0D9F34E0B2362F5BC47 /* ImageCropTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18984167139B876EAD3C286D /* ImageCropTransform.swift */; };
+		FEC113CE810A5D8142F06074 /* ImageSelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8410CA3759E6B0114BF38C7 /* ImageSelectionState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		014B8F42E292ED5B3748EA35 /* PostProcessingRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostProcessingRunner.swift; sourceTree = "<group>"; };
+		05C773716FEF479F36F233A9 /* WebcamPreviewSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamPreviewSource.swift; sourceTree = "<group>"; };
+		065FA2FD22D755E90EA781B8 /* WebcamAuthorizing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamAuthorizing.swift; sourceTree = "<group>"; };
+		0F44336FAFED7A16C7E13393 /* RecognitionWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionWorker.swift; sourceTree = "<group>"; };
+		18984167139B876EAD3C286D /* ImageCropTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCropTransform.swift; sourceTree = "<group>"; };
+		1C2726777BBDF93D8822C9D5 /* WebcamCaptureWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamCaptureWorker.swift; sourceTree = "<group>"; };
+		30A740FC8C7C6087A9A78D11 /* PreviewExpiry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewExpiry.swift; sourceTree = "<group>"; };
+		3846F2808D69B364E6F5F543 /* RecognitionOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionOptions.swift; sourceTree = "<group>"; };
+		3D164E75DB1A3A74C9FE046A /* WebcamCaptureBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamCaptureBackend.swift; sourceTree = "<group>"; };
+		4DB3F14F82BEC260463A582E /* OperationIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationIdentity.swift; sourceTree = "<group>"; };
+		93EC2071F02883B9AAC787ED /* WebcamWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamWindowController.swift; sourceTree = "<group>"; };
+		A8410CA3759E6B0114BF38C7 /* ImageSelectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelectionState.swift; sourceTree = "<group>"; };
+		AA739B02138CA07CF1750940 /* ShellTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShellTemplate.swift; sourceTree = "<group>"; };
 		B9443F1A3078A6FF0034B361 /* VizDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VizDebug.entitlements; sourceTree = "<group>"; };
+		B9EB55C2307975C200E5F29A /* DebugSigning.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DebugSigning.xcconfig; sourceTree = "<group>"; };
+		BECA35DB6F8F31AB37F13F8F /* WebcamCaptureError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamCaptureError.swift; sourceTree = "<group>"; };
 		C7174C902BC06EE500DBEF75 /* Viz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Viz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7174C932BC06EE500DBEF75 /* VizApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VizApp.swift; sourceTree = "<group>"; };
 		C7174C972BC06EE600DBEF75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -68,24 +83,10 @@
 		C7C0C0BD2D94D253002140DD /* water.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = water.mp3; sourceTree = "<group>"; };
 		C7FAA9BE2E623C9500680DB2 /* WebcamCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamCaptureView.swift; sourceTree = "<group>"; };
 		C7FAA9C02E623E3100680DB2 /* ImageSnipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSnipView.swift; sourceTree = "<group>"; };
-		AA739B02138CA07CF1750940 /* ShellTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShellTemplate.swift; sourceTree = "<group>"; };
-		014B8F42E292ED5B3748EA35 /* PostProcessingRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostProcessingRunner.swift; sourceTree = "<group>"; };
-		3846F2808D69B364E6F5F543 /* RecognitionOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionOptions.swift; sourceTree = "<group>"; };
-		0F44336FAFED7A16C7E13393 /* RecognitionWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecognitionWorker.swift; sourceTree = "<group>"; };
-		4DB3F14F82BEC260463A582E /* OperationIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationIdentity.swift; sourceTree = "<group>"; };
-		30A740FC8C7C6087A9A78D11 /* PreviewExpiry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewExpiry.swift; sourceTree = "<group>"; };
 		D3345C2A700F4A5336373AF8 /* PreviewWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewWindowController.swift; sourceTree = "<group>"; };
-		3D164E75DB1A3A74C9FE046A /* WebcamCaptureBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamCaptureBackend.swift; sourceTree = "<group>"; };
-		065FA2FD22D755E90EA781B8 /* WebcamAuthorizing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamAuthorizing.swift; sourceTree = "<group>"; };
 		D6162E61DDDBECE2441A13CE /* SystemWebcamAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemWebcamAuthorization.swift; sourceTree = "<group>"; };
-		05C773716FEF479F36F233A9 /* WebcamPreviewSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamPreviewSource.swift; sourceTree = "<group>"; };
-		BECA35DB6F8F31AB37F13F8F /* WebcamCaptureError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamCaptureError.swift; sourceTree = "<group>"; };
-		1C2726777BBDF93D8822C9D5 /* WebcamCaptureWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamCaptureWorker.swift; sourceTree = "<group>"; };
 		DF2877F8EA972E04B181C370 /* VideoSampleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSampleDelegate.swift; sourceTree = "<group>"; };
 		E92D5A9AA80767808B207833 /* WebcamCaptureCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamCaptureCoordinator.swift; sourceTree = "<group>"; };
-		93EC2071F02883B9AAC787ED /* WebcamWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamWindowController.swift; sourceTree = "<group>"; };
-		18984167139B876EAD3C286D /* ImageCropTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCropTransform.swift; sourceTree = "<group>"; };
-		A8410CA3759E6B0114BF38C7 /* ImageSelectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelectionState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +107,7 @@
 			children = (
 				C7174C912BC06EE500DBEF75 /* Products */,
 				C7174C922BC06EE500DBEF75 /* Viz */,
+				B9EB55C2307975C200E5F29A /* DebugSigning.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -297,6 +299,7 @@
 /* Begin XCBuildConfiguration section */
 		C7174C9D2BC06EE600DBEF75 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B9EB55C2307975C200E5F29A /* DebugSigning.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -421,18 +424,16 @@
 		};
 		C7174CA02BC06EE600DBEF75 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B9EB55C2307975C200E5F29A /* DebugSigning.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = Viz;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				AUTOMATION_APPLE_EVENTS = NO;
 				CODE_SIGN_ENTITLEMENTS = Viz/VizDebug.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
-				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 18;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = "";
 				ENABLE_APP_SANDBOX = NO;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
@@ -457,8 +458,6 @@
 				MARKETING_VERSION = 2.3.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pierow2k.Viz;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				RUNTIME_EXCEPTION_ALLOW_DYLD_ENVIRONMENT_VARIABLES = NO;
 				RUNTIME_EXCEPTION_ALLOW_JIT = NO;
 				RUNTIME_EXCEPTION_ALLOW_UNSIGNED_EXECUTABLE_MEMORY = NO;
@@ -531,7 +530,7 @@
 				C7174C9E2BC06EE600DBEF75 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		C7174C9F2BC06EE600DBEF75 /* Build configuration list for PBXNativeTarget "Viz" */ = {
 			isa = XCConfigurationList;
@@ -540,7 +539,7 @@
 				C7174CA12BC06EE600DBEF75 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 

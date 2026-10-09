@@ -1,0 +1,8 @@
+// Default signing configuration for a fresh checkout.
+//
+// This uses ad-hoc signing unless a developer provides a local override.
+CODE_SIGN_STYLE = Manual
+CODE_SIGN_IDENTITY = -
+DEVELOPMENT_TEAM =
+
+#include? "LocalSigning.xcconfig"

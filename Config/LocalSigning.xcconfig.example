@@ -1,0 +1,12 @@
+// Optional local signing configuration.
+//
+// Copy this file to LocalSigning.xcconfig and provide your Apple
+// Development Team ID. LocalSigning.xcconfig is ignored by Git.
+//
+// Using an Apple Development identity gives macOS a stable code
+// identity across rebuilds, which helps preserve Privacy & Security
+// permissions such as Screen Recording.
+
+VIZ_CODE_SIGN_STYLE = Automatic
+VIZ_CODE_SIGN_IDENTITY = Apple Development
+VIZ_DEVELOPMENT_TEAM = YOUR_TEAM_ID
