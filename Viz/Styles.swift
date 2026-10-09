@@ -158,32 +158,32 @@ struct RoundedRectangleButtonStyle: ButtonStyle {
 struct ShortcutEditorView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openSettings) private var openSettings
-    @EnvironmentObject var appState: AppState
     let name: KeyboardShortcuts.Name
+    let actionLabel: LocalizedStringResource
 
     var body: some View {
         if let shortcut = KeyboardShortcuts.getShortcut(for: name) {
-            HStack(spacing: 4) {
+            Button {
+                UserDefaults.standard.set(0, forKey: "settingsSelectedTab")
+                NSApp.activate()
+                openSettings()
+                dismiss()
+            } label: {
                 Text(shortcut.description)
                     .font(.system(size: 10))
                     .foregroundStyle(.secondary)
                     .padding(4)
                     .padding(.horizontal, 2)
                     .background {
-                        Capsule()
-                            .fill(Color.secondary.opacity(0.2))
-                    }
-                    .onTapGesture {
-                        UserDefaults.standard.set(0, forKey: "settingsSelectedTab")
-                        NSApp.activate()
-                        openSettings()
-                        dismiss()
+                        Capsule().fill(Color.secondary.opacity(0.2))
                     }
             }
+            .buttonStyle(.plain)
+            .accessibilityLabel(Text(actionLabel))
+            .accessibilityValue(Text(shortcut.description))
         }
     }
 }
-
 
 struct PaddedProminentButtonStyle: PrimitiveButtonStyle {
     var icon: String? = nil
@@ -216,7 +216,8 @@ struct SpacedToggle: ToggleStyle {
         HStack {
             configuration.label
             Spacer() // Adds space between the label and the switch
-            Switch(isOn: configuration.$isOn)
+            Toggle(isOn: configuration.$isOn) { configuration.label }
+                .toggleStyle(.switch)
                 .labelsHidden() // Hide default labels of the switch to use the custom label
         }
     }
@@ -253,7 +254,8 @@ struct SpacedProcessingToggle: ToggleStyle {
 
             Spacer()
 
-            Switch(isOn: configuration.$isOn)
+            Toggle(isOn: configuration.$isOn) { configuration.label }
+                .toggleStyle(.switch)
                 .labelsHidden()
         }
     }
@@ -280,21 +282,12 @@ struct SpacedToggleSeconds: ToggleStyle {
 
             Spacer() // Adds space between the label and the switch
 
-            Switch(isOn: configuration.$isOn)
+            Toggle(isOn: configuration.$isOn) { configuration.label }
+                .toggleStyle(.switch)
                 .labelsHidden() // Hide default labels of the switch to use the custom label
         }
     }
 }
-
-struct Switch: View {
-    @Binding var isOn: Bool
-
-    var body: some View {
-        Toggle("", isOn: $isOn)
-            .toggleStyle(.switch)
-    }
-}
-
 
 @MainActor
 struct SimpleSearchStyle: @preconcurrency TextFieldStyle {

@@ -51,20 +51,27 @@ struct ContentView: View {
                         openSettings()
                         dismiss()
                     } label: {
-                        Image(systemName: updater.updateAvailable ? "arrow.down.circle" : "gear")
-                            .font(.system(size: 17))
+                        Group {
+                            if updater.updateAvailable { Label("Updates", systemImage: "arrow.down.circle") }
+                            else { Label("Settings", systemImage: "gear") }
+                        }
+                        .labelStyle(.iconOnly)
+                        .font(.system(size: 17))
                     }
                     .buttonStyle(.plain)
                     .foregroundStyle(updater.updateAvailable ? .green : .secondary)
+                    .help(updater.updateAvailable ? Text("Open Updates") : Text("Open Settings"))
 
                     Button {
                         NSApp.terminate(nil)
                     } label: {
-                        Image(systemName: "x.circle.fill")
+                        Label("Quit Viz", systemImage: "x.circle.fill")
+                            .labelStyle(.iconOnly)
                             .font(.system(size: 18))
                     }
                     .buttonStyle(.plain)
                     .foregroundStyle(.secondary)
+                    .help("Quit Viz")
                 }
                 .padding(4)
                 .padding(.horizontal, 2)
@@ -85,7 +92,7 @@ struct ContentView: View {
                     .help("Capture section of screen to extract text and barcodes")
                     .buttonStyle(RoundedRectangleButtonStyle(image: "viewfinder", size: 15))
 
-                    ShortcutEditorView(name: .captureContent)
+                    ShortcutEditorView(name: .captureContent, actionLabel: "Edit Capture shortcut")
 
                 }
 
@@ -98,7 +105,7 @@ struct ContentView: View {
                     .help("Open webcam capture window for OCR")
                     .buttonStyle(RoundedRectangleButtonStyle(image: "camera", size: 15))
 
-                    ShortcutEditorView(name: .captureWebcam)
+                    ShortcutEditorView(name: .captureWebcam, actionLabel: "Edit Webcam shortcut")
 
                 }
 
@@ -110,7 +117,7 @@ struct ContentView: View {
                     .help("Capture hex/rgb value from click location")
                     .buttonStyle(RoundedRectangleButtonStyle(image: "eyedropper", size: 15))
 
-                    ShortcutEditorView(name: .eyedropper)
+                    ShortcutEditorView(name: .eyedropper, actionLabel: "Edit Color shortcut")
                 }
 
                 VStack {
@@ -121,7 +128,7 @@ struct ContentView: View {
                     .help("Show history of captures from this session")
                     .buttonStyle(RoundedRectangleButtonStyle(image: "clock", size: 15))
 
-                    ShortcutEditorView(name: .history)
+                    ShortcutEditorView(name: .history, actionLabel: "Edit History shortcut")
 
                 }
 
@@ -132,7 +139,7 @@ struct ContentView: View {
                     .help("Clear clipboard contents and stored captures")
                     .buttonStyle(RoundedRectangleButtonStyle(image: "delete.left", size: 15))
 
-                    ShortcutEditorView(name: .clear)
+                    ShortcutEditorView(name: .clear, actionLabel: "Edit Clear shortcut")
                 }
 
             }

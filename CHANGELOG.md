@@ -31,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Preserve accessible switch labels, expose shortcut badges as keyboard-operable buttons, and explicitly name Settings, Updates, and Quit controls.
 - Read screen selections only from operation-owned temporary files, clean up canceled captures, and report capture or recognition failures separately from recognized text even with previews disabled.
 - Dismiss an open menu panel through its installed view when Webcam or History is opened with a global shortcut.
 - Fixed Settings failing to open or come to the front when clicking the menu-bar
