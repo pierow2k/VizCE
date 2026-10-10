@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Name the coordinated capture/history/clipboard reset explicitly and give it a dedicated orchestration file.
 - Extract queue-confined webcam session configuration and PNG frame encoding, with deferred configuration commit before startup or teardown.
 - Extract shell word scanning, name accepted placeholder forms, and make parser cursor advancement explicit.
 - Separate screen-capture temporary files, launch orchestration, result classification, and shared cleanup while preserving queue confinement.

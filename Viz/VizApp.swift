@@ -95,7 +95,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         KeyboardShortcuts.onKeyUp(for: .clear) {
-            clearClipboard()
+            clearCaptureHistoryAndClipboard()
         }
 
 #if !DEBUG

@@ -141,6 +141,6 @@ struct ContentView: View {
         dismiss()
     }
 
-    private func clearCaptures() { clearClipboard() }
+    private func clearCaptures() { clearCaptureHistoryAndClipboard() }
 
 }

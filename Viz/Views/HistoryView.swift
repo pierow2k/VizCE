@@ -46,7 +46,7 @@ struct HistoryView: View {
                 .labelsHidden()
                 Spacer()
                 Button(role: .destructive) {
-                    clearClipboard(historyState: historyState)
+                    clearCaptureHistoryAndClipboard(historyState: historyState)
                     feedbackResetID &+= 1
                 } label: {
                     Label("Clear history and clipboard", systemImage: "trash").labelStyle(.iconOnly)

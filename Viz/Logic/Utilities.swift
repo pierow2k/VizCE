@@ -26,17 +26,6 @@ func copyColorsToClipboard(color: ColorItem) {
 }
 
 @MainActor
-func clearClipboard(historyState: HistoryState? = nil) {
-    AppState.shared.invalidateCaptures()
-    CaptureService.shared.cancelCapture()
-    CaptureNoticePresenter.shared.close()
-    CaptureService.shared.recognizedContent.items.removeAll()
-    CaptureService.shared.pasteboard.clearContents()
-    (historyState ?? .shared).clear()
-    PreviewWindowController.shared.close()
-}
-
-@MainActor
 func pickColor() async -> ColorItem {
     await withCheckedContinuation { continuation in
         NSColorSampler().show { selectedColor in
