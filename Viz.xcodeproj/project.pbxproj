@@ -79,7 +79,6 @@
 		C7C0C0BE2D94D253002140DD /* water.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = C7C0C0BD2D94D253002140DD /* water.mp3 */; };
 		C7E780DE2BC700060053B311 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = C7E780DD2BC700060053B311 /* KeyboardShortcuts */; };
 		C7FAA9BF2E623C9500680DB2 /* WebcamCaptureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FAA9BE2E623C9500680DB2 /* WebcamCaptureView.swift */; };
-		C7FAA9C12E623E3100680DB2 /* ImageSnipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FAA9C02E623E3100680DB2 /* ImageSnipView.swift */; };
 		D6BCF0832206425A5EA6E54F /* PreviewWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3345C2A700F4A5336373AF8 /* PreviewWindowController.swift */; };
 		DB2F8B467A06E4B2ED76E534 /* WebcamCaptureBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D164E75DB1A3A74C9FE046A /* WebcamCaptureBackend.swift */; };
 		DB74B92318DFCEF2E7056A72 /* VideoSampleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF2877F8EA972E04B181C370 /* VideoSampleDelegate.swift */; };
@@ -170,7 +169,6 @@
 		C783473D2C0E1B1400F4EE76 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		C7C0C0BD2D94D253002140DD /* water.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = water.mp3; sourceTree = "<group>"; };
 		C7FAA9BE2E623C9500680DB2 /* WebcamCaptureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamCaptureView.swift; sourceTree = "<group>"; };
-		C7FAA9C02E623E3100680DB2 /* ImageSnipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSnipView.swift; sourceTree = "<group>"; };
 		D3345C2A700F4A5336373AF8 /* PreviewWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewWindowController.swift; sourceTree = "<group>"; };
 		D6162E61DDDBECE2441A13CE /* SystemWebcamAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemWebcamAuthorization.swift; sourceTree = "<group>"; };
 		DF2877F8EA972E04B181C370 /* VideoSampleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSampleDelegate.swift; sourceTree = "<group>"; };
@@ -245,7 +243,6 @@
 				C77DD5FE2D960B4A0046AD9F /* HistoryView.swift */,
 				C73944BB2BC449C800EE7EBF /* AboutView.swift */,
 				C7174CAA2BC0A52100DBEF75 /* PreviewWindowView.swift */,
-				C7FAA9C02E623E3100680DB2 /* ImageSnipView.swift */,
 				C7FAA9BE2E623C9500680DB2 /* WebcamCaptureView.swift */,
 				C76920102BC5EB5E00D23CEC /* MainView.swift */,
 			);
@@ -465,7 +462,6 @@
 				C73944B72BC4489C00EE7EBF /* AppState.swift in Sources */,
 				C7174CB12BC0C6A800DBEF75 /* Utilities.swift in Sources */,
 				C77DD5FF2D960B4F0046AD9F /* HistoryView.swift in Sources */,
-				C7FAA9C12E623E3100680DB2 /* ImageSnipView.swift in Sources */,
 				C7174C942BC06EE500DBEF75 /* VizApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

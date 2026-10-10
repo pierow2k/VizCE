@@ -62,6 +62,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- N/A
+- Remove the unused image-snipping view and its dormant, incorrect crop conversion.
 
 [unreleased]: https://github.com/pierow2k/Viz/compare/cde5a8e24a8b0379436d551b752ecc755e93b1b9...HEAD
