@@ -46,7 +46,7 @@ struct ContentView: View {
                 HStack() {
 
                     Button {
-                        UserDefaults.standard.set(updater.updateAvailable ? 2 : 0, forKey: "settingsSelectedTab")
+                        UserDefaults.standard.set(updater.updateAvailable ? SettingsTab.updates.rawValue : SettingsTab.general.rawValue, forKey: "settingsSelectedTab")
                         NSApp.activate()
                         openSettings()
                         dismiss()

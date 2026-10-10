@@ -550,6 +550,8 @@
 				<string>31487EB21FB47C4708D022BA</string>
 				<string>E7A00BAB2F1429EA6F147EF3</string>
 				<string>956F991B35098FD13271B031</string>
+				<string>79B92ED474AA6D812F353E40</string>
+				<string>709941AF05DD3C5A05E1328F</string>
 			</array>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
@@ -618,6 +620,8 @@
 				<string>3570D1505E0ADF0F6AC1011A</string>
 				<string>71F830F93DBDF929DF9AD3BB</string>
 				<string>F5C67536F25B4B61F284F77F</string>
+				<string>0E9F03046E30587F8699C2E6</string>
+				<string>A385E6FD3686CCB4F23B8C8A</string>
 			</array>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<integer>0</integer>
@@ -1311,6 +1315,42 @@
 			<string>PBXBuildFile</string>
 			<key>fileRef</key>
 			<string>956F991B35098FD13271B031</string>
+		</dict>
+		<key>79B92ED474AA6D812F353E40</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/SettingsTab.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>0E9F03046E30587F8699C2E6</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>79B92ED474AA6D812F353E40</string>
+		</dict>
+		<key>709941AF05DD3C5A05E1328F</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Tests/SettingsTabTests.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>A385E6FD3686CCB4F23B8C8A</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>709941AF05DD3C5A05E1328F</string>
 		</dict>
 	</dict>
 	<key>rootObject</key>
