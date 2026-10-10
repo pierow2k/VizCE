@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C748D3F06E36507ADCE220C5 /* ColorPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2252A47AC5726F65B84D64 /* ColorPreviewView.swift */; };
+		BCC8D7F12F14A13693DC7479 /* PreviewContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E93540D61AE867B59DADDC /* PreviewContentView.swift */; };
+		3B66F9330F17B1C205A10C52 /* CapturedImageSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B40F325493B9EB4275CE77 /* CapturedImageSelectionView.swift */; };
+		C5660FF69DEF1FAADD9B854E /* CapturedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A23711B34605CF64293518 /* CapturedImageView.swift */; };
+		2661D1A82C60939AF94B6EFD /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDA908A4D47653879D1E13E /* CameraPreviewView.swift */; };
 		D66CD0C4F50AAA0A692813A6 /* LegacySettingsTabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5923AE7D20A94ECBF4366D9F /* LegacySettingsTabs.swift */; };
 		66CB6877B895CAE9AF1DAF3E /* ModernSettingsTabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198E41130A8F6DF45A19E9ED /* ModernSettingsTabs.swift */; };
 		E32843F2EB189BD13D08F01F /* GeneralSettingsTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5679EE2B22F377F3988E8713 /* GeneralSettingsTab.swift */; };
@@ -94,6 +99,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3C2252A47AC5726F65B84D64 /* ColorPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPreviewView.swift; sourceTree = "<group>"; };
+		28E93540D61AE867B59DADDC /* PreviewContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContentView.swift; sourceTree = "<group>"; };
+		08B40F325493B9EB4275CE77 /* CapturedImageSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapturedImageSelectionView.swift; sourceTree = "<group>"; };
+		31A23711B34605CF64293518 /* CapturedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapturedImageView.swift; sourceTree = "<group>"; };
+		CDDA908A4D47653879D1E13E /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
 		5923AE7D20A94ECBF4366D9F /* LegacySettingsTabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacySettingsTabs.swift; sourceTree = "<group>"; };
 		198E41130A8F6DF45A19E9ED /* ModernSettingsTabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernSettingsTabs.swift; sourceTree = "<group>"; };
 		5679EE2B22F377F3988E8713 /* GeneralSettingsTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSettingsTab.swift; sourceTree = "<group>"; };
@@ -237,6 +247,11 @@
 		C74D7C952D95CF2C009A8C48 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3C2252A47AC5726F65B84D64 /* ColorPreviewView.swift */,
+				28E93540D61AE867B59DADDC /* PreviewContentView.swift */,
+				08B40F325493B9EB4275CE77 /* CapturedImageSelectionView.swift */,
+				31A23711B34605CF64293518 /* CapturedImageView.swift */,
+				CDDA908A4D47653879D1E13E /* CameraPreviewView.swift */,
 				5923AE7D20A94ECBF4366D9F /* LegacySettingsTabs.swift */,
 				198E41130A8F6DF45A19E9ED /* ModernSettingsTabs.swift */,
 				5679EE2B22F377F3988E8713 /* GeneralSettingsTab.swift */,
@@ -404,6 +419,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C748D3F06E36507ADCE220C5 /* ColorPreviewView.swift in Sources */,
+				BCC8D7F12F14A13693DC7479 /* PreviewContentView.swift in Sources */,
+				3B66F9330F17B1C205A10C52 /* CapturedImageSelectionView.swift in Sources */,
+				C5660FF69DEF1FAADD9B854E /* CapturedImageView.swift in Sources */,
+				2661D1A82C60939AF94B6EFD /* CameraPreviewView.swift in Sources */,
 				D66CD0C4F50AAA0A692813A6 /* LegacySettingsTabs.swift in Sources */,
 				66CB6877B895CAE9AF1DAF3E /* ModernSettingsTabs.swift in Sources */,
 				E32843F2EB189BD13D08F01F /* GeneralSettingsTab.swift in Sources */,

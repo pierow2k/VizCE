@@ -30,7 +30,8 @@ struct WebcamCaptureView: View {
             let viewport = geometry.size
             ZStack {
                 if let image = captureManager.capturedImage {
-                    imageViewport(image, size: viewport)
+                    CapturedImageSelectionView(
+                        image: image, size: viewport, isSnipping: isSnipping, selection: $selection)
                 } else if let preview = captureManager.previewLayer,
                     captureManager.state == .previewing || captureManager.state == .capturing
                 {
@@ -77,30 +78,6 @@ struct WebcamCaptureView: View {
             if captureManager.capturedImage == nil { isSnipping = false }
         }
         .onChange(of: selectedWebcamID) { captureManager.start(deviceID: selectedWebcamID) }
-    }
-
-    private func imageViewport(_ image: NSImage, size: CGSize) -> some View {
-        ZStack {
-            Image(nsImage: image).resizable().aspectRatio(contentMode: .fill)
-                .frame(width: size.width, height: size.height).clipped()
-            Rectangle().stroke(.blue, lineWidth: 2).background(.blue.opacity(0.1))
-                .frame(width: selection.rect.width, height: selection.rect.height)
-                .position(x: selection.rect.midX, y: selection.rect.midY)
-                .opacity(isSnipping && selection.rect != .zero ? 1 : 0)
-        }
-        .frame(width: size.width, height: size.height)
-        .contentShape(Rectangle())
-        .onAppear { selection.updateViewport(size) }
-        .onChange(of: size) { selection.updateViewport(size) }
-        .gesture(
-            DragGesture(coordinateSpace: .local).onChanged { value in
-                guard isSnipping else { return }
-                selection.drag(start: value.startLocation, current: value.location)
-            }.onEnded { _ in selection.endDrag() }
-        )
-        .onHover { inside in
-            if inside && isSnipping { NSCursor.crosshair.set() } else { NSCursor.arrow.set() }
-        }
     }
 
     private func restart() {
@@ -157,32 +134,4 @@ struct WebcamCaptureView: View {
         return NSImage(cgImage: cropped, size: NSSize(width: cropped.width, height: cropped.height))
     }
 
-}
-
-struct CameraPreviewView: NSViewRepresentable {
-    let previewLayer: AVCaptureVideoPreviewLayer
-
-    func makeNSView(context: Context) -> NSView {
-        let view = NSView()
-        view.layer = previewLayer
-        view.wantsLayer = true
-        return view
-    }
-
-    func updateNSView(_ nsView: NSView, context: Context) {
-        nsView.layer = previewLayer
-        previewLayer.frame = nsView.bounds
-    }
-}
-
-struct CapturedImageView: View {
-    let image: NSImage
-
-    var body: some View {
-        Image(nsImage: image)
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 480, height: 360)
-            .background(Color.black)
-    }
 }

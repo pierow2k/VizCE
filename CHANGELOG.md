@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Separate camera preview, captured-image selection, text/color previews, and preview presentation into focused files while preserving capture and crop behavior.
 - Use typed Settings tab identities with unchanged saved values, modern tabs on macOS 15 and later, and a shared-content macOS 14 fallback.
 - Project history filters and newest-first ordering once per parent view evaluation; keep copy feedback in the installed list so copying does not repeat filtering.
 - Use modern SwiftUI foreground, overlay, background, and clipping APIs without changing styling; discover external cameras using the macOS 14 device type.
