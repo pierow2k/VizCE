@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		64A9678DBBD3B0281F07152D /* HistoryListContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E09146444CA88008E6434E /* HistoryListContentView.swift */; };
 		DE6701A031A766FBA40F4106 /* WebcamCameraPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F609752014B916E74BC617 /* WebcamCameraPicker.swift */; };
 		D679DE8D88C3299793D0F1FC /* WebcamControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D456E837BF706DFE35D1F93 /* WebcamControlsView.swift */; };
 		CA3D9B4E788880B539D6B33A /* WebcamRecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C58A8700FACB0FD2FB88C3E /* WebcamRecoveryView.swift */; };
@@ -89,6 +90,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		43E09146444CA88008E6434E /* HistoryListContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryListContentView.swift; sourceTree = "<group>"; };
 		C0F609752014B916E74BC617 /* WebcamCameraPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamCameraPicker.swift; sourceTree = "<group>"; };
 		7D456E837BF706DFE35D1F93 /* WebcamControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamControlsView.swift; sourceTree = "<group>"; };
 		6C58A8700FACB0FD2FB88C3E /* WebcamRecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamRecoveryView.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 		C74D7C952D95CF2C009A8C48 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				43E09146444CA88008E6434E /* HistoryListContentView.swift */,
 				C0F609752014B916E74BC617 /* WebcamCameraPicker.swift */,
 				7D456E837BF706DFE35D1F93 /* WebcamControlsView.swift */,
 				6C58A8700FACB0FD2FB88C3E /* WebcamRecoveryView.swift */,
@@ -389,6 +392,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64A9678DBBD3B0281F07152D /* HistoryListContentView.swift in Sources */,
 				DE6701A031A766FBA40F4106 /* WebcamCameraPicker.swift in Sources */,
 				D679DE8D88C3299793D0F1FC /* WebcamControlsView.swift in Sources */,
 				CA3D9B4E788880B539D6B33A /* WebcamRecoveryView.swift in Sources */,

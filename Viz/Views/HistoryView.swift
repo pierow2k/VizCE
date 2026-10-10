@@ -3,7 +3,7 @@ import AlinFoundation
 
 struct HistoryView: View {
     @ObservedObject private var historyState: HistoryState
-    @StateObject private var feedback = CopyFeedbackController()
+    @State private var feedbackResetID: UInt64 = 0
     @State private var filterSelection = HistoryFilter.all
 
     init(historyState: HistoryState? = nil) {
@@ -20,6 +20,7 @@ struct HistoryView: View {
     }
 
     var body: some View {
+        let items = filteredItems
         VStack(spacing: 0) {
             Text("History").font(.title).padding(.vertical)
             if historyState.repository.isLoading { ProgressView("Loading history") }
@@ -30,20 +31,12 @@ struct HistoryView: View {
                 }.padding()
             }
             Spacer()
-            if filteredItems.isEmpty {
-                Text(filterSelection.emptyMessage).foregroundStyle(.secondary)
-            } else {
-                ScrollView {
-                    LazyVStack(alignment: .leading) {
-                        ForEach(filteredItems) { item in
-                            HistoryRow(entry: item, feedback: feedback) {
-                                historyState.delete(id: item.id)
-                            }
-                        }
-                    }
-                }
-                .scrollIndicators(.never)
-            }
+            HistoryListContentView(
+                entries: items,
+                emptyMessage: filterSelection.emptyMessage,
+                feedbackResetID: feedbackResetID,
+                delete: { historyState.delete(id: $0) }
+            )
             Spacer()
             HStack {
                 Picker("Capture type", selection: $filterSelection) {
@@ -54,7 +47,7 @@ struct HistoryView: View {
                 Spacer()
                 Button(role: .destructive) {
                     clearClipboard(historyState: historyState)
-                    feedback.clear()
+                    feedbackResetID &+= 1
                 } label: {
                     Label("Clear history and clipboard", systemImage: "trash").labelStyle(.iconOnly)
                 }
@@ -70,7 +63,6 @@ struct HistoryView: View {
         .background(Color("bg"))
         .environment(\.colorScheme, .dark)
         .preferredColorScheme(.dark)
-        .onDisappear { feedback.clear() }
     }
 }
 
