@@ -552,6 +552,7 @@
 				<string>956F991B35098FD13271B031</string>
 				<string>79B92ED474AA6D812F353E40</string>
 				<string>709941AF05DD3C5A05E1328F</string>
+				<string>2E7075E8B570CCE718E0A20C</string>
 			</array>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
@@ -622,6 +623,7 @@
 				<string>F5C67536F25B4B61F284F77F</string>
 				<string>0E9F03046E30587F8699C2E6</string>
 				<string>A385E6FD3686CCB4F23B8C8A</string>
+				<string>41F9E84827BF18B9DF0DBF4C</string>
 			</array>
 			<key>runOnlyForDeploymentPostprocessing</key>
 			<integer>0</integer>
@@ -1351,6 +1353,24 @@
 			<string>PBXBuildFile</string>
 			<key>fileRef</key>
 			<string>709941AF05DD3C5A05E1328F</string>
+		</dict>
+		<key>2E7075E8B570CCE718E0A20C</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>../Viz/Logic/ScreenCaptureFiles.swift</string>
+			<key>sourceTree</key>
+			<string>SOURCE_ROOT</string>
+		</dict>
+		<key>41F9E84827BF18B9DF0DBF4C</key>
+		<dict>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+			<key>fileRef</key>
+			<string>2E7075E8B570CCE718E0A20C</string>
 		</dict>
 	</dict>
 	<key>rootObject</key>

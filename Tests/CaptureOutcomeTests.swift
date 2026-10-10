@@ -103,6 +103,31 @@ final class CaptureOutcomeTests: XCTestCase {
         XCTAssertTrue(try FileManager.default.contentsOfDirectory(atPath: root.path).isEmpty)
     }
 
+    func testFilelessSuccessIsCancellationAndEmptyOutputIsFailure() async throws {
+        let root = temporaryRoot()
+        defer { try? FileManager.default.removeItem(at: root) }
+        let cancelled = await ScreenCaptureWorker(
+            executable: URL(fileURLWithPath: "/bin/zsh"), temporaryDirectory: root
+        ) { _ in ["-c", "exit 0"] }.capture()
+        XCTAssertEqual(cancelled, .cancelled)
+        let empty = await ScreenCaptureWorker(
+            executable: URL(fileURLWithPath: "/bin/zsh"), temporaryDirectory: root
+        ) { output in ["-c", "printf '' > \"$1\"", "viz-test", output.path] }.capture()
+        guard case .failure(.screenCapture) = empty else { return XCTFail("Empty owned output must fail") }
+        XCTAssertTrue(try FileManager.default.contentsOfDirectory(atPath: root.path).isEmpty)
+    }
+
+    func testDiagnosticExitOneIsFailureRatherThanCancellation() async throws {
+        let root = temporaryRoot()
+        defer { try? FileManager.default.removeItem(at: root) }
+        let failed = await ScreenCaptureWorker(
+            executable: URL(fileURLWithPath: "/bin/zsh"), temporaryDirectory: root
+        ) { _ in ["-c", "print -u2 capture-failed; exit 1"] }.capture()
+        guard case .failure(.screenCapture(let message)) = failed else { return XCTFail("Expected diagnostic failure") }
+        XCTAssertEqual(message, "capture-failed")
+        XCTAssertTrue(try FileManager.default.contentsOfDirectory(atPath: root.path).isEmpty)
+    }
+
     private func temporaryRoot() -> URL {
         FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
     }

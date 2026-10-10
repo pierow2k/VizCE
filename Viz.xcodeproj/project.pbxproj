@@ -109,6 +109,7 @@
 		F114D0D9F34E0B2362F5BC47 /* ImageCropTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18984167139B876EAD3C286D /* ImageCropTransform.swift */; };
 		FEC113CE810A5D8142F06074 /* ImageSelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8410CA3759E6B0114BF38C7 /* ImageSelectionState.swift */; };
 		9D42367BCBFBF90C4D06AFB9 /* MenuActionTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2424F44004D17E2078C5ABD6 /* MenuActionTile.swift */; };
+		1218C08267719F6121C209EA /* ScreenCaptureFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703A28D4812872B9E6C95A3B /* ScreenCaptureFiles.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -219,6 +220,7 @@
 		DF2877F8EA972E04B181C370 /* VideoSampleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSampleDelegate.swift; sourceTree = "<group>"; };
 		E92D5A9AA80767808B207833 /* WebcamCaptureCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamCaptureCoordinator.swift; sourceTree = "<group>"; };
 		2424F44004D17E2078C5ABD6 /* MenuActionTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuActionTile.swift; sourceTree = "<group>"; };
+		703A28D4812872B9E6C95A3B /* ScreenCaptureFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenCaptureFiles.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -311,6 +313,7 @@
 		C74D7C962D95CF84009A8C48 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				703A28D4812872B9E6C95A3B /* ScreenCaptureFiles.swift */,
 				23AD5A497BBA9999867B4259 /* RecognizedContent.swift */,
 				CE10BA9F0A7962608C966275 /* SettingsTab.swift */,
 				4DC76786BDA6689B0D6FE91E /* WebcamManager.swift */,
@@ -474,6 +477,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1218C08267719F6121C209EA /* ScreenCaptureFiles.swift in Sources */,
 				9D42367BCBFBF90C4D06AFB9 /* MenuActionTile.swift in Sources */,
 				4125C9DC7BB0AD4618814905 /* MovableWindowAccessor.swift in Sources */,
 				7ABF1DABAADA5900E97C22A8 /* NSTextView+InsertionPoint.swift in Sources */,

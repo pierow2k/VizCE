@@ -20,70 +20,7 @@ final class ScreenCaptureWorker: Sendable {
         let state = ScreenCaptureOperationState()
         return await withTaskCancellationHandler {
             await withCheckedContinuation { continuation in
-                queue.async {
-                    guard !state.cancelled else {
-                        state.finished = true
-                        continuation.resume(returning: .cancelled)
-                        return
-                    }
-                    let directory = self.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-                    let imageURL = directory.appendingPathComponent("capture.png")
-                    let diagnosticsURL = directory.appendingPathComponent("diagnostics.txt")
-                    var output: FileHandle?
-                    do {
-                        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: true)
-                        guard FileManager.default.createFile(atPath: diagnosticsURL.path, contents: nil) else {
-                            throw CocoaError(.fileWriteUnknown)
-                        }
-                        let handle = try FileHandle(forWritingTo: diagnosticsURL)
-                        output = handle
-                        let process = Process()
-                        state.process = process
-                        process.executableURL = self.executable
-                        process.arguments = self.arguments(imageURL)
-                        // A file avoids a full diagnostic pipe blocking completion/cancellation.
-                        process.standardOutput = handle
-                        process.standardError = handle
-                        process.terminationHandler = { process in
-                            self.queue.async {
-                                try? handle.close()
-                                state.finished = true
-                                state.process = nil
-                                process.terminationHandler = nil
-                                guard !state.cancelled else {
-                                    try? FileManager.default.removeItem(at: directory)
-                                    continuation.resume(returning: .cancelled)
-                                    return
-                                }
-                                let diagnostics = (try? String(contentsOf: diagnosticsURL, encoding: .utf8))?
-                                    .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-                                let outcome: ScreenCaptureOutcome
-                                if process.terminationReason == .exit, process.terminationStatus == 0,
-                                   let data = try? Data(contentsOf: imageURL), !data.isEmpty {
-                                    outcome = .image(data)
-                                } else if process.terminationReason == .exit,
-                                          [0, 1].contains(process.terminationStatus), diagnostics.isEmpty,
-                                          !FileManager.default.fileExists(atPath: imageURL.path) {
-                                    // Escape (or Control directing capture to clipboard) produced no owned file.
-                                    outcome = .cancelled
-                                } else {
-                                    let detail = diagnostics.isEmpty ? String(localized: "Process exited with status \(process.terminationStatus).") : diagnostics
-                                    outcome = .failure(.screenCapture(detail))
-                                }
-                                try? FileManager.default.removeItem(at: directory)
-                                continuation.resume(returning: outcome)
-                            }
-                        }
-                        try process.run()
-                    } catch {
-                        state.finished = true
-                        state.process?.terminationHandler = nil
-                        state.process = nil
-                        try? output?.close()
-                        try? FileManager.default.removeItem(at: directory)
-                        continuation.resume(returning: .failure(.screenCapture(error.localizedDescription)))
-                    }
-                }
+                queue.async { self.launch(state: state, continuation: continuation) }
             }
         } onCancel: {
             self.queue.async {
@@ -93,4 +30,72 @@ final class ScreenCaptureWorker: Sendable {
             }
         }
     }
+
+    private func launch(state: ScreenCaptureOperationState,
+                        continuation: CheckedContinuation<ScreenCaptureOutcome, Never>) {
+        dispatchPrecondition(condition: .onQueue(queue))
+        guard !state.cancelled else {
+            state.finished = true
+            continuation.resume(returning: .cancelled)
+            return
+        }
+        let files = ScreenCaptureFiles(temporaryDirectory: temporaryDirectory)
+        var output: FileHandle?
+        do {
+            let handle = try files.prepareDiagnosticOutput()
+            output = handle
+            let process = Process()
+            state.process = process
+            process.executableURL = executable
+            process.arguments = arguments(files.imageURL)
+            // A file avoids a full diagnostic pipe blocking completion/cancellation.
+            process.standardOutput = handle
+            process.standardError = handle
+            process.terminationHandler = { process in
+                self.queue.async {
+                    let result = self.finish(state: state, files: files, output: handle) {
+                        state.cancelled ? .cancelled : self.outcome(for: process, files: files)
+                    }
+                    continuation.resume(returning: result)
+                }
+            }
+            try process.run()
+        } catch {
+            let result = finish(state: state, files: files, output: output) {
+                .failure(.screenCapture(error.localizedDescription))
+            }
+            continuation.resume(returning: result)
+        }
+    }
+
+    private func outcome(for process: Process, files: ScreenCaptureFiles) -> ScreenCaptureOutcome {
+        let diagnostics = (try? String(contentsOf: files.diagnosticsURL, encoding: .utf8))?
+            .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        if process.terminationReason == .exit, process.terminationStatus == 0,
+           let data = try? Data(contentsOf: files.imageURL), !data.isEmpty {
+            return .image(data)
+        }
+        if process.terminationReason == .exit, [0, 1].contains(process.terminationStatus),
+           diagnostics.isEmpty, !FileManager.default.fileExists(atPath: files.imageURL.path) {
+            // Escape (or Control directing capture to clipboard) produced no owned file.
+            return .cancelled
+        }
+        let detail = diagnostics.isEmpty
+            ? String(localized: "Process exited with status \(process.terminationStatus).") : diagnostics
+        return .failure(.screenCapture(detail))
+    }
+
+    private func finish(state: ScreenCaptureOperationState, files: ScreenCaptureFiles,
+                        output: FileHandle?, outcome: () -> ScreenCaptureOutcome) -> ScreenCaptureOutcome {
+        dispatchPrecondition(condition: .onQueue(queue))
+        try? output?.close()
+        state.finished = true
+        let process = state.process
+        state.process = nil
+        process?.terminationHandler = nil
+        let result = outcome()
+        files.remove()
+        return result
+    }
+
 }

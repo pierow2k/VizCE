@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Separate screen-capture temporary files, launch orchestration, result classification, and shared cleanup while preserving queue confinement.
 - Consolidate menu action tiles into a shared view and keep action ordering in named parent methods.
 - Share the image-recognition and success-only preview entry point across screen and webcam extraction.
 - Pass preview-duration and post-processing command bindings from the settings tab into their toggle styles.
