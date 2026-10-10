@@ -111,6 +111,7 @@
 		9D42367BCBFBF90C4D06AFB9 /* MenuActionTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2424F44004D17E2078C5ABD6 /* MenuActionTile.swift */; };
 		1218C08267719F6121C209EA /* ScreenCaptureFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703A28D4812872B9E6C95A3B /* ScreenCaptureFiles.swift */; };
 		FFF9F2E1A28D00F6DEA03E10 /* CaptureReset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAE501B6A77A23171895DA9 /* CaptureReset.swift */; };
+		E13C4C2C5C0DAC5A8420ED74 /* PreviewCloseHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97BF54298CD68A922644AEF /* PreviewCloseHeader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -223,6 +224,7 @@
 		2424F44004D17E2078C5ABD6 /* MenuActionTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuActionTile.swift; sourceTree = "<group>"; };
 		703A28D4812872B9E6C95A3B /* ScreenCaptureFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenCaptureFiles.swift; sourceTree = "<group>"; };
 		1CAE501B6A77A23171895DA9 /* CaptureReset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureReset.swift; sourceTree = "<group>"; };
+		A97BF54298CD68A922644AEF /* PreviewCloseHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCloseHeader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,6 +280,7 @@
 		C74D7C952D95CF2C009A8C48 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A97BF54298CD68A922644AEF /* PreviewCloseHeader.swift */,
 				2424F44004D17E2078C5ABD6 /* MenuActionTile.swift */,
 				782185705378ABE22E600230 /* MovableWindowAccessor.swift */,
 				5F62EE83E6867139AC646DF3 /* NSTextView+InsertionPoint.swift */,
@@ -480,6 +483,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E13C4C2C5C0DAC5A8420ED74 /* PreviewCloseHeader.swift in Sources */,
 				FFF9F2E1A28D00F6DEA03E10 /* CaptureReset.swift in Sources */,
 				1218C08267719F6121C209EA /* ScreenCaptureFiles.swift in Sources */,
 				9D42367BCBFBF90C4D06AFB9 /* MenuActionTile.swift in Sources */,

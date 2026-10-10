@@ -6,17 +6,7 @@ struct ColorPreviewView: View {
     var body: some View {
 
         VStack(alignment: .leading, spacing: 0) {
-            HStack {
-                Spacer()
-
-                Button {
-                    PreviewWindowController.shared.close()
-                } label: {
-                    Label("Close preview", systemImage: "x.circle.fill")
-                }
-                .buttonStyle(SimpleButtonStyle(help: "Close", color: .primary, size: 14))
-            }
-            .padding(2)
+            PreviewCloseHeader(close: PreviewWindowController.shared.close)
 
             VStack(alignment: .leading) {
                 Text("Hex: \(AppState.shared.colorSample.hex)")
