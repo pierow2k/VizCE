@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Put reusable button/toggle/text-field styles and shapes in a Styles group; give shortcut/info controls, the text-view extension, and window accessor focused files without changing behavior.
 - Organize recognized content, recognition quality, history entries, and text/color models into individual files while preserving actor isolation, identity, and history encoding.
 - Separate camera preview, captured-image selection, text/color previews, and preview presentation into focused files while preserving capture and crop behavior.
 - Use typed Settings tab identities with unchanged saved values, modern tabs on macOS 15 and later, and a shared-content macOS 14 fallback.
