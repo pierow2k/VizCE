@@ -80,7 +80,7 @@ struct PreviewContentView: View {
 
             }
         }
-        .foregroundColor(.primary)
+        .foregroundStyle(.primary)
         .material(.sidebar)
     }
 }
@@ -111,7 +111,7 @@ struct ColorPreviewView: View {
             }
             .padding([.horizontal, .bottom])
         }
-        .foregroundColor(.primary)
+        .foregroundStyle(.primary)
         .material(.sidebar)
     }
 }

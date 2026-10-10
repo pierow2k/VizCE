@@ -36,12 +36,12 @@ struct InfoButton: View {
                     .resizable()
                     .scaledToFit()
                     .frame(width: 14, height: 14)
-                    .foregroundColor(!warning ? color.opacity(0.7) : color)
+                    .foregroundStyle(!warning ? color.opacity(0.7) : color)
                     .frame(height: 16)
                 if !label.isEmpty {
                     Text(label)
                         .font(.callout)
-                        .foregroundColor(color.opacity(0.7))
+                        .foregroundStyle(color.opacity(0.7))
 
                 }
             }
@@ -120,20 +120,20 @@ struct RoundedRectangleButtonStyle: ButtonStyle {
                 if let shortcut = shortcut {
                     Text(shortcut.description)
                         .font(.footnote)
-                        .foregroundColor(.secondary)
+                        .foregroundStyle(.secondary)
                 }
             }
             Spacer()
         }
         .padding()
         .background(isHovered ? Color.primary.opacity(0.3) : Color.primary.opacity(0.1))
-        .foregroundColor(.primary)
-        .overlay(
+        .foregroundStyle(.primary)
+        .overlay {
             RoundedRectangle(cornerRadius: 10)
                 .strokeBorder(.primary.opacity(0.2), lineWidth: 1)
-        )
+        }
         .animation(reduceMotion ? nil : .easeInOut(duration: 0.3), value: isHovered)
-        .cornerRadius(10)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
         .scaleEffect(!reduceMotion && configuration.isPressed ? 0.95 : 1.0)
         .opacity(reduceMotion && configuration.isPressed ? 0.7 : 1)
         .onHover { inside in
@@ -238,7 +238,7 @@ struct SpacedProcessingToggle: ToggleStyle {
                         .foregroundStyle(.secondary)
                         .textSelection(.disabled)
                 }
-                .background(Color("bg").padding(-80))
+                .background { Color("bg").padding(-80) }
                 .padding()
             }
 
@@ -297,7 +297,7 @@ struct SimpleSearchStyle: @preconcurrency TextFieldStyle {
                 HStack {
                     configuration
                         .font(.title3)
-                        .foregroundColor(.clear)
+                        .foregroundStyle(.clear)
                         .textFieldStyle(PlainTextFieldStyle())
 
                     Spacer()

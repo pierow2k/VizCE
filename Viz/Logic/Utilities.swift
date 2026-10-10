@@ -110,7 +110,7 @@ extension NSColor {
 extension View {
     // Helper function to apply the movable background window
     func movableByWindowBackground() -> some View {
-        self.background(MovableWindowAccessor())
+        self.background { MovableWindowAccessor() }
     }
 }
 
