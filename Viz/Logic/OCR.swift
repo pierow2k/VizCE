@@ -62,7 +62,7 @@ struct TextRecognition {
         if options.append { recognizedContent.items.append(item) }
         else { recognizedContent.items = [item] }
         copyTextItemsToClipboard(textItems: recognizedContent.items)
-        playSound(for: .text(item))
+        playCaptureSound()
         historyState.append(.text(item))
         guard options.processing else { return }
         let contentSnapshot = recognizedContent.items.map(\.text).joined(separator: "\n")

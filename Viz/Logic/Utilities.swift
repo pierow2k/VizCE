@@ -55,7 +55,7 @@ func processColor() {
         guard state.clearGeneration == clearToken, !result.hex.isEmpty else { return }
 
         copyColorsToClipboard(color: result)
-        playSound(for: .color(ColorItem(hex: "", rgb: "")))
+        playCaptureSound()
         AppState.shared.colorSample = result
         let colorItem = ColorItem(hex: result.hex, rgb: result.rgb)
         let entry = HistoryEntry.color(colorItem)
@@ -63,26 +63,6 @@ func processColor() {
         await MainActor.run {
             showPreviewWindow(contentView: ColorPreviewView())
         }
-    }
-}
-
-@MainActor
-func playSound(for entry: HistoryEntry) {
-    @AppStorage("mute") var mute: Bool = false
-
-    guard mute == false else { return }
-
-    let soundName: String
-
-    switch entry {
-    case .text:
-        soundName = "water"
-    case .color:
-        soundName = "water"
-    }
-
-    if let sound = NSSound(named: soundName) {
-        sound.play()
     }
 }
 

@@ -112,6 +112,7 @@
 		1218C08267719F6121C209EA /* ScreenCaptureFiles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703A28D4812872B9E6C95A3B /* ScreenCaptureFiles.swift */; };
 		FFF9F2E1A28D00F6DEA03E10 /* CaptureReset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CAE501B6A77A23171895DA9 /* CaptureReset.swift */; };
 		E13C4C2C5C0DAC5A8420ED74 /* PreviewCloseHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A97BF54298CD68A922644AEF /* PreviewCloseHeader.swift */; };
+		4EB07972EC41D09CD486BCAD /* CaptureSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D91DD71CC476E8CBEFA9174 /* CaptureSound.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -225,6 +226,7 @@
 		703A28D4812872B9E6C95A3B /* ScreenCaptureFiles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenCaptureFiles.swift; sourceTree = "<group>"; };
 		1CAE501B6A77A23171895DA9 /* CaptureReset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureReset.swift; sourceTree = "<group>"; };
 		A97BF54298CD68A922644AEF /* PreviewCloseHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCloseHeader.swift; sourceTree = "<group>"; };
+		6D91DD71CC476E8CBEFA9174 /* CaptureSound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureSound.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -318,6 +320,7 @@
 		C74D7C962D95CF84009A8C48 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				6D91DD71CC476E8CBEFA9174 /* CaptureSound.swift */,
 				1CAE501B6A77A23171895DA9 /* CaptureReset.swift */,
 				703A28D4812872B9E6C95A3B /* ScreenCaptureFiles.swift */,
 				23AD5A497BBA9999867B4259 /* RecognizedContent.swift */,
@@ -483,6 +486,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EB07972EC41D09CD486BCAD /* CaptureSound.swift in Sources */,
 				E13C4C2C5C0DAC5A8420ED74 /* PreviewCloseHeader.swift in Sources */,
 				FFF9F2E1A28D00F6DEA03E10 /* CaptureReset.swift in Sources */,
 				1218C08267719F6121C209EA /* ScreenCaptureFiles.swift in Sources */,
