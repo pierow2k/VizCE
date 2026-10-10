@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Name the shared unavailable-language predicate while keeping the explanatory message conditional on loading completion.
 - Share the unchanged close-button header between text and color previews.
 - Name the coordinated capture/history/clipboard reset explicitly and give it a dedicated orchestration file.
 - Extract queue-confined webcam session configuration and PNG frame encoding, with deferred configuration commit before startup or teardown.
