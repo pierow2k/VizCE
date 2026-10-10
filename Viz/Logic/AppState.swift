@@ -12,12 +12,6 @@ import AlinFoundation
 import Vision
 
 @MainActor
-final class RecognizedContent: ObservableObject {
-    static let shared = RecognizedContent()
-    @Published var items = [TextItem]()
-}
-
-@MainActor
 final class AppState: ObservableObject {
     static let shared = AppState()
     let launchAtLogin = LaunchAtLoginController()
@@ -71,47 +65,4 @@ final class AppState: ObservableObject {
     }
 
 
-}
-
-
-enum TextRecognitionQuality: String, CaseIterable, Identifiable {
-    case fast = "Fast"
-    case accurate = "Accurate"
-
-    var id: String { self.rawValue }
-}
-
-enum HistoryEntry: Identifiable, Codable {
-    case text(TextItem)
-    case color(ColorItem)
-
-    var id: String {
-        switch self {
-        case .text(let item): return item.id
-        case .color(let item): return item.id
-        }
-    }
-}
-
-class TextItem: Identifiable, Codable {
-    let id: String
-    var text: String
-
-    init(id: String = UUID().uuidString, text: String) {
-        self.id = id
-        self.text = text
-    }
-}
-
-struct ColorItem: Identifiable, Codable {
-    let id: String
-    let hex: String
-    let rgb: String
-    var color: Color { Color(hex: hex) ?? Color.white }
-
-    init(hex: String, rgb: String, id: String = UUID().uuidString) {
-        self.id = id
-        self.hex = hex
-        self.rgb = rgb
-    }
 }
