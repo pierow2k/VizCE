@@ -15,11 +15,6 @@ func openHistory() {
 }
 
 @MainActor
-func openAbout() {
-    WindowManager.shared.open(id: "about", with: AboutView(), width: 400, height: 450)
-}
-
-@MainActor
 func openWebcamCapture() {
     WebcamWindowController.shared.show()
 }

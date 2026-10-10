@@ -10,16 +10,12 @@
 		4125C9DC7BB0AD4618814905 /* MovableWindowAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782185705378ABE22E600230 /* MovableWindowAccessor.swift */; };
 		7ABF1DABAADA5900E97C22A8 /* NSTextView+InsertionPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F62EE83E6867139AC646DF3 /* NSTextView+InsertionPoint.swift */; };
 		F3167514B42C417678D8CD49 /* ShortcutEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57AE8995C2F74D3BD1916092 /* ShortcutEditorView.swift */; };
-		B0F219716839E16193573E01 /* InfoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29716A32027D6C9BEA8FAAEE /* InfoButton.swift */; };
 		DC905617BBD9AD3AF19ABFAC /* TrailingRoundedRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C651FA5AA0C47FF325A8EA /* TrailingRoundedRectangle.swift */; };
 		27E829BF0AE310019E3D72C4 /* SpacedToggleSeconds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA5E10C90BDD07C26C8E326 /* SpacedToggleSeconds.swift */; };
 		428633FA10A07D1FFB95DD8D /* SpacedToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 053F7BE835FF8352C89085DD /* SpacedToggle.swift */; };
 		DFCC382021BD589B4CE2F443 /* SpacedProcessingToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EE395451C4AFC8635D01A6D /* SpacedProcessingToggle.swift */; };
-		E2FDF05AEA1EC1A42BF61336 /* SimpleSearchStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E0BAD0729F22E2254EC505 /* SimpleSearchStyle.swift */; };
 		BA9A3E0B0639B717462755FB /* SimpleButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE126A947A692961CCDE49D4 /* SimpleButtonStyle.swift */; };
-		C0E8F7A4252F0CA6B83DE724 /* SimpleButtonBrightStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC472C3BC9BF182DA5364AD1 /* SimpleButtonBrightStyle.swift */; };
 		AD9A87C103409615678EBD9A /* RoundedRectangleButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFB61974E7315A9B4039CE7 /* RoundedRectangleButtonStyle.swift */; };
-		979E0D16F3D2CC5539F8224C /* PaddedProminentButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 326B9FA04872D0AF9417C984 /* PaddedProminentButtonStyle.swift */; };
 		B07F4A082770E52C4494BBFE /* ColorItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F71B8AD5F7E127F105B77482 /* ColorItem.swift */; };
 		3CF41861AE123700235ED805 /* TextItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB936D09F10C5672FF55A657 /* TextItem.swift */; };
 		C8E1E217F7BED0FCFF058F93 /* HistoryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3765DCCFAE0E1CE5A0E39AE /* HistoryEntry.swift */; };
@@ -28,7 +24,6 @@
 		C748D3F06E36507ADCE220C5 /* ColorPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C2252A47AC5726F65B84D64 /* ColorPreviewView.swift */; };
 		BCC8D7F12F14A13693DC7479 /* PreviewContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E93540D61AE867B59DADDC /* PreviewContentView.swift */; };
 		3B66F9330F17B1C205A10C52 /* CapturedImageSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B40F325493B9EB4275CE77 /* CapturedImageSelectionView.swift */; };
-		C5660FF69DEF1FAADD9B854E /* CapturedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A23711B34605CF64293518 /* CapturedImageView.swift */; };
 		2661D1A82C60939AF94B6EFD /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDA908A4D47653879D1E13E /* CameraPreviewView.swift */; };
 		D66CD0C4F50AAA0A692813A6 /* LegacySettingsTabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5923AE7D20A94ECBF4366D9F /* LegacySettingsTabs.swift */; };
 		66CB6877B895CAE9AF1DAF3E /* ModernSettingsTabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198E41130A8F6DF45A19E9ED /* ModernSettingsTabs.swift */; };
@@ -119,16 +114,12 @@
 		782185705378ABE22E600230 /* MovableWindowAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovableWindowAccessor.swift; sourceTree = "<group>"; };
 		5F62EE83E6867139AC646DF3 /* NSTextView+InsertionPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTextView+InsertionPoint.swift"; sourceTree = "<group>"; };
 		57AE8995C2F74D3BD1916092 /* ShortcutEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortcutEditorView.swift; sourceTree = "<group>"; };
-		29716A32027D6C9BEA8FAAEE /* InfoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoButton.swift; sourceTree = "<group>"; };
 		80C651FA5AA0C47FF325A8EA /* TrailingRoundedRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailingRoundedRectangle.swift; sourceTree = "<group>"; };
 		1CA5E10C90BDD07C26C8E326 /* SpacedToggleSeconds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacedToggleSeconds.swift; sourceTree = "<group>"; };
 		053F7BE835FF8352C89085DD /* SpacedToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacedToggle.swift; sourceTree = "<group>"; };
 		4EE395451C4AFC8635D01A6D /* SpacedProcessingToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacedProcessingToggle.swift; sourceTree = "<group>"; };
-		77E0BAD0729F22E2254EC505 /* SimpleSearchStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleSearchStyle.swift; sourceTree = "<group>"; };
 		CE126A947A692961CCDE49D4 /* SimpleButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleButtonStyle.swift; sourceTree = "<group>"; };
-		FC472C3BC9BF182DA5364AD1 /* SimpleButtonBrightStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleButtonBrightStyle.swift; sourceTree = "<group>"; };
 		6EFB61974E7315A9B4039CE7 /* RoundedRectangleButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedRectangleButtonStyle.swift; sourceTree = "<group>"; };
-		326B9FA04872D0AF9417C984 /* PaddedProminentButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddedProminentButtonStyle.swift; sourceTree = "<group>"; };
 		F71B8AD5F7E127F105B77482 /* ColorItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorItem.swift; sourceTree = "<group>"; };
 		DB936D09F10C5672FF55A657 /* TextItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextItem.swift; sourceTree = "<group>"; };
 		E3765DCCFAE0E1CE5A0E39AE /* HistoryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryEntry.swift; sourceTree = "<group>"; };
@@ -137,7 +128,6 @@
 		3C2252A47AC5726F65B84D64 /* ColorPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPreviewView.swift; sourceTree = "<group>"; };
 		28E93540D61AE867B59DADDC /* PreviewContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContentView.swift; sourceTree = "<group>"; };
 		08B40F325493B9EB4275CE77 /* CapturedImageSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapturedImageSelectionView.swift; sourceTree = "<group>"; };
-		31A23711B34605CF64293518 /* CapturedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapturedImageView.swift; sourceTree = "<group>"; };
 		CDDA908A4D47653879D1E13E /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
 		5923AE7D20A94ECBF4366D9F /* LegacySettingsTabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacySettingsTabs.swift; sourceTree = "<group>"; };
 		198E41130A8F6DF45A19E9ED /* ModernSettingsTabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModernSettingsTabs.swift; sourceTree = "<group>"; };
@@ -285,11 +275,9 @@
 				782185705378ABE22E600230 /* MovableWindowAccessor.swift */,
 				5F62EE83E6867139AC646DF3 /* NSTextView+InsertionPoint.swift */,
 				57AE8995C2F74D3BD1916092 /* ShortcutEditorView.swift */,
-				29716A32027D6C9BEA8FAAEE /* InfoButton.swift */,
 				3C2252A47AC5726F65B84D64 /* ColorPreviewView.swift */,
 				28E93540D61AE867B59DADDC /* PreviewContentView.swift */,
 				08B40F325493B9EB4275CE77 /* CapturedImageSelectionView.swift */,
-				31A23711B34605CF64293518 /* CapturedImageView.swift */,
 				CDDA908A4D47653879D1E13E /* CameraPreviewView.swift */,
 				5923AE7D20A94ECBF4366D9F /* LegacySettingsTabs.swift */,
 				198E41130A8F6DF45A19E9ED /* ModernSettingsTabs.swift */,
@@ -398,11 +386,8 @@
 				1CA5E10C90BDD07C26C8E326 /* SpacedToggleSeconds.swift */,
 				053F7BE835FF8352C89085DD /* SpacedToggle.swift */,
 				4EE395451C4AFC8635D01A6D /* SpacedProcessingToggle.swift */,
-				77E0BAD0729F22E2254EC505 /* SimpleSearchStyle.swift */,
 				CE126A947A692961CCDE49D4 /* SimpleButtonStyle.swift */,
-				FC472C3BC9BF182DA5364AD1 /* SimpleButtonBrightStyle.swift */,
 				6EFB61974E7315A9B4039CE7 /* RoundedRectangleButtonStyle.swift */,
-				326B9FA04872D0AF9417C984 /* PaddedProminentButtonStyle.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -489,16 +474,12 @@
 				4125C9DC7BB0AD4618814905 /* MovableWindowAccessor.swift in Sources */,
 				7ABF1DABAADA5900E97C22A8 /* NSTextView+InsertionPoint.swift in Sources */,
 				F3167514B42C417678D8CD49 /* ShortcutEditorView.swift in Sources */,
-				B0F219716839E16193573E01 /* InfoButton.swift in Sources */,
 				DC905617BBD9AD3AF19ABFAC /* TrailingRoundedRectangle.swift in Sources */,
 				27E829BF0AE310019E3D72C4 /* SpacedToggleSeconds.swift in Sources */,
 				428633FA10A07D1FFB95DD8D /* SpacedToggle.swift in Sources */,
 				DFCC382021BD589B4CE2F443 /* SpacedProcessingToggle.swift in Sources */,
-				E2FDF05AEA1EC1A42BF61336 /* SimpleSearchStyle.swift in Sources */,
 				BA9A3E0B0639B717462755FB /* SimpleButtonStyle.swift in Sources */,
-				C0E8F7A4252F0CA6B83DE724 /* SimpleButtonBrightStyle.swift in Sources */,
 				AD9A87C103409615678EBD9A /* RoundedRectangleButtonStyle.swift in Sources */,
-				979E0D16F3D2CC5539F8224C /* PaddedProminentButtonStyle.swift in Sources */,
 				B07F4A082770E52C4494BBFE /* ColorItem.swift in Sources */,
 				3CF41861AE123700235ED805 /* TextItem.swift in Sources */,
 				C8E1E217F7BED0FCFF058F93 /* HistoryEntry.swift in Sources */,
@@ -507,7 +488,6 @@
 				C748D3F06E36507ADCE220C5 /* ColorPreviewView.swift in Sources */,
 				BCC8D7F12F14A13693DC7479 /* PreviewContentView.swift in Sources */,
 				3B66F9330F17B1C205A10C52 /* CapturedImageSelectionView.swift in Sources */,
-				C5660FF69DEF1FAADD9B854E /* CapturedImageView.swift in Sources */,
 				2661D1A82C60939AF94B6EFD /* CameraPreviewView.swift in Sources */,
 				D66CD0C4F50AAA0A692813A6 /* LegacySettingsTabs.swift in Sources */,
 				66CB6877B895CAE9AF1DAF3E /* ModernSettingsTabs.swift in Sources */,

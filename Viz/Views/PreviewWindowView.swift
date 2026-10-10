@@ -10,8 +10,6 @@ import AppKit
 import SwiftUI
 import AlinFoundation
 
-@MainActor var cmdOutputWindow: NSWindow?
-@MainActor var colorWindow: NSWindow?
 
 
 @MainActor

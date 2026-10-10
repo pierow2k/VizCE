@@ -8,12 +8,6 @@
 import Foundation
 import SwiftUI
 import AppKit
-import ServiceManagement
-
-
-
-
-
 
 @MainActor
 func copyTextItemsToClipboard(textItems: [TextItem]) {
@@ -31,7 +25,6 @@ func copyColorsToClipboard(color: ColorItem) {
     pasteboard.setString(color.hex, forType: .string)
 }
 
-
 @MainActor
 func clearClipboard(historyState: HistoryState? = nil) {
     AppState.shared.invalidateCaptures()
@@ -42,7 +35,6 @@ func clearClipboard(historyState: HistoryState? = nil) {
     (historyState ?? .shared).clear()
     PreviewWindowController.shared.close()
 }
-
 
 @MainActor
 func pickColor() async -> ColorItem {
@@ -85,28 +77,6 @@ func processColor() {
     }
 }
 
-extension NSColor {
-    var hex: String {
-        guard let rgbColor = usingColorSpace(.deviceRGB) else { return "N/A" }
-        let red = Int(rgbColor.redComponent * 255)
-        let green = Int(rgbColor.greenComponent * 255)
-        let blue = Int(rgbColor.blueComponent * 255)
-        return String(format: "#%02X%02X%02X", red, green, blue)
-    }
-
-    var rgb: String {
-        guard let rgbColor = usingColorSpace(.deviceRGB) else { return "N/A" }
-        let red = Int(rgbColor.redComponent * 255)
-        let green = Int(rgbColor.greenComponent * 255)
-        let blue = Int(rgbColor.blueComponent * 255)
-        return "(\(red), \(green), \(blue))"
-    }
-
-    var swiftColor: Color {
-        return Color(nsColor: self)
-    }
-}
-
 @MainActor
 func playSound(for entry: HistoryEntry) {
     @AppStorage("mute") var mute: Bool = false
@@ -126,62 +96,6 @@ func playSound(for entry: HistoryEntry) {
         sound.play()
     }
 }
-
-
-// Check app directory based on user permission
-func checkAppDirectoryAndUserRole(completion: @escaping @Sendable ((isInCorrectDirectory: Bool, isAdmin: Bool)) -> Void) {
-    isCurrentUserAdmin { isAdmin in
-        let bundlePath = Bundle.main.bundlePath as NSString
-        let applicationsDir = "/Applications"
-        let userApplicationsDir = "\(NSHomeDirectory())/Applications"
-
-        var isInCorrectDirectory = false
-
-        if isAdmin {
-            // Admins can have the app in either /Applications or ~/Applications
-            isInCorrectDirectory = bundlePath.deletingLastPathComponent == applicationsDir ||
-            bundlePath.deletingLastPathComponent == userApplicationsDir
-        } else {
-            // Standard users should only have the app in ~/Applications
-            isInCorrectDirectory = bundlePath.deletingLastPathComponent == userApplicationsDir
-        }
-
-        // Return both conditions: if the app is in the correct directory and if the user is an admin
-        completion((isInCorrectDirectory, isAdmin))
-    }
-}
-
-
-// Check if user is admin or standard user
-func isCurrentUserAdmin(completion: @escaping @Sendable (Bool) -> Void) {
-    let process = Process()
-    process.executableURL = URL(fileURLWithPath: "/bin/zsh") // Using zsh, macOS default shell
-    process.arguments = ["-c", "groups $(whoami) | grep -q ' admin '"]
-
-    process.terminationHandler = { process in
-        // On macOS, a process's exit status of 0 indicates success (admin group found in this context)
-        completion(process.terminationStatus == 0)
-    }
-
-    do {
-        try process.run()
-    } catch {
-        print("Failed to execute command: \(error)")
-        completion(false)
-    }
-}
-
-@MainActor
-func updateOnMain(after delay: Double? = nil, _ updates: @escaping @MainActor () -> Void) {
-    Task { @MainActor in
-        if let delay {
-            do { try await Task.sleep(for: .seconds(delay)) }
-            catch { return }
-        }
-        updates()
-    }
-}
-
 
 extension Bundle {
 

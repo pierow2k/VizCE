@@ -12,12 +12,9 @@ import KeyboardShortcuts
 import AlinFoundation
 
 struct ContentView: View {
-    @EnvironmentObject var appState: AppState
-    @EnvironmentObject var historyState: HistoryState
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openSettings) private var openSettings
     @EnvironmentObject var updater: Updater
-    @State private var windowController = WindowManager.shared
     @State private var menuRegistration: UUID?
 
 
