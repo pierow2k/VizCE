@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// Camera startup progress and recovery actions for permission or capture failures.
 struct WebcamRecoveryView: View {
     let state: WebcamState
     let devices: [WebcamDevice]

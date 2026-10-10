@@ -2,11 +2,16 @@ import SwiftUI
 import KeyboardShortcuts
 import AlinFoundation
 
+/// Application lifecycle hooks that register shortcuts and wait for history before quitting.
 @MainActor
 class AppDelegate: NSObject, NSApplicationDelegate {
     private let windowController = WindowManager.shared
+    /// Whether the user has explicitly allowed termination after a history save failure.
     private var quitWithoutSaving = false
 
+    /// Defers termination until history finishes saving and offers retry or discard actions on failure.
+    ///
+    /// Returns immediately only after the user has chosen to quit without saving.
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
         guard !quitWithoutSaving else { return .terminateNow }
         Task { @MainActor in
@@ -36,6 +41,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return .terminateLater
     }
 
+    /// Registers global shortcut actions and prepares application support storage in release builds.
     func applicationDidFinishLaunching(_ notification: Notification) {
 
         KeyboardShortcuts.onKeyUp(for: .captureContent) {

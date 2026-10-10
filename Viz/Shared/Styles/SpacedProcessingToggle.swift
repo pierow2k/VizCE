@@ -1,9 +1,12 @@
 import SwiftUI
 
+/// A switch with a popover for editing the post-processing shell template.
 struct SpacedProcessingToggle: ToggleStyle {
+    /// The persisted shell template edited in the popover; `[ocr]` must occupy a whole argument.
     @Binding var postCommands: String
     @State private var showPopover = false
 
+    /// Builds the processing switch and a popover editor bound to the saved shell template.
     func makeBody(configuration: Configuration) -> some View {
         HStack() {
 

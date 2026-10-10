@@ -1,6 +1,7 @@
 import SwiftUI
 import AlinFoundation
 
+/// A capture row with copy confirmation, optional link navigation, and a delete action.
 struct HistoryRow: View {
     let entry: HistoryEntry
     @ObservedObject var feedback: CopyFeedbackController
@@ -53,11 +54,15 @@ struct HistoryRow: View {
         .buttonStyle(.plain)
     }
 
+    /// Copies a row value to the clipboard and replaces the visible copy confirmation.
     private func copy(_ value: String) {
         copyToClipboard(value)
         feedback.show(id: entry.id)
     }
 
+    /// Trims captured text and adds HTTPS to recognized host-like values that lack an HTTP prefix.
+    ///
+    /// - Returns: A URL only when the trimmed text matches the history link pattern and can be parsed.
     private func recognizedURL(_ value: String) -> URL? {
         let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
         guard isRecognizedURLFormat(trimmed) else { return nil }

@@ -1,12 +1,15 @@
 import AppKit
 import SwiftUI
 
-/// A retained window can report errors even when the menu and previews are closed.
+/// A retained main-actor window for reporting failures or empty recognition results.
 @MainActor
 final class CaptureNoticePresenter {
     static let shared = CaptureNoticePresenter()
     private var window: NSWindow?
 
+    /// Replaces the notice window for an empty result or failure and activates the application.
+    ///
+    /// Content and cancellation outcomes leave the current notice unchanged.
     func show(_ outcome: RecognitionOutcome) {
         let title: LocalizedStringResource
         let message: String
@@ -32,5 +35,6 @@ final class CaptureNoticePresenter {
         window.makeKeyAndOrderFront(nil)
     }
 
+    /// Closes and releases the currently retained notice window.
     func close() { window?.close(); window = nil }
 }

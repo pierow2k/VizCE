@@ -1,12 +1,14 @@
 import AppKit
 import SwiftUI
 
+/// Main-actor ownership of a reusable camera window and its capture coordinator.
 @MainActor
 final class WebcamWindowController: NSObject, NSWindowDelegate {
     static let shared = WebcamWindowController()
     private var window: NSWindow?
     private var coordinator: WebcamCaptureCoordinator?
 
+    /// Brings forward the existing camera window or creates one with a fresh capture coordinator.
     func show() {
         if let window {
             window.makeKeyAndOrderFront(nil)
@@ -34,6 +36,7 @@ final class WebcamWindowController: NSObject, NSWindowDelegate {
         window.makeKeyAndOrderFront(nil)
     }
 
+    /// Stops camera work and releases state only when the closing window is the owned capture window.
     func windowWillClose(_ notification: Notification) {
         guard let closing = notification.object as? NSWindow, closing === window else { return }
         coordinator?.stop()
@@ -43,6 +46,9 @@ final class WebcamWindowController: NSObject, NSWindowDelegate {
         window = nil
     }
 
+    /// Fits the window to half the captured image dimensions, subject to orientation-specific size caps.
+    ///
+    /// Adds space for controls and animates unless Reduce Motion is enabled.
     private func resize(_ window: NSWindow, for image: NSImage) {
         let size = image.size
         guard size.width > 0, size.height > 0 else { return }
@@ -56,6 +62,7 @@ final class WebcamWindowController: NSObject, NSWindowDelegate {
             height = min(900, size.height * 0.5)
             width = height * ratio
         }
+        // Reserve 80 points below the scaled image for the capture and extraction controls.
         let newSize = NSSize(width: width, height: height + 80)
         if NSWorkspace.shared.accessibilityDisplayShouldReduceMotion {
             window.setContentSize(newSize)

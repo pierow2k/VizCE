@@ -1,3 +1,4 @@
+/// Stable integer identifiers persisted in the selected-settings-tab preference.
 enum SettingsTab: Int, CaseIterable {
     case general = 0
     case shortcuts = 1

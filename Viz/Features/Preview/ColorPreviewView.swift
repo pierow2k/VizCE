@@ -1,6 +1,7 @@
 import SwiftUI
 import AlinFoundation
 
+/// A floating preview of the most recently published color and its clipboard representations.
 struct ColorPreviewView: View {
 
     var body: some View {

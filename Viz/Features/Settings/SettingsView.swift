@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Persisted settings navigation with the tab presentation supported by the running macOS version.
 struct SettingsView: View {
     @AppStorage("settingsSelectedTab") private var selectedTab = SettingsTab.general
 

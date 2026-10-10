@@ -1,5 +1,6 @@
 import Foundation
 
+/// Localized camera setup and capture failures, including superseded operation identifiers.
 enum WebcamCaptureError: LocalizedError, Equatable, Sendable {
     case noDevice, unsupportedInput, unsupportedOutput, noFrame, conversionFailed, staleOperation, startFailed
 

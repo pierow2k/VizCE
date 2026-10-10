@@ -1,8 +1,11 @@
 import SwiftUI
 
+/// A rectangle with rounded top-right and bottom-right corners.
 struct TrailingRoundedRectangle: Shape {
+    /// The radius in points applied only to the two right-hand corners.
     var cornerRadius: CGFloat
 
+    /// Builds a closed path with square left corners and circular right corners.
     func path(in rect: CGRect) -> Path {
         var path = Path()
 

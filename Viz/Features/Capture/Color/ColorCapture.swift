@@ -1,6 +1,9 @@
 import AppKit
 import SwiftUI
 
+/// Shows the system color sampler and formats the selected device-RGB color.
+///
+/// - Returns: Hexadecimal and RGB representations, or empty strings on cancellation or failed color conversion.
 @MainActor
 func pickColor() async -> ColorItem {
     await withCheckedContinuation { continuation in
@@ -20,6 +23,9 @@ func pickColor() async -> ColorItem {
     }
 }
 
+/// Starts color sampling and publishes the clipboard, history, sound, and preview after a valid selection.
+///
+/// A history clear while sampling prevents the result from being published.
 @MainActor
 func processColor() {
     let state = AppState.shared

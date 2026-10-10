@@ -1,9 +1,11 @@
 import SwiftUI
 
+/// Adaptive capture and extraction controls for live preview, still images, and selection mode.
 struct WebcamControlsView: View {
     let captured: Bool
     let snipping: Bool
     let canCapture: Bool
+    /// Whether the current selection maps to a valid pixel crop, controlling the Extract button.
     let canExtract: Bool
     let capture: @MainActor () -> Void
     let autoExtract: @MainActor () -> Void

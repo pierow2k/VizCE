@@ -1,14 +1,23 @@
 import SwiftUI
 import KeyboardShortcuts
 
+/// A capture tile with an SF Symbol, optional shortcut, and accessible press feedback.
 struct RoundedRectangleButtonStyle: ButtonStyle {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var isHovered = false
     let image: String
+    /// The SF Symbol font size in points.
     let size: CGFloat
     let color: Color?
     let shortcut: KeyboardShortcuts.Shortcut?
 
+    /// Creates a tile style with an icon and optional keyboard shortcut caption.
+    ///
+    /// - Parameters:
+    ///   - image: The SF Symbol name shown above the label.
+    ///   - size: The icon font size in points.
+    ///   - color: The icon tint, falling back to the primary color when `nil`.
+    ///   - shortcut: An optional shortcut to display below the label.
     init(image: String, size: CGFloat, color: Color? = .primary, shortcut: KeyboardShortcuts.Shortcut? = nil) {
         self.image = image
         self.size = size
@@ -16,6 +25,7 @@ struct RoundedRectangleButtonStyle: ButtonStyle {
         self.shortcut = shortcut
     }
 
+    /// Builds the tile with hover tint and press feedback, using opacity when Reduce Motion is enabled.
     func makeBody(configuration: Configuration) -> some View {
         HStack {
             Spacer()

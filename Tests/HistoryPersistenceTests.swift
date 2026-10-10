@@ -104,14 +104,22 @@ final class HistoryPersistenceTests: XCTestCase {
     }
 }
 
+/// A history fixture with held loads, a held first save, and switchable write failures.
 private actor ControlledHistoryStore: HistoryStoring {
     var saves: [[StoredHistoryEntry]] = []
     private var loadContinuation: CheckedContinuation<[StoredHistoryEntry], Never>?
     private var saveContinuation: CheckedContinuation<Void, Never>?
     private let holdLoad: Bool
+    /// Whether the first successful save waits for explicit release; later saves complete immediately.
     private var holdSave: Bool
     private var failSave: Bool
 
+    /// Configures whether loading, the first save, or all saves are blocked for persistence tests.
+    ///
+    /// - Parameters:
+    ///   - holdLoad: Whether loading waits for `finishLoad(_:)`.
+    ///   - holdSave: Whether the first successful save waits for `finishSave()`.
+    ///   - failSave: Whether saves throw until `allowSave()` is called.
     init(holdLoad: Bool = false, holdSave: Bool = false, failSave: Bool = false) {
         self.holdLoad = holdLoad
         self.holdSave = holdSave

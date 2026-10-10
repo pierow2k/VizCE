@@ -1,7 +1,14 @@
 import Foundation
 
-/// Compiles the supported whole-argument placeholder forms without interpolating captured data.
+/// A compiler for whole-argument OCR placeholders in a restricted shell template syntax.
 enum ShellTemplate {
+    /// Replaces supported whole-argument placeholders with a quoted environment variable reference.
+    ///
+    /// Templates without `[ocr]` pass through unchanged after the NUL check. Templates
+    /// with placeholders are scanned using the restricted syntax implemented here.
+    ///
+    /// - Parameter template: Shell text whose placeholders may be bare, single-quoted, or double-quoted whole arguments.
+    /// - Throws: An encoding error for NUL characters or a template error for unsupported placeholder syntax.
     static func compile(_ template: String) throws -> String {
         guard !template.contains("\0") else { throw CocoaError(.fileReadInapplicableStringEncoding) }
         guard template.contains("[ocr]") else { return template }
@@ -48,6 +55,7 @@ enum ShellTemplate {
             if needsCommand && !needsRedirectionTarget && compoundKeywords.contains(word) { throw unsupported() }
             if wholeArgumentPlaceholders.contains(word) {
                 guard !needsCommand || needsRedirectionTarget else { throw unsupported() }
+                // Quoting the environment reference keeps captured text inside one shell argument.
                 output += "\"${VIZ_OCR_TEXT}\""
             } else {
                 guard !word.contains("[ocr]") else { throw unsupported() }
@@ -55,6 +63,7 @@ enum ShellTemplate {
             }
             if needsRedirectionTarget { needsRedirectionTarget = false }
             else if !word.contains("=") {
+                // A leading file descriptor belongs to a redirection, not the command word.
                 let isFileDescriptor = word.allSatisfy(\.isNumber) && index < input.count && "<>".contains(input[index])
                 if !isFileDescriptor { needsCommand = false }
             }
@@ -63,9 +72,14 @@ enum ShellTemplate {
         return output
     }
 
+    /// Unquoted characters that delimit words, commands, or redirections in the supported grammar.
     private static let boundaries = " \t\r\n;|&<>"
+    /// The only complete shell words that may be replaced with the captured-text variable.
     private static let wholeArgumentPlaceholders: Set<String> = ["[ocr]", "\"[ocr]\"", "'[ocr]'"]
 
+    /// Scans one shell word while preserving quotes and escapes and rejecting unsupported expansions.
+    ///
+    /// Advances `index` to the next unquoted boundary or the end of `input`.
     private static func scanWord(_ input: [Character], index: inout Int) throws -> String {
         var word = ""
         var quote: Character?
@@ -95,6 +109,7 @@ enum ShellTemplate {
         return word
     }
 
+    /// Creates the template-validation error describing the supported placeholder contexts.
     private static func unsupported() -> NSError {
         NSError(domain: "Viz.PostProcessing", code: 1, userInfo: [NSLocalizedDescriptionKey:
             "Use [ocr], \"[ocr]\", or '[ocr]' as a whole argument in ordinary commands. Embedded placeholders, substitutions, heredocs, compound statements, and braced parameter expressions are unsupported."])

@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// A camera menu that displays the selected device and reports choices by identifier.
 struct WebcamCameraPicker: View {
     let devices: [WebcamDevice]
     let selection: WebcamDevice?

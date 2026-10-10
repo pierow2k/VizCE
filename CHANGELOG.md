@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Improved comments throughout the codebase.
 - Focused macOS regression tests for shell processing, recognition snapshots,
   preview expiry, webcam lifecycle, and crop mapping.
 - Development signing configuration files and a local signing override example.

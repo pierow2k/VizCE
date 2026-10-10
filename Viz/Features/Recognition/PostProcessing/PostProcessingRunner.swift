@@ -1,9 +1,20 @@
 import Foundation
 
-/// A blocking process and its output drain stay on a private queue, behind an async interface.
+/// An asynchronous shell runner that drains combined output on a private queue.
 struct PostProcessingRunner: Sendable {
+    /// The shell executable used to evaluate templates with `-c`, defaulting to `/bin/zsh`.
     var executableURL = URL(fileURLWithPath: "/bin/zsh")
 
+    /// Runs a template with captured text passed through the environment and returns combined output.
+    ///
+    /// A nonzero exit status is reported in the returned text. Canceling the calling task
+    /// does not terminate the subprocess.
+    ///
+    /// - Parameters:
+    ///   - template: Shell commands accepted by `ShellTemplate.compile(_:)`.
+    ///   - content: Captured text supplied as `VIZ_OCR_TEXT`, without shell interpolation.
+    /// - Returns: Standard output and standard error, prefixed by status text on an unsuccessful exit.
+    /// - Throws: Template validation, NUL encoding, or process launch errors.
     func run(template: String, content: String) async throws -> String {
         guard !content.contains("\0") else {
             throw CocoaError(.fileReadInapplicableStringEncoding)

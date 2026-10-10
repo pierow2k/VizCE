@@ -70,6 +70,7 @@ final class RecognitionLanguageTests: XCTestCase {
     }
 }
 
+/// A discovery fixture that records configuration queries before returning one language.
 private actor LanguageDiscoveryProbe {
     var calls: [RecognitionConfiguration] = []
     func discover(_ configuration: RecognitionConfiguration) -> [String] {
@@ -78,6 +79,7 @@ private actor LanguageDiscoveryProbe {
     }
 }
 
+/// A discovery fixture with independently held results keyed by recognition quality.
 private actor DelayedLanguageDiscovery {
     private var continuations: [Bool: CheckedContinuation<[String], Never>] = [:]
     func discover(_ configuration: RecognitionConfiguration) async -> [String] {
@@ -87,6 +89,7 @@ private actor DelayedLanguageDiscovery {
     func finish(_ fast: Bool, codes: [String]) { continuations.removeValue(forKey: fast)?.resume(returning: codes) }
 }
 
+/// A discovery fixture that fails once so the catalog’s retry behavior can be exercised.
 private actor FailingLanguageDiscovery {
     private var fail = true
     func discover() throws -> [String] {

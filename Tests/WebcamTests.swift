@@ -166,6 +166,7 @@ private struct AllowedAuthorization: WebcamAuthorizing {
     func isAuthorized() async -> Bool { true }
 }
 
+/// A permission fixture whose requests remain pending until explicitly released by index.
 private actor ControlledAuthorization: WebcamAuthorizing {
     private var requests: [CheckedContinuation<Bool, Never>] = []
     func isAuthorized() async -> Bool {
@@ -177,6 +178,7 @@ private actor ControlledAuthorization: WebcamAuthorizing {
     func finish(_ index: Int, allowed: Bool) { requests[index].resume(returning: allowed) }
 }
 
+/// A recording backend with independently held starts and captures for stale-completion tests.
 private actor FakeWebcamBackend: WebcamCaptureBackend {
     struct Start: Sendable { let device: String; let id: UInt64 }
     private(set) var starts: [Start] = []
@@ -188,6 +190,13 @@ private actor FakeWebcamBackend: WebcamCaptureBackend {
     private let holdCapture: Bool
     private let failStart: Bool
 
+    /// Configures held operations, captured bytes, and camera setup failure for lifecycle tests.
+    ///
+    /// - Parameters:
+    ///   - holdStarts: Whether each start waits for `finishStart(_:)`.
+    ///   - imageData: The encoded still image returned by capture.
+    ///   - holdCapture: Whether capture waits for `finishCapture()`.
+    ///   - failStart: Whether startup throws after any held wait is released.
     init(holdStarts: Bool = false, imageData: Data = Data(), holdCapture: Bool = false, failStart: Bool = false) {
         self.holdStarts = holdStarts
         self.imageData = imageData

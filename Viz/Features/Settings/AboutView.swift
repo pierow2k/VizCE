@@ -1,6 +1,7 @@
 import SwiftUI
 import AlinFoundation
 
+/// Application identity, version information, and a link to the maintained repository.
 struct AboutView: View {
 
     var body: some View {
@@ -46,7 +47,6 @@ struct AboutView: View {
             .padding()
 
         }
-//        .ignoresSafeArea(edges: .top)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color("bg"))
         .environment(\.colorScheme, .dark)

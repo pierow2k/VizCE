@@ -1,13 +1,14 @@
 import SwiftUI
 
-// Custom NSWindow accessor to modify window properties
+/// An AppKit bridge that requests dragging the containing window by its background.
 struct MovableWindowAccessor: NSViewRepresentable {
+    /// Creates a bridge view and attempts to enable background dragging on the next main-queue turn.
     func makeNSView(context: Context) -> NSView {
         let nsView = NSView()
 
         DispatchQueue.main.async {
             if let window = nsView.window {
-                // Enable dragging by the window's background
+                // Defer window lookup so the bridge can attach to its containing window.
                 window.isMovableByWindowBackground = true
             }
         }
@@ -19,7 +20,7 @@ struct MovableWindowAccessor: NSViewRepresentable {
 }
 
 extension View {
-    // Helper function to apply the movable background window
+    /// Requests background dragging for the containing window through an AppKit bridge.
     func movableByWindowBackground() -> some View {
         self.background { MovableWindowAccessor() }
     }

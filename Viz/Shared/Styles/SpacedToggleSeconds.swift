@@ -1,8 +1,11 @@
 import SwiftUI
 
+/// A preview switch with a picker for its automatic dismissal delay.
 struct SpacedToggleSeconds: ToggleStyle {
+    /// The preview dismissal delay in seconds.
     @Binding var seconds: Double
 
+    /// Builds the preview switch with dismissal choices of 3, 5, 10, 20, 30, and 60 seconds.
     func makeBody(configuration: Configuration) -> some View {
         HStack(spacing: 0) {
 
@@ -19,11 +22,11 @@ struct SpacedToggleSeconds: ToggleStyle {
             .buttonStyle(.borderless)
             .labelsHidden()
 
-            Spacer() // Adds space between the label and the switch
+            Spacer()
 
             Toggle(isOn: configuration.$isOn) { configuration.label }
                 .toggleStyle(.switch)
-                .labelsHidden() // Hide default labels of the switch to use the custom label
+                .labelsHidden()
         }
     }
 }

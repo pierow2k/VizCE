@@ -11,10 +11,12 @@ import SwiftUI
 import KeyboardShortcuts
 import AlinFoundation
 
+/// The menu bar controls for capture, history, settings, and application termination.
 struct ContentView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openSettings) private var openSettings
     @EnvironmentObject var updater: Updater
+    /// The registration token that allows this menu view to remove only its own dismissal action.
     @State private var menuRegistration: UUID?
 
 
@@ -110,6 +112,7 @@ struct ContentView: View {
         }
     }
 
+    /// Selects Updates when an update is available, otherwise General, then opens settings and dismisses the menu.
     private func showSettings() {
         UserDefaults.standard.set(
             updater.updateAvailable ? SettingsTab.updates.rawValue : SettingsTab.general.rawValue,
@@ -119,28 +122,34 @@ struct ContentView: View {
         dismiss()
     }
 
+    /// Requests application termination, allowing the delegate to flush history first.
     private func quit() { NSApp.terminate(nil) }
 
+    /// Starts screen acquisition and dismisses the menu.
     private func capture() {
         CaptureService.shared.captureContent()
         dismiss()
     }
 
+    /// Dismisses the menu and shows the webcam capture window.
     private func captureWebcam() {
         dismiss()
         openWebcamCapture()
     }
 
+    /// Dismisses the menu and starts the system color sampler.
     private func captureColor() {
         dismiss()
         processColor()
     }
 
+    /// Opens the history window and dismisses the menu.
     private func showHistory() {
         openHistory()
         dismiss()
     }
 
+    /// Clears capture history and the clipboard while invalidating pending capture delivery.
     private func clearCaptures() { clearCaptureHistoryAndClipboard() }
 
 }

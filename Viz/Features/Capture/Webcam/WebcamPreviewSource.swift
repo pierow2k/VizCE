@@ -1,12 +1,14 @@
 @preconcurrency import AVFoundation
 
-// Only an opaque session reference crosses the worker queue. Configuration and
-// start/stop remain queue-confined; AVFoundation connects the main-actor layer
-// to that session internally. The wrapper never exposes the session to callers.
+/// An opaque camera session reference used to create a main-actor preview layer.
+///
+/// Session configuration and start/stop operations remain on the capture worker queue.
 final class WebcamPreviewSource: @unchecked Sendable {
     private let session: AVCaptureSession?
+    /// Wraps a session without exposing it; `nil` creates a source without a preview for test backends.
     init(session: AVCaptureSession? = nil) { self.session = session }
 
+    /// Creates a centered aspect-fill preview layer on the main actor, or returns `nil` without a session.
     @MainActor
     func makeLayer() -> AVCaptureVideoPreviewLayer? {
         guard let session else { return nil }

@@ -8,6 +8,7 @@
 import SwiftUI
 import AlinFoundation
 
+/// The menu bar application and settings scene with shared capture, history, and updater state.
 @main
 struct VizApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate

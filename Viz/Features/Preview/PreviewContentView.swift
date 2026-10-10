@@ -1,6 +1,7 @@
 import SwiftUI
 import AlinFoundation
 
+/// A preview of current text captures and any post-processing output.
 struct PreviewContentView: View {
     @ObservedObject var appState = AppState.shared
     @ObservedObject var content = RecognizedContent.shared

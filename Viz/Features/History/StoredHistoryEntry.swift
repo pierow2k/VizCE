@@ -1,8 +1,10 @@
 import Foundation
 
-/// Associated-value encoding intentionally matches the existing HistoryEntry JSON.
+/// An immutable history record whose synthesized encoding preserves the existing history JSON format.
 enum StoredHistoryEntry: Codable, Sendable, Equatable, Identifiable {
+    /// An immutable text record using the existing associated-value JSON shape.
     case text(StoredTextItem)
+    /// An immutable color record using the existing associated-value JSON shape.
     case color(StoredColorItem)
 
     var id: String {

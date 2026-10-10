@@ -1,8 +1,10 @@
 import SwiftUI
 
+/// A history list that owns copied-row feedback and resets it when cleared or dismissed.
 struct HistoryListContentView: View {
     let entries: [HistoryEntry]
     let emptyMessage: LocalizedStringResource
+    /// A changing clear-generation token that invalidates the list’s copied-row feedback.
     let feedbackResetID: UInt64
     let delete: @MainActor (String) -> Void
     @StateObject private var feedback = CopyFeedbackController()

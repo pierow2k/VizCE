@@ -49,6 +49,7 @@ final class HistoryActionTests: XCTestCase {
     }
 }
 
+/// A manual feedback clock that retains canceled sleepers to exercise generation checks.
 private actor CopyFeedbackClock {
     private var continuations: [CheckedContinuation<Void, Never>] = []
     func sleep() async { await withCheckedContinuation { continuations.append($0) } }

@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// A capture notice with selectable details and a keyboard-accessible dismissal action.
 struct CaptureNoticeView: View {
     let title: LocalizedStringResource
     let message: String

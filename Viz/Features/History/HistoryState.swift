@@ -2,6 +2,7 @@ import Foundation
 import Combine
 import AlinFoundation
 
+/// Main-actor adaptation of immutable stored records into the history interface models.
 @MainActor
 final class HistoryState: ObservableObject {
     static let shared = HistoryState()
@@ -9,6 +10,9 @@ final class HistoryState: ObservableObject {
     let repository: HistoryRepository
     private var subscriptions: Set<AnyCancellable> = []
 
+    /// Observes stored history and republishes it as text and color interface models.
+    ///
+    /// - Parameter repository: An injected repository, or `nil` to load the application support history file.
     init(repository: HistoryRepository? = nil) {
         let url = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
             .appendingPathComponent(Bundle.main.name).appendingPathComponent("historyItems.json")
@@ -26,13 +30,17 @@ final class HistoryState: ObservableObject {
         }.store(in: &subscriptions)
     }
 
+    /// Snapshots a text or color interface model and appends it to the persistent repository.
     func append(_ entry: HistoryEntry) {
         switch entry {
         case .text(let item): repository.append(.text(StoredTextItem(id: item.id, text: item.text)))
         case .color(let item): repository.append(.color(StoredColorItem(id: item.id, hex: item.hex, rgb: item.rgb)))
         }
     }
+    /// Deletes repository records with the supplied stable identifier.
     func delete(id: String) { repository.delete(id: id) }
+    /// Clears repository history and schedules persistence of the change.
     func clear() { repository.clear() }
+    /// Waits for repository persistence and propagates any retained load or save error.
     func flush() async throws { try await repository.flush() }
 }

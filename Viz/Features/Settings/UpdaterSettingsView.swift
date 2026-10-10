@@ -1,6 +1,7 @@
 import AlinFoundation
 import SwiftUI
 
+/// Update frequency, recent releases, and manual refresh controls for the shared updater.
 struct UpdaterSettingsView: View {
     @EnvironmentObject private var updater: Updater
 
@@ -29,8 +30,6 @@ struct UpdaterSettingsView: View {
                             RecentReleasesView(updater: updater)
                                 .frame(height: max(120, viewport.size.height * 0.6))
                                 .frame(maxWidth: .infinity)
-
-                            // === Buttons ==============================================================================================
 
                             HStack(alignment: .center, spacing: 20) {
                                 Spacer()

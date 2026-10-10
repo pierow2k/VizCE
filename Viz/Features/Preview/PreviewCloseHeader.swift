@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// A shared close control for text and color previews.
 struct PreviewCloseHeader: View {
     let close: @MainActor () -> Void
 

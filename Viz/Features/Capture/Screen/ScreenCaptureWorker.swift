@@ -1,13 +1,18 @@
 import Foundation
 
-/// Owns each capture's file and subprocess. Queue confinement covers operation state
-/// and process lifecycle; only immutable encoded data or typed outcomes leave it.
+/// An asynchronous screen capture subprocess with queue-confined lifecycle and temporary files.
 final class ScreenCaptureWorker: Sendable {
     private let queue = DispatchQueue(label: "Viz.screenCapture", qos: .userInitiated)
     private let executable: URL
     private let arguments: @Sendable (URL) -> [String]
     private let temporaryDirectory: URL
 
+    /// Creates a worker with injectable subprocess and temporary storage settings.
+    ///
+    /// - Parameters:
+    ///   - executable: The capture executable, defaulting to the system screen selection utility.
+    ///   - temporaryDirectory: The root for each capture’s unique temporary subdirectory.
+    ///   - arguments: Builds arguments for the owned image URL; defaults to interactive PNG capture without sound.
     init(executable: URL = URL(fileURLWithPath: "/usr/sbin/screencapture"),
          temporaryDirectory: URL = FileManager.default.temporaryDirectory,
          arguments: @escaping @Sendable (URL) -> [String] = { ["-ix", "-t", "png", $0.path] }) {
@@ -16,6 +21,9 @@ final class ScreenCaptureWorker: Sendable {
         self.temporaryDirectory = temporaryDirectory
     }
 
+    /// Runs one screen selection and attempts to remove its owned files before returning the outcome.
+    ///
+    /// Task cancellation is dispatched to the worker queue and terminates an unfinished subprocess.
     func capture() async -> ScreenCaptureOutcome {
         let state = ScreenCaptureOperationState()
         return await withTaskCancellationHandler {
@@ -31,6 +39,7 @@ final class ScreenCaptureWorker: Sendable {
         }
     }
 
+    /// Launches the capture subprocess on the worker queue and completes through shared cleanup paths.
     private func launch(state: ScreenCaptureOperationState,
                         continuation: CheckedContinuation<ScreenCaptureOutcome, Never>) {
         dispatchPrecondition(condition: .onQueue(queue))
@@ -68,6 +77,7 @@ final class ScreenCaptureWorker: Sendable {
         }
     }
 
+    /// Classifies owned output and diagnostics, treating quiet fileless exits with status zero or one as cancellation.
     private func outcome(for process: Process, files: ScreenCaptureFiles) -> ScreenCaptureOutcome {
         let diagnostics = (try? String(contentsOf: files.diagnosticsURL, encoding: .utf8))?
             .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
@@ -85,6 +95,9 @@ final class ScreenCaptureWorker: Sendable {
         return .failure(.screenCapture(detail))
     }
 
+    /// Closes diagnostics, breaks the process handler reference, and removes files after evaluating the outcome.
+    ///
+    /// Must run on the worker queue; the outcome closure may still read the owned files.
     private func finish(state: ScreenCaptureOperationState, files: ScreenCaptureFiles,
                         output: FileHandle?, outcome: () -> ScreenCaptureOutcome) -> ScreenCaptureOutcome {
         dispatchPrecondition(condition: .onQueue(queue))

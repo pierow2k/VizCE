@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// Settings tabs using the typed tab API available on macOS 15 and later.
 @available(macOS 15, *)
 struct ModernSettingsTabs: View {
     @Binding var selection: SettingsTab

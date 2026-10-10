@@ -1,15 +1,19 @@
 import SwiftUI
 import AlinFoundation
 
+/// A newest-first capture history with filtering, persistence errors, and clear actions.
 struct HistoryView: View {
     @ObservedObject private var historyState: HistoryState
+    /// A wrapping clear-generation token used to reset copied-row feedback.
     @State private var feedbackResetID: UInt64 = 0
     @State private var filterSelection = HistoryFilter.all
 
+    /// Creates a history interface observing the supplied state, or shared history when `nil`.
     init(historyState: HistoryState? = nil) {
         self.historyState = historyState ?? .shared
     }
 
+    /// Matching history entries in newest-first order.
     private var filteredItems: [HistoryEntry] {
         historyState.historyItems.reversed().filter { entry in
             switch entry {
@@ -66,6 +70,9 @@ struct HistoryView: View {
     }
 }
 
+/// Matches the permissive host-like pattern used to offer history link navigation.
+///
+/// This checks the text pattern only; it does not validate reachability or require an HTTP scheme.
 func isRecognizedURLFormat(_ text: String) -> Bool {
     let pattern = #"^(https?:\/\/)?(www\.)?[a-zA-Z0-9\-]+\.[a-zA-Z]{2,}.*$"#
     return text.range(of: pattern, options: .regularExpression) != nil

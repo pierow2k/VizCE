@@ -3,6 +3,7 @@ import SwiftUI
 import Foundation
 import KeyboardShortcuts
 
+/// A shortcut badge that opens settings when a shortcut is assigned.
 struct ShortcutEditorView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.openSettings) private var openSettings

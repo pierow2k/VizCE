@@ -51,9 +51,11 @@ final class PreviewTests: XCTestCase {
     }
 }
 
+/// A preview clock that ignores cancellation so tests can release obsolete timers explicitly.
 @MainActor
 private final class ManualPreviewClock {
     private var continuations: [CheckedContinuation<Void, Error>] = []
+    /// Suspends until the test releases this sleeper; the duration is deliberately ignored.
     func sleep(_ duration: Duration) async throws {
         try await withCheckedThrowingContinuation { continuations.append($0) }
     }

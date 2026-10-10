@@ -1,18 +1,24 @@
 import AppKit
 import SwiftUI
 
+/// Main-actor ownership of one floating capture preview and its dismissal timer.
 @MainActor
 final class PreviewWindowController {
     static let shared = PreviewWindowController()
     private var window: NSWindow?
     private let expiry = PreviewExpiry()
 
+    /// Cancels expiry, hides the current preview, and releases the window reference.
     func close() {
         expiry.cancel()
         window?.orderOut(nil)
         window = nil
     }
 
+    /// Shows a replacement floating preview if enabled and schedules dismissal using saved preferences.
+    ///
+    /// Text previews gain extra height when post-processing is enabled. The expiry callback
+    /// closes only the window created by this presentation.
     func show<Content: View>(_ content: Content) {
         @AppStorage("previewSeconds") var seconds: Double = 5.0
         @AppStorage("processing") var processing: Bool = false
@@ -32,6 +38,7 @@ final class PreviewWindowController {
         presentation.level = .floating
         presentation.isOpaque = false
         presentation.backgroundColor = .clear
+        // Keep a 30-point inset from the visible screen’s top-right edge.
         if let screen = NSScreen.main {
             presentation.setFrameOrigin(NSPoint(x: screen.visibleFrame.maxX - width - 30,
                                                y: screen.visibleFrame.maxY - height - 30))

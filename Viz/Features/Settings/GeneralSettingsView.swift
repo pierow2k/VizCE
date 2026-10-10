@@ -1,15 +1,20 @@
 import AlinFoundation
 import SwiftUI
 
+/// Capture preferences, recognition choices, and preview sizing controls.
 struct GeneralSettingsView: View {
     @Binding var appendRecognizedText: Bool
     @Binding var keepLineBreaks: Bool
     @Binding var showPreview: Bool
+    /// The automatic preview dismissal delay in seconds.
     @Binding var seconds: Double
     @Binding var processingIsEnabled: Bool
+    /// The post-processing shell template; `[ocr]` must occupy a whole argument.
     @Binding var postCommands: String
     @Binding var mute: Bool
+    /// The capture preview width in points.
     @Binding var viewWidth: Double
+    /// The base capture preview height in points, before the extra processing-output space.
     @Binding var viewHeight: Double
     @EnvironmentObject var appState: AppState
 

@@ -1,6 +1,7 @@
 import KeyboardShortcuts
 import SwiftUI
 
+/// A capture action tile paired with its current shortcut and shortcut settings control.
 struct MenuActionTile: View {
     let title: LocalizedStringResource
     let icon: String

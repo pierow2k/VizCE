@@ -116,6 +116,7 @@ private struct RecoveryAuthorization: WebcamAuthorizing {
     func isAuthorized() async -> Bool { allowed }
 }
 
+/// A backend with switchable startup failure and a deliberately unavailable capture frame.
 private actor RecoveryWebcamBackend: WebcamCaptureBackend {
     var started: [String] = []
     private var error: WebcamCaptureError?
@@ -136,6 +137,7 @@ private struct StaticWebcamDevices: WebcamDeviceDiscovering {
     }
 }
 
+/// A camera discovery fixture that lets tests deliver catalog snapshots out of order.
 private actor DelayedWebcamDevices: WebcamDeviceDiscovering {
     private var continuations: [CheckedContinuation<WebcamDevices, Never>] = []
     func snapshot() async -> WebcamDevices { await withCheckedContinuation { continuations.append($0) } }

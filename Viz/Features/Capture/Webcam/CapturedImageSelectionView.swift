@@ -1,7 +1,9 @@
 import SwiftUI
 
+/// A centered aspect-fill still image with a viewport-clamped drag selection.
 struct CapturedImageSelectionView: View {
     let image: NSImage
+    /// The available image viewport dimensions in points, used for aspect-fill display and drag clamping.
     let size: CGSize
     let isSnipping: Bool
     @Binding var selection: ImageSelectionState

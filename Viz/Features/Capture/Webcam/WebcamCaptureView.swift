@@ -10,13 +10,16 @@ import AlinFoundation
 import Combine
 import SwiftUI
 
+/// Live camera capture, recovery controls, and recognition of a whole still image or selection.
 struct WebcamCaptureView: View {
     @ObservedObject var captureManager: WebcamCaptureCoordinator
     @StateObject private var webcamManager = WebcamManager()
+    /// The saved camera identifier; an empty string requests the preferred default camera.
     @AppStorage("selectedWebcamID") private var selectedWebcamID: String = ""
     @State private var isSnipping: Bool = false
     @State private var selection = ImageSelectionState()
 
+    /// The saved camera if still available, or the preferred default only when no identifier is saved.
     var selectedWebcam: WebcamDevice? {
         if selectedWebcamID.isEmpty {
             return webcamManager.defaultDevice
@@ -80,6 +83,7 @@ struct WebcamCaptureView: View {
         .onChange(of: selectedWebcamID) { captureManager.start(deviceID: selectedWebcamID) }
     }
 
+    /// Clears selection mode, refreshes camera choices, and requests preview startup.
     private func restart() {
         selection.clear()
         isSnipping = false
@@ -87,24 +91,25 @@ struct WebcamCaptureView: View {
         captureManager.restart(deviceID: selectedWebcamID)
     }
 
+    /// Starts recognition and preview for the captured still image, if available.
     private func extractWholeImage() {
         guard let image = captureManager.capturedImage else { return }
         TextRecognition.recognizeAndPreview(image)
     }
 
+    /// Recognizes a valid selected crop and returns to the still-image controls after a successful crop.
     private func extractFromSelection() {
         guard let image = captureManager.capturedImage, selection.rect != .zero else { return }
 
-        // Crop the image based on selection
         if let croppedImage = cropImage(image: image, rect: selection.rect) {
             TextRecognition.recognizeAndPreview(croppedImage)
 
-            // Reset to captured image view
             isSnipping = false
             selection.clear()
         }
     }
 
+    /// The valid pixel crop for the current viewport selection, or `nil` when extraction is unavailable.
     private var selectionCropRect: CGRect? {
         guard let image = captureManager.capturedImage,
             let pixels = image.cgImage(forProposedRect: nil, context: nil, hints: nil)
@@ -114,6 +119,12 @@ struct WebcamCaptureView: View {
             pixels: CGSize(width: pixels.width, height: pixels.height))
     }
 
+    /// Converts a viewport selection to a centered aspect-fill pixel crop and creates a still image.
+    ///
+    /// - Parameters:
+    ///   - image: The source still image whose pixel dimensions define the crop bounds.
+    ///   - rect: The selection in points within `selection.viewport`.
+    /// - Returns: A cropped image, or `nil` for invalid coordinates or unavailable image pixels.
     private func cropImage(image: NSImage, rect: CGRect) -> NSImage? {
         guard let pixels = image.cgImage(forProposedRect: nil, context: nil, hints: nil),
             let crop = ImageCropTransform.map(

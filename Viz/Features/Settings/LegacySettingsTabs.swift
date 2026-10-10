@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// Settings tabs using the tab-item API available on macOS 14.
 struct LegacySettingsTabs: View {
     @Binding var selection: SettingsTab
 

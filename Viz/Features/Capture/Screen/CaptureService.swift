@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// Main-actor coordination of screen permissions, replaceable capture tasks, and recognition.
 @MainActor
 final class CaptureService {
     static let shared = CaptureService()
@@ -8,8 +9,10 @@ final class CaptureService {
     let recognizedContent = RecognizedContent.shared
     let pasteboard = NSPasteboard.general
 
+    /// Requests cancellation of the tracked screen acquisition task.
     func cancelCapture() { task?.cancel() }
 
+    /// Replaces screen acquisition, checks recording permission, and starts recognition for a current image.
     func captureContent() {
         cancelCapture()
         let state = AppState.shared

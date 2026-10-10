@@ -3,13 +3,20 @@ import Vision
 import Foundation
 import AlinFoundation
 
+/// Main-actor orchestration of recognition, clipboard delivery, history, and optional shell processing.
 @MainActor
 struct TextRecognition {
     var recognizedContent = RecognizedContent.shared
     var image: NSImage
     var historyState: HistoryState
+    /// The main-actor completion called after delivery, including empty, failed, or invalidated captures.
     var didFinishRecognition: @MainActor (RecognitionOutcome) -> Void
 
+    /// Recognizes an image and shows a preview when delivery produces content.
+    ///
+    /// - Parameters:
+    ///   - image: The captured image to encode and recognize.
+    ///   - operationID: An existing capture token, or `nil` to begin a new capture generation.
     static func recognizeAndPreview(_ image: NSImage, operationID: UInt64? = nil) {
         TextRecognition(image: image, historyState: .shared) { outcome in
             if case .content = outcome {
@@ -18,6 +25,9 @@ struct TextRecognition {
         }.recognizeContent(operationID: operationID)
     }
 
+    /// Snapshots capture preferences, resolves language availability, and schedules recognition.
+    ///
+    /// - Parameter operationID: An existing capture token, or `nil` to allocate a new generation.
     func recognizeContent(operationID: UInt64? = nil) {
         let preferences = UserDefaults.standard
         let state = AppState.shared
@@ -49,6 +59,7 @@ struct TextRecognition {
         }
     }
 
+    /// Applies clear-generation and current-capture checks before delivering a recognition outcome.
     private func finish(_ outcome: RecognitionOutcome, options: RecognitionOptions, token: UInt64, clearToken: UInt64) {
         let state = AppState.shared
         RecognitionDelivery.finish(outcome, valid: state.clearGeneration == clearToken,
@@ -57,6 +68,9 @@ struct TextRecognition {
                                    notice: { CaptureNoticePresenter.shared.show($0) }, completion: didFinishRecognition)
     }
 
+    /// Publishes text to the clipboard and history, then optionally starts shell processing.
+    ///
+    /// Only the current capture may publish processing output; captured text is snapshotted before the task starts.
     private func apply(text: String, options: RecognitionOptions, token: UInt64) {
         let item = TextItem(text: text)
         if options.append { recognizedContent.items.append(item) }

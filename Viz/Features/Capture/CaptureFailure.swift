@@ -1,9 +1,12 @@
 import Foundation
 
+/// User-facing failures from screen acquisition, image conversion, or recognition.
 enum CaptureFailure: Error, LocalizedError, Sendable, Equatable {
     case imageConversion
+    /// A recognition failure carrying details from the underlying error.
     case recognition(String)
     case screenPermission
+    /// A screen subprocess failure carrying diagnostic or launch details.
     case screenCapture(String)
 
     var errorDescription: String? {

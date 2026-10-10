@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// Supported recognition languages with loading, retry, and unavailable-selection feedback.
 struct LanguagePickerView: View {
     @ObservedObject var appState = AppState.shared
     @Environment(\.locale) private var locale

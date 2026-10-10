@@ -2,6 +2,7 @@ import AlinFoundation
 import KeyboardShortcuts
 import SwiftUI
 
+/// Shortcut recorders for the application’s capture, history, and clear actions.
 struct ShortcutsSettingsView: View {
     var body: some View {
         ScrollView {

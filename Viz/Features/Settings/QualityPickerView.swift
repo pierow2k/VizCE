@@ -1,5 +1,6 @@
 import SwiftUI
 
+/// Recognition quality controls bound to the shared language discovery configuration.
 struct QualityPickerView: View {
     @ObservedObject var appState = AppState.shared
 
