@@ -194,7 +194,7 @@
 		A8410CA3759E6B0114BF38C7 /* ImageSelectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSelectionState.swift; sourceTree = "<group>"; };
 		AA739B02138CA07CF1750940 /* ShellTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShellTemplate.swift; sourceTree = "<group>"; };
 		B9443F1A3078A6FF0034B361 /* VizDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VizDebug.entitlements; sourceTree = "<group>"; };
-		B9EB55C2307975C200E5F29A /* DebugSigning.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = DebugSigning.xcconfig; sourceTree = "<group>"; };
+		B9EB55C2307975C200E5F29A /* DebugSigning.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = "Config/DebugSigning.xcconfig"; sourceTree = "<group>"; };
 		BECA35DB6F8F31AB37F13F8F /* WebcamCaptureError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamCaptureError.swift; sourceTree = "<group>"; };
 		C7174C902BC06EE500DBEF75 /* Viz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Viz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C7174C932BC06EE500DBEF75 /* VizApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VizApp.swift; sourceTree = "<group>"; };
@@ -615,7 +615,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;

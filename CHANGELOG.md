@@ -43,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Use one Debug signing configuration under Config, align local override keys, and document local builds; honor overrides at the documented location.
 - Measure the webcam image viewport after reserved controls and title-bar space, avoiding duplicate safe-area subtraction and extra image gaps; enforce the minimum size in the hosted content so capture controls cannot collapse below it.
 - Resolve history defaults inside main-actor entry points to avoid concurrency warnings in signed development builds.
 - Honor Reduce Motion for webcam window resizing and custom-button scale/rotation feedback while retaining immediate pressed and hover feedback.
