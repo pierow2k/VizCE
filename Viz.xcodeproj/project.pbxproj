@@ -108,6 +108,7 @@
 		E3F460D6EB699F5803CF150F /* RecognitionWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F44336FAFED7A16C7E13393 /* RecognitionWorker.swift */; };
 		F114D0D9F34E0B2362F5BC47 /* ImageCropTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18984167139B876EAD3C286D /* ImageCropTransform.swift */; };
 		FEC113CE810A5D8142F06074 /* ImageSelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8410CA3759E6B0114BF38C7 /* ImageSelectionState.swift */; };
+		9D42367BCBFBF90C4D06AFB9 /* MenuActionTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2424F44004D17E2078C5ABD6 /* MenuActionTile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -217,6 +218,7 @@
 		D6162E61DDDBECE2441A13CE /* SystemWebcamAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemWebcamAuthorization.swift; sourceTree = "<group>"; };
 		DF2877F8EA972E04B181C370 /* VideoSampleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSampleDelegate.swift; sourceTree = "<group>"; };
 		E92D5A9AA80767808B207833 /* WebcamCaptureCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebcamCaptureCoordinator.swift; sourceTree = "<group>"; };
+		2424F44004D17E2078C5ABD6 /* MenuActionTile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuActionTile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -272,6 +274,7 @@
 		C74D7C952D95CF2C009A8C48 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2424F44004D17E2078C5ABD6 /* MenuActionTile.swift */,
 				782185705378ABE22E600230 /* MovableWindowAccessor.swift */,
 				5F62EE83E6867139AC646DF3 /* NSTextView+InsertionPoint.swift */,
 				57AE8995C2F74D3BD1916092 /* ShortcutEditorView.swift */,
@@ -471,6 +474,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D42367BCBFBF90C4D06AFB9 /* MenuActionTile.swift in Sources */,
 				4125C9DC7BB0AD4618814905 /* MovableWindowAccessor.swift in Sources */,
 				7ABF1DABAADA5900E97C22A8 /* NSTextView+InsertionPoint.swift in Sources */,
 				F3167514B42C417678D8CD49 /* ShortcutEditorView.swift in Sources */,

@@ -42,12 +42,7 @@ struct ContentView: View {
 
                 HStack() {
 
-                    Button {
-                        UserDefaults.standard.set(updater.updateAvailable ? SettingsTab.updates.rawValue : SettingsTab.general.rawValue, forKey: "settingsSelectedTab")
-                        NSApp.activate()
-                        openSettings()
-                        dismiss()
-                    } label: {
+                    Button(action: showSettings) {
                         Group {
                             if updater.updateAvailable { Label("Updates", systemImage: "arrow.down.circle") }
                             else { Label("Settings", systemImage: "gear") }
@@ -59,9 +54,7 @@ struct ContentView: View {
                     .foregroundStyle(updater.updateAvailable ? .green : .secondary)
                     .help(updater.updateAvailable ? Text("Open Updates") : Text("Open Settings"))
 
-                    Button {
-                        NSApp.terminate(nil)
-                    } label: {
+                    Button(action: quit) {
                         Label("Quit Viz", systemImage: "x.circle.fill")
                             .labelStyle(.iconOnly)
                             .font(.system(size: 18))
@@ -81,64 +74,26 @@ struct ContentView: View {
 
 
             HStack(spacing: 5) {
-                VStack {
-                    Button("Capture") {
-                        CaptureService.shared.captureContent()
-                        dismiss()
-                    }
-                    .help("Capture section of screen to extract text and barcodes")
-                    .buttonStyle(RoundedRectangleButtonStyle(image: "viewfinder", size: 15))
-
-                    ShortcutEditorView(name: .captureContent, actionLabel: "Edit Capture shortcut")
-
-                }
-
-
-                VStack {
-                    Button("Webcam") {
-                        dismiss()
-                        openWebcamCapture()
-                    }
-                    .help("Open webcam capture window for OCR")
-                    .buttonStyle(RoundedRectangleButtonStyle(image: "camera", size: 15))
-
-                    ShortcutEditorView(name: .captureWebcam, actionLabel: "Edit Webcam shortcut")
-
-                }
-
-                VStack {
-                    Button("Color") {
-                        dismiss()
-                        processColor()
-                    }
-                    .help("Capture hex/rgb value from click location")
-                    .buttonStyle(RoundedRectangleButtonStyle(image: "eyedropper", size: 15))
-
-                    ShortcutEditorView(name: .eyedropper, actionLabel: "Edit Color shortcut")
-                }
-
-                VStack {
-                    Button("History") {
-                        openHistory()
-                        dismiss()
-                    }
-                    .help("Show history of captures from this session")
-                    .buttonStyle(RoundedRectangleButtonStyle(image: "clock", size: 15))
-
-                    ShortcutEditorView(name: .history, actionLabel: "Edit History shortcut")
-
-                }
-
-                VStack {
-                    Button("Clear") {
-                        clearClipboard()
-                    }
-                    .help("Clear clipboard contents and stored captures")
-                    .buttonStyle(RoundedRectangleButtonStyle(image: "delete.left", size: 15))
-
-                    ShortcutEditorView(name: .clear, actionLabel: "Edit Clear shortcut")
-                }
-
+                MenuActionTile(
+                    title: "Capture", icon: "viewfinder",
+                    help: "Capture section of screen to extract text and barcodes",
+                    shortcut: .captureContent, shortcutLabel: "Edit Capture shortcut", action: capture)
+                MenuActionTile(
+                    title: "Webcam", icon: "camera",
+                    help: "Open webcam capture window for OCR",
+                    shortcut: .captureWebcam, shortcutLabel: "Edit Webcam shortcut", action: captureWebcam)
+                MenuActionTile(
+                    title: "Color", icon: "eyedropper",
+                    help: "Capture hex/rgb value from click location",
+                    shortcut: .eyedropper, shortcutLabel: "Edit Color shortcut", action: captureColor)
+                MenuActionTile(
+                    title: "History", icon: "clock",
+                    help: "Show history of captures from this session",
+                    shortcut: .history, shortcutLabel: "Edit History shortcut", action: showHistory)
+                MenuActionTile(
+                    title: "Clear", icon: "delete.left",
+                    help: "Clear clipboard contents and stored captures",
+                    shortcut: .clear, shortcutLabel: "Edit Clear shortcut", action: clearCaptures)
             }
             .padding([.horizontal, .bottom, .top])
 
@@ -154,4 +109,38 @@ struct ContentView: View {
             menuRegistration = nil
         }
     }
+
+    private func showSettings() {
+        UserDefaults.standard.set(
+            updater.updateAvailable ? SettingsTab.updates.rawValue : SettingsTab.general.rawValue,
+            forKey: "settingsSelectedTab")
+        NSApp.activate()
+        openSettings()
+        dismiss()
+    }
+
+    private func quit() { NSApp.terminate(nil) }
+
+    private func capture() {
+        CaptureService.shared.captureContent()
+        dismiss()
+    }
+
+    private func captureWebcam() {
+        dismiss()
+        openWebcamCapture()
+    }
+
+    private func captureColor() {
+        dismiss()
+        processColor()
+    }
+
+    private func showHistory() {
+        openHistory()
+        dismiss()
+    }
+
+    private func clearCaptures() { clearClipboard() }
+
 }
