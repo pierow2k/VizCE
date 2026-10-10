@@ -1,5 +1,5 @@
 //
-//  Windows.swift
+//  WindowActions.swift
 //  Viz
 //
 //  Created by Alin Lupascu on 3/27/25.

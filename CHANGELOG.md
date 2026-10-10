@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Organize source by capture, recognition, history, preview, settings, and menu features; split composition, recognition/acquisition, and utility responsibilities into named files.
 - Use a payload-free capture sound helper and remove dummy history-item construction for sound playback.
 - Name the shared unavailable-language predicate while keeping the explanatory message conditional on loading completion.
 - Share the unchanged close-button header between text and color previews.

@@ -1,5 +1,5 @@
 //
-//  MainView.swift
+//  ContentView.swift
 //  Viz
 //
 //  Created by Alin Lupascu on 4/9/24.

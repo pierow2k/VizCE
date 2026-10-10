@@ -107,7 +107,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/ImageCropTransform.swift</string>
+			<string>../Viz/Features/Capture/Webcam/ImageCropTransform.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -125,7 +125,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/ImageSelectionState.swift</string>
+			<string>../Viz/Features/Capture/Webcam/ImageSelectionState.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -143,7 +143,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/OperationIdentity.swift</string>
+			<string>../Viz/Shared/OperationIdentity.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -161,7 +161,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/PostProcessingRunner.swift</string>
+			<string>../Viz/Features/Recognition/PostProcessing/PostProcessingRunner.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -179,7 +179,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/PreviewExpiry.swift</string>
+			<string>../Viz/Features/Preview/PreviewExpiry.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -197,7 +197,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/RecognitionOptions.swift</string>
+			<string>../Viz/Features/Recognition/RecognitionOptions.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -215,7 +215,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/RecognitionWorker.swift</string>
+			<string>../Viz/Features/Recognition/RecognitionWorker.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -233,7 +233,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/ShellTemplate.swift</string>
+			<string>../Viz/Features/Recognition/PostProcessing/ShellTemplate.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -251,7 +251,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/SystemWebcamAuthorization.swift</string>
+			<string>../Viz/Features/Capture/Webcam/SystemWebcamAuthorization.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -269,7 +269,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/VideoSampleDelegate.swift</string>
+			<string>../Viz/Features/Capture/Webcam/VideoSampleDelegate.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -287,7 +287,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/WebcamAuthorizing.swift</string>
+			<string>../Viz/Features/Capture/Webcam/WebcamAuthorizing.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -305,7 +305,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/WebcamCaptureBackend.swift</string>
+			<string>../Viz/Features/Capture/Webcam/WebcamCaptureBackend.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -323,7 +323,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/WebcamCaptureCoordinator.swift</string>
+			<string>../Viz/Features/Capture/Webcam/WebcamCaptureCoordinator.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -341,7 +341,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/WebcamCaptureError.swift</string>
+			<string>../Viz/Features/Capture/Webcam/WebcamCaptureError.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -359,7 +359,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/WebcamCaptureWorker.swift</string>
+			<string>../Viz/Features/Capture/Webcam/WebcamCaptureWorker.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -377,7 +377,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/WebcamPreviewSource.swift</string>
+			<string>../Viz/Features/Capture/Webcam/WebcamPreviewSource.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -695,7 +695,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/StoredTextItem.swift</string>
+			<string>../Viz/Features/History/StoredTextItem.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -713,7 +713,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/StoredColorItem.swift</string>
+			<string>../Viz/Features/History/StoredColorItem.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -731,7 +731,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/StoredHistoryEntry.swift</string>
+			<string>../Viz/Features/History/StoredHistoryEntry.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -749,7 +749,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/HistoryStoring.swift</string>
+			<string>../Viz/Features/History/HistoryStoring.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -767,7 +767,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/HistoryFileStore.swift</string>
+			<string>../Viz/Features/History/HistoryFileStore.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -785,7 +785,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/HistoryMutation.swift</string>
+			<string>../Viz/Features/History/HistoryMutation.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -803,7 +803,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/HistoryRepository.swift</string>
+			<string>../Viz/Features/History/HistoryRepository.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -839,7 +839,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/RecognitionConfiguration.swift</string>
+			<string>../Viz/Features/Recognition/RecognitionConfiguration.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -857,7 +857,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/RecognitionLanguageCatalog.swift</string>
+			<string>../Viz/Features/Recognition/RecognitionLanguageCatalog.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -875,7 +875,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/RecognitionLanguageSelection.swift</string>
+			<string>../Viz/Features/Recognition/RecognitionLanguageSelection.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -893,7 +893,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/RecognitionLanguageName.swift</string>
+			<string>../Viz/Features/Recognition/RecognitionLanguageName.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -929,7 +929,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/CaptureFailure.swift</string>
+			<string>../Viz/Features/Capture/CaptureFailure.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -947,7 +947,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/RecognitionOutcome.swift</string>
+			<string>../Viz/Features/Recognition/RecognitionOutcome.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -965,7 +965,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/RecognitionDelivery.swift</string>
+			<string>../Viz/Features/Recognition/RecognitionDelivery.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -983,7 +983,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/ScreenCaptureOutcome.swift</string>
+			<string>../Viz/Features/Capture/Screen/ScreenCaptureOutcome.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -1001,7 +1001,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/ScreenCaptureOperationState.swift</string>
+			<string>../Viz/Features/Capture/Screen/ScreenCaptureOperationState.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -1019,7 +1019,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/ScreenCaptureWorker.swift</string>
+			<string>../Viz/Features/Capture/Screen/ScreenCaptureWorker.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -1055,7 +1055,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/HistoryFilter.swift</string>
+			<string>../Viz/Features/History/HistoryFilter.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -1073,7 +1073,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/CopyFeedbackController.swift</string>
+			<string>../Viz/Features/History/CopyFeedbackController.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -1109,7 +1109,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/LaunchAtLoginStatus.swift</string>
+			<string>../Viz/Features/Settings/LaunchAtLogin/LaunchAtLoginStatus.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -1127,7 +1127,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/LaunchAtLoginServicing.swift</string>
+			<string>../Viz/Features/Settings/LaunchAtLogin/LaunchAtLoginServicing.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -1145,7 +1145,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/SystemLaunchAtLoginService.swift</string>
+			<string>../Viz/Features/Settings/LaunchAtLogin/SystemLaunchAtLoginService.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -1163,7 +1163,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/LaunchAtLoginController.swift</string>
+			<string>../Viz/Features/Settings/LaunchAtLogin/LaunchAtLoginController.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -1199,7 +1199,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/WebcamState.swift</string>
+			<string>../Viz/Features/Capture/Webcam/WebcamState.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -1217,7 +1217,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/WebcamDevice.swift</string>
+			<string>../Viz/Features/Capture/Webcam/WebcamDevice.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -1235,7 +1235,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/WebcamDevices.swift</string>
+			<string>../Viz/Features/Capture/Webcam/WebcamDevices.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -1253,7 +1253,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/WebcamDeviceDiscovering.swift</string>
+			<string>../Viz/Features/Capture/Webcam/WebcamDeviceDiscovering.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -1271,7 +1271,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/SystemWebcamDeviceCatalog.swift</string>
+			<string>../Viz/Features/Capture/Webcam/SystemWebcamDeviceCatalog.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -1289,7 +1289,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/WebcamManager.swift</string>
+			<string>../Viz/Features/Capture/Webcam/WebcamManager.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -1325,7 +1325,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/SettingsTab.swift</string>
+			<string>../Viz/Features/Settings/SettingsTab.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>
@@ -1361,7 +1361,7 @@
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
 			<key>path</key>
-			<string>../Viz/Logic/ScreenCaptureFiles.swift</string>
+			<string>../Viz/Features/Capture/Screen/ScreenCaptureFiles.swift</string>
 			<key>sourceTree</key>
 			<string>SOURCE_ROOT</string>
 		</dict>

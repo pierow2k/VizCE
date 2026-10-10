@@ -81,7 +81,7 @@ struct GeneralSettingsView: View {
                                 .help("Reset dimensions to default")
 
                                 Button {
-                                    showPreviewWindow(contentView: PreviewContentView())
+                                    PreviewWindowController.shared.show(PreviewContentView())
                                 } label: {
                                     Image(systemName: "macwindow")
                                         .font(.system(size: 12))

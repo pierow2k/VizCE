@@ -1,29 +1,5 @@
-//
-//  Utilities.swift
-//  Grabber
-//
-//  Created by Alin Lupascu on 4/5/24.
-//
-
-import Foundation
-import SwiftUI
 import AppKit
-
-@MainActor
-func copyTextItemsToClipboard(textItems: [TextItem]) {
-    let pasteboard = NSPasteboard.general
-    pasteboard.clearContents()
-
-    let combinedText = textItems.map { $0.text }.joined(separator: "\n")
-    pasteboard.setString(combinedText, forType: .string)
-}
-
-@MainActor
-func copyColorsToClipboard(color: ColorItem) {
-    let pasteboard = NSPasteboard.general
-    pasteboard.clearContents()
-    pasteboard.setString(color.hex, forType: .string)
-}
+import SwiftUI
 
 @MainActor
 func pickColor() async -> ColorItem {
@@ -61,30 +37,7 @@ func processColor() {
         let entry = HistoryEntry.color(colorItem)
         HistoryState.shared.append(entry)
         await MainActor.run {
-            showPreviewWindow(contentView: ColorPreviewView())
+            PreviewWindowController.shared.show(ColorPreviewView())
         }
-    }
-}
-
-extension Bundle {
-
-    var name: String {
-        func string(for key: String) -> String? {
-            object(forInfoDictionaryKey: key) as? String
-        }
-        return string(for: "CFBundleDisplayName")
-        ?? string(for: "CFBundleName")
-        ?? "N/A"
-    }
-}
-
-extension Bundle {
-
-    var version: String {
-        infoDictionary?["CFBundleShortVersionString"] as? String ?? "N/A"
-    }
-
-    var buildVersion: String {
-        infoDictionary?["CFBundleVersion"] as? String ?? "N/A"
     }
 }
