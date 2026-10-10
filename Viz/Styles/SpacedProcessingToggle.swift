@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SpacedProcessingToggle: ToggleStyle {
-    @AppStorage("postcommands") var postCommands: String = "say [ocr];"
+    @Binding var postCommands: String
     @State private var showPopover = false
 
     func makeBody(configuration: Configuration) -> some View {

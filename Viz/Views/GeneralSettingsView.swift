@@ -37,13 +37,13 @@ struct GeneralSettingsView: View {
                             .help("New lines will be kept from scanned text")
 
                         Toggle("Show capture window for", isOn: $showPreview)
-                            .toggleStyle(SpacedToggleSeconds())
+                            .toggleStyle(SpacedToggleSeconds(seconds: $seconds))
                             .help(
                                 "When enabled, captured content preview will show and close after \(Int(seconds)) seconds. Otherwise it's not shown at all."
                             )
 
                         Toggle("Post-processing", isOn: $processingIsEnabled)
-                            .toggleStyle(SpacedProcessingToggle())
+                            .toggleStyle(SpacedProcessingToggle(postCommands: $postCommands))
                             .help("When enabled, you can execute shell functions after capture")
 
                         Toggle("Mute capture sound", isOn: $mute)

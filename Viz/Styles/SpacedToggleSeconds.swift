@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SpacedToggleSeconds: ToggleStyle {
-    @AppStorage("previewSeconds") var seconds: Double = 5.0
+    @Binding var seconds: Double
 
     func makeBody(configuration: Configuration) -> some View {
         HStack(spacing: 0) {
