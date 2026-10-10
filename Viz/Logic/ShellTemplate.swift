@@ -11,12 +11,12 @@ enum ShellTemplate {
         var needsCommand = true
         var needsRedirectionTarget = false
         let compoundKeywords: Set<String> = ["if", "then", "else", "elif", "fi", "for", "while", "until", "do", "done", "case", "esac", "function", "repeat", "select", "coproc", "time", "!", "{", "}", "[[", "]]"]
-        let boundaries = " \t\r\n;|&<>"
         while index < input.count {
             let character = input[index]
             if character == "#" {
                 while index < input.count, input[index] != "\n" {
-                    output.append(input[index]); index += 1
+                    output.append(input[index])
+                    index += 1
                 }
                 continue
             }
@@ -30,7 +30,8 @@ enum ShellTemplate {
                 output.append(character)
                 index += 1
                 if index < input.count && ">&|".contains(input[index]) {
-                    output.append(input[index]); index += 1
+                    output.append(input[index])
+                    index += 1
                 }
                 continue
             }
@@ -39,31 +40,13 @@ enum ShellTemplate {
                     guard !needsRedirectionTarget else { throw unsupported() }
                     needsCommand = true
                 }
-                output.append(character); index += 1; continue
+                output.append(character)
+                index += 1
+                continue
             }
-            var word = ""
-            var quote: Character?
-            while index < input.count {
-                let current = input[index]
-                if quote == nil && boundaries.contains(current) { break }
-                if current == "\\" && quote != "'" {
-                    guard index + 1 < input.count else { throw unsupported() }
-                    word.append(current); word.append(input[index + 1]); index += 2; continue
-                }
-                if quote != "'", current == "$", index + 1 < input.count, input[index + 1] == "{" {
-                    throw unsupported()
-                }
-                if current == "'" || current == "\"" {
-                    if quote == current { quote = nil }
-                    else if quote == nil { quote = current }
-                } else if quote != "'" && (current == "`" || current == "(" || current == ")") {
-                    throw unsupported()
-                }
-                word.append(current); index += 1
-            }
-            guard quote == nil else { throw unsupported() }
+            let word = try scanWord(input, index: &index)
             if needsCommand && !needsRedirectionTarget && compoundKeywords.contains(word) { throw unsupported() }
-            if ["[ocr]", "\"[ocr]\"", "'[ocr]'"].contains(word) {
+            if wholeArgumentPlaceholders.contains(word) {
                 guard !needsCommand || needsRedirectionTarget else { throw unsupported() }
                 output += "\"${VIZ_OCR_TEXT}\""
             } else {
@@ -78,6 +61,38 @@ enum ShellTemplate {
         }
         guard !needsRedirectionTarget else { throw unsupported() }
         return output
+    }
+
+    private static let boundaries = " \t\r\n;|&<>"
+    private static let wholeArgumentPlaceholders: Set<String> = ["[ocr]", "\"[ocr]\"", "'[ocr]'"]
+
+    private static func scanWord(_ input: [Character], index: inout Int) throws -> String {
+        var word = ""
+        var quote: Character?
+        while index < input.count {
+            let current = input[index]
+            if quote == nil && boundaries.contains(current) { break }
+            if current == "\\" && quote != "'" {
+                guard index + 1 < input.count else { throw unsupported() }
+                word.append(current)
+                word.append(input[index + 1])
+                index += 2
+                continue
+            }
+            if quote != "'", current == "$", index + 1 < input.count, input[index + 1] == "{" {
+                throw unsupported()
+            }
+            if current == "'" || current == "\"" {
+                if quote == current { quote = nil }
+                else if quote == nil { quote = current }
+            } else if quote != "'" && (current == "`" || current == "(" || current == ")") {
+                throw unsupported()
+            }
+            word.append(current)
+            index += 1
+        }
+        guard quote == nil else { throw unsupported() }
+        return word
     }
 
     private static func unsupported() -> NSError {
