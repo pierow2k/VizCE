@@ -10,6 +10,14 @@ struct TextRecognition {
     var historyState: HistoryState
     var didFinishRecognition: @MainActor (RecognitionOutcome) -> Void
 
+    static func recognizeAndPreview(_ image: NSImage, operationID: UInt64? = nil) {
+        TextRecognition(image: image, historyState: .shared) { outcome in
+            if case .content = outcome {
+                showPreviewWindow(contentView: PreviewContentView())
+            }
+        }.recognizeContent(operationID: operationID)
+    }
+
     func recognizeContent(operationID: UInt64? = nil) {
         let preferences = UserDefaults.standard
         let state = AppState.shared
@@ -98,9 +106,7 @@ final class CaptureService {
                     CaptureNoticePresenter.shared.show(.failure(.imageConversion))
                     return
                 }
-                TextRecognition(recognizedContent: recognizedContent, image: image, historyState: HistoryState.shared) { result in
-                    if case .content = result { showPreviewWindow(contentView: PreviewContentView()) }
-                }.recognizeContent(operationID: token)
+                TextRecognition.recognizeAndPreview(image, operationID: token)
             case .failure(let error): CaptureNoticePresenter.shared.show(.failure(error))
             case .cancelled: break
             }

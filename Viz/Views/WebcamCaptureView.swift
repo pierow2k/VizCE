@@ -89,12 +89,7 @@ struct WebcamCaptureView: View {
 
     private func extractWholeImage() {
         guard let image = captureManager.capturedImage else { return }
-        TextRecognition(
-            recognizedContent: RecognizedContent.shared, image: image,
-            historyState: HistoryState.shared
-        ) { result in
-            if case .content = result { showPreviewWindow(contentView: PreviewContentView()) }
-        }.recognizeContent()
+        TextRecognition.recognizeAndPreview(image)
     }
 
     private func extractFromSelection() {
@@ -102,12 +97,7 @@ struct WebcamCaptureView: View {
 
         // Crop the image based on selection
         if let croppedImage = cropImage(image: image, rect: selection.rect) {
-            TextRecognition(
-                recognizedContent: RecognizedContent.shared, image: croppedImage,
-                historyState: HistoryState.shared
-            ) { outcome in
-                if case .content = outcome { showPreviewWindow(contentView: PreviewContentView()) }
-            }.recognizeContent()
+            TextRecognition.recognizeAndPreview(croppedImage)
 
             // Reset to captured image view
             isSnipping = false

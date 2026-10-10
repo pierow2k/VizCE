@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Share the image-recognition and success-only preview entry point across screen and webcam extraction.
 - Pass preview-duration and post-processing command bindings from the settings tab into their toggle styles.
 - Put reusable button/toggle/text-field styles and shapes in a Styles group; give shortcut/info controls, the text-view extension, and window accessor focused files without changing behavior.
 - Organize recognized content, recognition quality, history entries, and text/color models into individual files while preserving actor isolation, identity, and history encoding.
