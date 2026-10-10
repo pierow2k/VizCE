@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Extract queue-confined webcam session configuration and PNG frame encoding, with deferred configuration commit before startup or teardown.
 - Extract shell word scanning, name accepted placeholder forms, and make parser cursor advancement explicit.
 - Separate screen-capture temporary files, launch orchestration, result classification, and shared cleanup while preserving queue confinement.
 - Consolidate menu action tiles into a shared view and keep action ordering in named parent methods.

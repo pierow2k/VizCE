@@ -31,25 +31,7 @@ final class WebcamCaptureWorker: WebcamCaptureBackend, @unchecked Sendable {
                     let session = AVCaptureSession()
                     self.session = session
                     self.operationID = operationID
-                    session.beginConfiguration()
-                    do {
-                        session.sessionPreset = .high
-                        let input = try AVCaptureDeviceInput(device: device)
-                        guard session.canAddInput(input) else { throw WebcamCaptureError.unsupportedInput }
-                        session.addInput(input)
-                        let output = AVCaptureVideoDataOutput()
-                        output.alwaysDiscardsLateVideoFrames = true
-                        guard session.canAddOutput(output) else { throw WebcamCaptureError.unsupportedOutput }
-                        let delegate = VideoSampleDelegate(worker: self)
-                        self.output = output
-                        self.delegate = delegate
-                        output.setSampleBufferDelegate(delegate, queue: self.queue)
-                        session.addOutput(output)
-                        session.commitConfiguration()
-                    } catch {
-                        session.commitConfiguration()
-                        throw error
-                    }
+                    try self.configure(session, device: device)
                     session.startRunning()
                     guard session.isRunning else { throw WebcamCaptureError.startFailed }
                     continuation.resume(returning: WebcamPreviewSource(session: session))
@@ -66,19 +48,8 @@ final class WebcamCaptureWorker: WebcamCaptureBackend, @unchecked Sendable {
             queue.async {
                 do {
                     guard self.operationID == operationID else { throw WebcamCaptureError.staleOperation }
-                    guard let buffer = self.sampleBuffer,
-                          let pixels = CMSampleBufferGetImageBuffer(buffer) else { throw WebcamCaptureError.noFrame }
-                    let image = CIImage(cvImageBuffer: pixels)
-                    guard let cgImage = self.context.createCGImage(image, from: image.extent) else {
-                        throw WebcamCaptureError.conversionFailed
-                    }
-                    let data = NSMutableData()
-                    guard let destination = CGImageDestinationCreateWithData(data, UTType.png.identifier as CFString, 1, nil) else {
-                        throw WebcamCaptureError.conversionFailed
-                    }
-                    CGImageDestinationAddImage(destination, cgImage, nil)
-                    guard CGImageDestinationFinalize(destination) else { throw WebcamCaptureError.conversionFailed }
-                    continuation.resume(returning: data as Data)
+                    guard let buffer = self.sampleBuffer else { throw WebcamCaptureError.noFrame }
+                    continuation.resume(returning: try self.encodeFrame(buffer))
                 } catch { continuation.resume(throwing: error) }
             }
         }
@@ -99,6 +70,40 @@ final class WebcamCaptureWorker: WebcamCaptureBackend, @unchecked Sendable {
         dispatchPrecondition(condition: .onQueue(queue))
         guard output === self.output else { return }
         sampleBuffer = buffer
+    }
+
+    private func configure(_ session: AVCaptureSession, device: AVCaptureDevice) throws {
+        dispatchPrecondition(condition: .onQueue(queue))
+        session.beginConfiguration()
+        defer { session.commitConfiguration() }
+        session.sessionPreset = .high
+        let input = try AVCaptureDeviceInput(device: device)
+        guard session.canAddInput(input) else { throw WebcamCaptureError.unsupportedInput }
+        session.addInput(input)
+        let output = AVCaptureVideoDataOutput()
+        output.alwaysDiscardsLateVideoFrames = true
+        guard session.canAddOutput(output) else { throw WebcamCaptureError.unsupportedOutput }
+        let delegate = VideoSampleDelegate(worker: self)
+        self.output = output
+        self.delegate = delegate
+        output.setSampleBufferDelegate(delegate, queue: queue)
+        session.addOutput(output)
+    }
+
+    private func encodeFrame(_ buffer: CMSampleBuffer) throws -> Data {
+        dispatchPrecondition(condition: .onQueue(queue))
+        guard let pixels = CMSampleBufferGetImageBuffer(buffer) else { throw WebcamCaptureError.noFrame }
+        let image = CIImage(cvImageBuffer: pixels)
+        guard let cgImage = context.createCGImage(image, from: image.extent) else {
+            throw WebcamCaptureError.conversionFailed
+        }
+        let data = NSMutableData()
+        guard let destination = CGImageDestinationCreateWithData(data, UTType.png.identifier as CFString, 1, nil) else {
+            throw WebcamCaptureError.conversionFailed
+        }
+        CGImageDestinationAddImage(destination, cgImage, nil)
+        guard CGImageDestinationFinalize(destination) else { throw WebcamCaptureError.conversionFailed }
+        return data as Data
     }
 
     private func tearDown() {
