@@ -79,6 +79,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- Keep one canonical app icon package and the root release announcements file; remove duplicate resources and the title-only nested README.
 - Remove unused capture views, styles, legacy utility helpers, preview globals, and menu dependencies.
 - Remove the unused legacy relaunch helper; remaining subprocess launches use throwing APIs.
 - Remove the unused image-snipping view and its dormant, incorrect crop conversion.

@@ -208,7 +208,6 @@
 		C7374B682E79CD090015DEED /* Viz.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = Viz.icon; sourceTree = "<group>"; };
 		C73944B62BC4489C00EE7EBF /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		C73944BB2BC449C800EE7EBF /* AboutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
-		C74D7C942D95CE55009A8C48 /* announcements.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = announcements.json; sourceTree = "<group>"; };
 		C74D7C972D95D307009A8C48 /* Viz.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Viz.entitlements; sourceTree = "<group>"; };
 		C74D7C982D95D806009A8C48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		C766D2892C34D0F100F51BB9 /* Builds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Builds; sourceTree = SOURCE_ROOT; };
@@ -274,7 +273,6 @@
 				C7174C972BC06EE600DBEF75 /* Assets.xcassets */,
 				C7374B682E79CD090015DEED /* Viz.icon */,
 				C7C0C0BD2D94D253002140DD /* water.mp3 */,
-				C74D7C942D95CE55009A8C48 /* announcements.json */,
 			);
 			path = Viz;
 			sourceTree = "<group>";
