@@ -1,24 +1,45 @@
-.DEFAULT_GOAL := build
+.DEFAULT_GOAL := debug
 
 XCODEBUILD ?= xcodebuild
 SWIFTLINT ?= swiftlint
+
 BUILD_DIR ?= $(CURDIR)/build
+DIST_DIR ?= $(CURDIR)/dist
 DESTINATION ?= platform=macOS,arch=$(shell uname -m)
-CODE_SIGNING_ALLOWED ?= NO
 
-.PHONY: build test lint
+DEBUG_APP := $(BUILD_DIR)/debug/Build/Products/Debug/VizCE.app
+RELEASE_APP := $(BUILD_DIR)/release/Build/Products/Release/VizCE.app
 
-build:
+.PHONY: build debug release test lint clean
+
+build: debug
+
+debug:
 	"$(XCODEBUILD)" -project "VizCE.xcodeproj" -scheme "VizCE Debug" \
 		-configuration Debug -destination "$(DESTINATION)" \
-		-derivedDataPath "$(BUILD_DIR)/app" \
-		"CODE_SIGNING_ALLOWED=$(CODE_SIGNING_ALLOWED)" build
+		-derivedDataPath "$(BUILD_DIR)/debug" \
+		build
+	rm -rf "$(DIST_DIR)/Debug/VizCE.app"
+	mkdir -p "$(DIST_DIR)/Debug"
+	ditto "$(DEBUG_APP)" "$(DIST_DIR)/Debug/VizCE.app"
+
+release:
+	"$(XCODEBUILD)" -project "VizCE.xcodeproj" -scheme "VizCE Release" \
+		-configuration Release -destination "$(DESTINATION)" \
+		-derivedDataPath "$(BUILD_DIR)/release" \
+		build
+	rm -rf "$(DIST_DIR)/Release/VizCE.app"
+	mkdir -p "$(DIST_DIR)/Release"
+	ditto "$(RELEASE_APP)" "$(DIST_DIR)/Release/VizCE.app"
 
 test:
 	"$(XCODEBUILD)" -project "Tests/VizCETests.xcodeproj" -scheme "VizCETests" \
 		-configuration Debug -destination "$(DESTINATION)" \
 		-derivedDataPath "$(BUILD_DIR)/tests" \
-		"CODE_SIGNING_ALLOWED=$(CODE_SIGNING_ALLOWED)" test
+		test
 
 lint:
 	"$(SWIFTLINT)" lint --config ".swiftlint.yml" --force-exclude "VizCE" "Tests"
+
+clean:
+	rm -rf "$(BUILD_DIR)" "$(DIST_DIR)"
