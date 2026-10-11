@@ -1,7 +1,7 @@
 <!-- markdownlint-disable no-duplicate-heading -->
-# Viz Changelog
+# VizCE Changelog
 
-All notable changes to Viz will be documented in this file.
+All notable changes to VizCE will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Rename the application, source resources, Xcode projects, test target, and
+  maintained repository to VizCE. Use fresh bundle identities and history storage
+  without migrating existing data, and expose post-processing text through
+  `VIZCE_OCR_TEXT`.
 - Organize source by capture, recognition, history, preview, settings, and menu features; split composition, recognition/acquisition, and utility responsibilities into named files.
 - Use a payload-free capture sound helper and remove dummy history-item construction for sound playback.
 - Name the shared unavailable-language predicate while keeping the explanatory message conditional on loading completion.
@@ -45,7 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   statements, and braced parameter expressions. Templates without placeholders
   continue to run unchanged.
 - Point the About dialog's GitHub link to this fork and update its attribution
-  to Pierow2k and the Viz Community.
+  to Pierow2k and the VizCE Community.
 
 ### Fixed
 
@@ -64,7 +68,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Dismiss an open menu panel through its installed view when Webcam or History is opened with a global shortcut.
 - Fixed Settings failing to open or come to the front when clicking the menu-bar
   gear or a shortcut badge, including reopening an existing Settings window.
-  Settings actions now use the calling view's environment and activate Viz
+  Settings actions now use the calling view's environment and activate VizCE
   before presenting the window.
 - Prevent older post-processing completions from overwriting output after a
   newer capture or Clear.
@@ -81,9 +85,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- Remove unused upstream iCloud container metadata while keeping iCloud disabled.
 - Keep one canonical app icon package and the root release announcements file; remove duplicate resources and the title-only nested README.
 - Remove unused capture views, styles, legacy utility helpers, preview globals, and menu dependencies.
 - Remove the unused legacy relaunch helper; remaining subprocess launches use throwing APIs.
 - Remove the unused image-snipping view and its dormant, incorrect crop conversion.
 
-[unreleased]: https://github.com/pierow2k/Viz/compare/cde5a8e24a8b0379436d551b752ecc755e93b1b9...HEAD
+[unreleased]: https://github.com/pierow2k/VizCE/compare/cde5a8e24a8b0379436d551b752ecc755e93b1b9...HEAD

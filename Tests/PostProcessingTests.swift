@@ -1,6 +1,15 @@
 import XCTest
 
 final class PostProcessingTests: XCTestCase {
+    func testRenamedEnvironmentVariablePreservesPayloadWithoutPlaceholder() async throws {
+        let payloads = ["", "spaces and café", "line 1\nline 2\n", "'\"\\;|&<>*", "$(printf unexpected) `printf unexpected`"]
+        for payload in payloads {
+            let output = try await PostProcessingRunner().run(
+                template: "printf '%s' \"$VIZCE_OCR_TEXT\"", content: payload)
+            XCTAssertEqual(output, payload)
+        }
+    }
+
     func testLiteralArgumentsAndNoCommandExecution() async throws {
         let sentinel = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         let payloads = ["", "spaces and café", "line 1\nline 2\n", "'\"\\;|&<>*", "$(touch \(sentinel.path)) `touch \(sentinel.path)`"]
@@ -46,7 +55,7 @@ final class PostProcessingTests: XCTestCase {
     }
 
     func testLaunchAndNulFailures() async {
-        do { _ = try await PostProcessingRunner(executableURL: URL(fileURLWithPath: "/nonexistent/viz-shell")).run(template: "echo [ocr]", content: "x"); XCTFail() } catch {}
+        do { _ = try await PostProcessingRunner(executableURL: URL(fileURLWithPath: "/nonexistent/vizce-shell")).run(template: "echo [ocr]", content: "x"); XCTFail() } catch {}
         do { _ = try await PostProcessingRunner().run(template: "echo [ocr]", content: "\0"); XCTFail() } catch {}
         do { _ = try await PostProcessingRunner().run(template: "echo [ocr]", content: String(repeating: "x", count: 8_000_000)); XCTFail() } catch {}
     }

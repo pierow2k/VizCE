@@ -12,7 +12,7 @@ final class SettingsTabTests: XCTestCase {
 
     @MainActor
     func testAppStorageReadsAndWritesExistingIntegerPreference() throws {
-        let suite = "Viz.SettingsTabTests.\(UUID().uuidString)"
+        let suite = "VizCE.SettingsTabTests.\(UUID().uuidString)"
         let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))
         defer { defaults.removePersistentDomain(forName: suite) }
         for tab in SettingsTab.allCases {
@@ -26,7 +26,7 @@ final class SettingsTabTests: XCTestCase {
 
     @MainActor
     func testAbsentAndUnsupportedPreferencesFallBackToGeneral() throws {
-        let suite = "Viz.SettingsTabTests.\(UUID().uuidString)"
+        let suite = "VizCE.SettingsTabTests.\(UUID().uuidString)"
         let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))
         defer { defaults.removePersistentDomain(forName: suite) }
         let absent = AppStorage(wrappedValue: SettingsTab.general, "settingsSelectedTab", store: defaults)

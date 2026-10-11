@@ -68,7 +68,7 @@ final class CaptureOutcomeTests: XCTestCase {
         let root = temporaryRoot()
         defer { try? FileManager.default.removeItem(at: root) }
         let worker = ScreenCaptureWorker(executable: URL(fileURLWithPath: "/bin/zsh"), temporaryDirectory: root) { output in
-            ["-c", "printf owned > \"$1\"", "viz-test", output.path]
+            ["-c", "printf owned > \"$1\"", "vizce-test", output.path]
         }
         let task = Task { await worker.capture() }
         pasteboard.setString("new clipboard", forType: .string)
@@ -81,7 +81,7 @@ final class CaptureOutcomeTests: XCTestCase {
     func testLaunchAndExecutionFailuresCleanTemporaryFiles() async throws {
         let root = temporaryRoot()
         defer { try? FileManager.default.removeItem(at: root) }
-        let missing = await ScreenCaptureWorker(executable: URL(fileURLWithPath: "/missing-viz-process"), temporaryDirectory: root).capture()
+        let missing = await ScreenCaptureWorker(executable: URL(fileURLWithPath: "/missing-vizce-process"), temporaryDirectory: root).capture()
         guard case .failure(.screenCapture) = missing else { return XCTFail("Expected launch failure") }
         let failed = await ScreenCaptureWorker(executable: URL(fileURLWithPath: "/bin/zsh"), temporaryDirectory: root) { _ in
             ["-c", "print -u2 permission-failure; exit 2"]
@@ -112,7 +112,7 @@ final class CaptureOutcomeTests: XCTestCase {
         XCTAssertEqual(cancelled, .cancelled)
         let empty = await ScreenCaptureWorker(
             executable: URL(fileURLWithPath: "/bin/zsh"), temporaryDirectory: root
-        ) { output in ["-c", "printf '' > \"$1\"", "viz-test", output.path] }.capture()
+        ) { output in ["-c", "printf '' > \"$1\"", "vizce-test", output.path] }.capture()
         guard case .failure(.screenCapture) = empty else { return XCTFail("Empty owned output must fail") }
         XCTAssertTrue(try FileManager.default.contentsOfDirectory(atPath: root.path).isEmpty)
     }
