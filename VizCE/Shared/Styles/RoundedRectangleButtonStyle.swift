@@ -1,5 +1,5 @@
-import SwiftUI
 import KeyboardShortcuts
+import SwiftUI
 
 /// A capture tile with an SF Symbol, optional shortcut, and accessible press feedback.
 struct RoundedRectangleButtonStyle: ButtonStyle {
@@ -36,7 +36,7 @@ struct RoundedRectangleButtonStyle: ButtonStyle {
                 configuration.label
                     .font(.footnote)
 
-                if let shortcut = shortcut {
+                if let shortcut {
                     Text(shortcut.description)
                         .font(.footnote)
                         .foregroundStyle(.secondary)

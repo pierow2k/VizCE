@@ -1,13 +1,10 @@
-import SwiftUI
 import AlinFoundation
+import SwiftUI
 
 /// Application identity, version information, and a link to the maintained repository.
 struct AboutView: View {
-
     var body: some View {
-
         VStack(spacing: 0) {
-
             Image(nsImage: NSApp.applicationIconImage ?? NSImage())
                 .padding()
 
@@ -34,10 +31,9 @@ struct AboutView: View {
             .buttonStyle(.borderedProminent)
             .tint(.blue)
 
-
             Spacer()
 
-            HStack(spacing: 0){
+            HStack(spacing: 0) {
                 Spacer()
                 Text("Made with ❤️ by ")
                 Text("Pierow2k and the VizCE Community")
@@ -45,12 +41,10 @@ struct AboutView: View {
                 Spacer()
             }
             .padding()
-
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color("bg"))
         .environment(\.colorScheme, .dark)
         .preferredColorScheme(.dark)
-
     }
 }

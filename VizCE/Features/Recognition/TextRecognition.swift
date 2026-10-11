@@ -1,7 +1,7 @@
+import AlinFoundation
+import Foundation
 import SwiftUI
 import Vision
-import Foundation
-import AlinFoundation
 
 /// Main-actor orchestration of recognition, clipboard delivery, history, and optional shell processing.
 @MainActor
@@ -18,7 +18,7 @@ struct TextRecognition {
     ///   - image: The captured image to encode and recognize.
     ///   - operationID: An existing capture token, or `nil` to begin a new capture generation.
     static func recognizeAndPreview(_ image: NSImage, operationID: UInt64? = nil) {
-        TextRecognition(image: image, historyState: .shared) { outcome in
+        Self(image: image, historyState: .shared) { outcome in
             if case .content = outcome {
                 PreviewWindowController.shared.show(PreviewContentView())
             }
@@ -73,8 +73,7 @@ struct TextRecognition {
     /// Only the current capture may publish processing output; captured text is snapshotted before the task starts.
     private func apply(text: String, options: RecognitionOptions, token: UInt64) {
         let item = TextItem(text: text)
-        if options.append { recognizedContent.items.append(item) }
-        else { recognizedContent.items = [item] }
+        if options.append { recognizedContent.items.append(item) } else { recognizedContent.items = [item] }
         copyTextItemsToClipboard(textItems: recognizedContent.items)
         playCaptureSound()
         historyState.append(.text(item))
@@ -84,8 +83,7 @@ struct TextRecognition {
         if state.captureIdentity.isCurrent(token) { state.cmdOutput = "Running post-processing commands.." }
         Task { @MainActor in
             let output: String
-            do { output = try await PostProcessingRunner().run(template: options.commandTemplate, content: contentSnapshot) }
-            catch { output = "Post-processing failed: \(error.localizedDescription)" }
+            do { output = try await PostProcessingRunner().run(template: options.commandTemplate, content: contentSnapshot) } catch { output = "Post-processing failed: \(error.localizedDescription)" }
             guard state.captureIdentity.isCurrent(token) else { return }
             state.cmdOutput = output
         }

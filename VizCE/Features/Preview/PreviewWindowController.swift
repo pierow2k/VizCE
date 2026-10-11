@@ -46,8 +46,8 @@ final class PreviewWindowController {
         window = presentation
         presentation.orderFront(nil)
         expiry.schedule(after: .seconds(seconds)) { [weak self, weak presentation] in
-            guard let self, let presentation, self.window === presentation else { return }
-            self.close()
+            guard let self, let presentation, window === presentation else { return }
+            close()
         }
     }
 }

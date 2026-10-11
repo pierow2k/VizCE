@@ -1,5 +1,5 @@
-import XCTest
 import AppKit
+import XCTest
 
 final class RecognitionTests: XCTestCase {
     @MainActor
@@ -17,14 +17,14 @@ final class RecognitionTests: XCTestCase {
     @MainActor
     func testWorkerReceivesFrozenInputsOffMainThread() async throws {
         let options = RecognitionOptions(fast: false, languageCode: "en-US", keepLineBreaks: true, append: true, processing: true, commandTemplate: "say [ocr]")
-        let worker = RecognitionWorker(operation: { data, snapshot in
+        let worker = RecognitionWorker { data, snapshot in
             XCTAssertFalse(Thread.isMainThread)
             XCTAssertEqual(data, Data([1, 2, 3]))
             XCTAssertEqual(snapshot.languageCode, "en-US")
             XCTAssertTrue(snapshot.append)
             XCTAssertEqual(snapshot.commandTemplate, "say [ocr]")
             return "recognized"
-        })
+        }
         let output = try await worker.recognize(imageData: Data([1, 2, 3]), options: options)
         XCTAssertEqual(output, "recognized")
     }

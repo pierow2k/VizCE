@@ -1,5 +1,5 @@
-import XCTest
 import Foundation
+import XCTest
 
 final class RecognitionLanguageTests: XCTestCase {
     func testConcurrentRequestsShareDiscoveryAndCacheConfiguration() async throws {

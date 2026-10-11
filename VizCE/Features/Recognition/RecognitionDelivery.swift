@@ -20,8 +20,10 @@ struct RecognitionDelivery {
         guard valid else { completion(.cancelled); return }
         switch outcome {
         case .content(let text): publish(text)
+
         case .noContent, .failure:
             if current { notice(outcome) }
+
         case .cancelled: break
         }
         completion(outcome)

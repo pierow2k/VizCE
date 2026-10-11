@@ -13,6 +13,7 @@ struct WebcamRecoveryView: View {
             switch state {
             case .authorizing: ProgressView("Requesting camera access")
             case .starting: ProgressView("Starting camera")
+
             case .permissionDenied:
                 Text("Camera access denied").font(.headline)
                 Button("Open Camera Privacy Settings") {
@@ -24,6 +25,7 @@ struct WebcamRecoveryView: View {
                     }
                 }
                 Button("Retry", action: retry)
+
             case .failed(let message):
                 Text("Camera unavailable").font(.headline)
                 Text(message).multilineTextAlignment(.center)
@@ -34,6 +36,7 @@ struct WebcamRecoveryView: View {
                     if devices.isEmpty { Text("No cameras connected") }
                 }
                 .onAppear(perform: refresh)
+
             default: Text("Camera stopped")
             }
         }

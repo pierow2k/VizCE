@@ -36,7 +36,7 @@ enum ShellTemplate {
                 needsRedirectionTarget = true
                 output.append(character)
                 index += 1
-                if index < input.count && ">&|".contains(input[index]) {
+                if index < input.count, ">&|".contains(input[index]) {
                     output.append(input[index])
                     index += 1
                 }
@@ -52,7 +52,7 @@ enum ShellTemplate {
                 continue
             }
             let word = try scanWord(input, index: &index)
-            if needsCommand && !needsRedirectionTarget && compoundKeywords.contains(word) { throw unsupported() }
+            if needsCommand, !needsRedirectionTarget, compoundKeywords.contains(word) { throw unsupported() }
             if wholeArgumentPlaceholders.contains(word) {
                 guard !needsCommand || needsRedirectionTarget else { throw unsupported() }
                 // Quoting the environment reference keeps captured text inside one shell argument.
@@ -61,8 +61,7 @@ enum ShellTemplate {
                 guard !word.contains("[ocr]") else { throw unsupported() }
                 output += word
             }
-            if needsRedirectionTarget { needsRedirectionTarget = false }
-            else if !word.contains("=") {
+            if needsRedirectionTarget { needsRedirectionTarget = false } else if !word.contains("=") {
                 // A leading file descriptor belongs to a redirection, not the command word.
                 let isFileDescriptor = word.allSatisfy(\.isNumber) && index < input.count && "<>".contains(input[index])
                 if !isFileDescriptor { needsCommand = false }
@@ -85,8 +84,8 @@ enum ShellTemplate {
         var quote: Character?
         while index < input.count {
             let current = input[index]
-            if quote == nil && boundaries.contains(current) { break }
-            if current == "\\" && quote != "'" {
+            if quote == nil, boundaries.contains(current) { break }
+            if current == "\\", quote != "'" {
                 guard index + 1 < input.count else { throw unsupported() }
                 word.append(current)
                 word.append(input[index + 1])
@@ -97,9 +96,8 @@ enum ShellTemplate {
                 throw unsupported()
             }
             if current == "'" || current == "\"" {
-                if quote == current { quote = nil }
-                else if quote == nil { quote = current }
-            } else if quote != "'" && (current == "`" || current == "(" || current == ")") {
+                if quote == current { quote = nil } else if quote == nil { quote = current }
+            } else if quote != "'", current == "`" || current == "(" || current == ")" {
                 throw unsupported()
             }
             word.append(current)

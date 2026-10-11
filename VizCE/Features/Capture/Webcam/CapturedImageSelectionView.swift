@@ -28,7 +28,7 @@ struct CapturedImageSelectionView: View {
             }.onEnded { _ in selection.endDrag() }
         )
         .onHover { inside in
-            if inside && isSnipping { NSCursor.crosshair.set() } else { NSCursor.arrow.set() }
+            if inside, isSnipping { NSCursor.crosshair.set() } else { NSCursor.arrow.set() }
         }
     }
 }

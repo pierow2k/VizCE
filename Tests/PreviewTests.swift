@@ -5,12 +5,12 @@ final class PreviewTests: XCTestCase {
     func testCancellationWakesSleepingTask() async {
         var started = false
         var returned = false
-        let expiry = PreviewExpiry(sleep: { duration in
+        let expiry = PreviewExpiry { duration in
             started = true
             defer { returned = true }
             try await Task.sleep(for: duration)
-        })
-        expiry.schedule(after: .seconds(3600)) { XCTFail("Canceled expiry fired") }
+        }
+        expiry.schedule(after: .seconds(3_600)) { XCTFail("Canceled expiry fired") }
         while !started { await Task.yield() }
         expiry.cancel()
         for _ in 0..<100 where !returned { await Task.yield() }
@@ -56,7 +56,7 @@ final class PreviewTests: XCTestCase {
 private final class ManualPreviewClock {
     private var continuations: [CheckedContinuation<Void, Error>] = []
     /// Suspends until the test releases this sleeper; the duration is deliberately ignored.
-    func sleep(_ duration: Duration) async throws {
+    func sleep(_: Duration) async throws {
         try await withCheckedThrowingContinuation { continuations.append($0) }
     }
     func waitForSleepers(_ count: Int) async {

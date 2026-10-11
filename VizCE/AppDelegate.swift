@@ -1,6 +1,6 @@
-import SwiftUI
-import KeyboardShortcuts
 import AlinFoundation
+import KeyboardShortcuts
+import SwiftUI
 
 /// Application lifecycle hooks that register shortcuts and wait for history before quitting.
 @MainActor
@@ -31,9 +31,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 case .alertFirstButtonReturn:
                     HistoryState.shared.repository.retry()
                     sender.terminate(nil)
+
                 case .alertThirdButtonReturn:
                     self.quitWithoutSaving = true
                     sender.terminate(nil)
+
                 default: break
                 }
             }
@@ -42,8 +44,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     /// Registers global shortcut actions and prepares application support storage in release builds.
-    func applicationDidFinishLaunching(_ notification: Notification) {
-
+    func applicationDidFinishLaunching(_: Notification) {
         KeyboardShortcuts.onKeyUp(for: .captureContent) {
             CaptureService.shared.captureContent()
         }
@@ -69,7 +70,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 #if !DEBUG
         ensureApplicationSupportFolderExists()
 #endif
-
     }
-
 }

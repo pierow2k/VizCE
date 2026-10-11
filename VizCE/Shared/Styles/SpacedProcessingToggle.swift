@@ -8,8 +8,7 @@ struct SpacedProcessingToggle: ToggleStyle {
 
     /// Builds the processing switch and a popover editor bound to the saved shell template.
     func makeBody(configuration: Configuration) -> some View {
-        HStack() {
-
+        HStack {
             configuration.label
 
             Button("Edit") {

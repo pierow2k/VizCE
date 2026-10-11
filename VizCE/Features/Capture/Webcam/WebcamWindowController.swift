@@ -30,7 +30,7 @@ final class WebcamWindowController: NSObject, NSWindowDelegate {
         self.window = window
         coordinator.onCapture = { [weak self, weak coordinator] image in
             guard let self, self.coordinator === coordinator, let window = self.window else { return }
-            self.resize(window, for: image)
+            resize(window, for: image)
         }
         NSApp.activate(ignoringOtherApps: true)
         window.makeKeyAndOrderFront(nil)
@@ -56,7 +56,7 @@ final class WebcamWindowController: NSObject, NSWindowDelegate {
         let width: CGFloat
         let height: CGFloat
         if ratio > 1 {
-            width = min(1200, size.width * 0.5)
+            width = min(1_200, size.width * 0.5)
             height = width / ratio
         } else {
             height = min(900, size.height * 0.5)

@@ -8,7 +8,7 @@ final class VideoSampleDelegate: NSObject, AVCaptureVideoDataOutputSampleBufferD
 
     /// Forwards a video frame to the worker on the queue configured for the video output delegate.
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer,
-                       from connection: AVCaptureConnection) {
+                       from _: AVCaptureConnection) {
         worker?.receive(sampleBuffer, from: output)
     }
 }

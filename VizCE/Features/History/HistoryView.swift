@@ -1,5 +1,5 @@
-import SwiftUI
 import AlinFoundation
+import SwiftUI
 
 /// A newest-first capture history with filtering, persistence errors, and clear actions.
 struct HistoryView: View {
@@ -38,9 +38,8 @@ struct HistoryView: View {
             HistoryListContentView(
                 entries: items,
                 emptyMessage: filterSelection.emptyMessage,
-                feedbackResetID: feedbackResetID,
-                delete: { historyState.delete(id: $0) }
-            )
+                feedbackResetID: feedbackResetID
+            ) { historyState.delete(id: $0) }
             Spacer()
             HStack {
                 Picker("Capture type", selection: $filterSelection) {

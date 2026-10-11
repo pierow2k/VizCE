@@ -23,7 +23,6 @@ struct GeneralSettingsView: View {
             VStack(alignment: .center) {
                 GroupBox {
                     VStack(alignment: .leading, spacing: 10) {
-
                         AdaptiveSettingsRow("OCR Language") {
                             LanguagePickerView().frame(width: 200)
                         }
@@ -62,13 +61,13 @@ struct GeneralSettingsView: View {
                                 HStack {
                                     Text("W:")
                                     Stepper(
-                                        "\(Int(viewWidth))", value: $viewWidth, in: 200...1000,
+                                        "\(Int(viewWidth))", value: $viewWidth, in: 200...1_000,
                                         step: 10
                                     )
                                     .frame(width: 60, alignment: .trailing)
                                     Text("H:")
                                     Stepper(
-                                        "\(Int(viewHeight))", value: $viewHeight, in: 100...1000,
+                                        "\(Int(viewHeight))", value: $viewHeight, in: 100...1_000,
                                         step: 10
                                     )
                                     .frame(width: 60, alignment: .trailing)

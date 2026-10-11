@@ -1,5 +1,5 @@
-import SwiftUI
 import AlinFoundation
+import SwiftUI
 
 /// A preview of current text captures and any post-processing output.
 struct PreviewContentView: View {
@@ -25,7 +25,6 @@ struct PreviewContentView: View {
             .frame(minWidth: 200)
 
             Spacer()
-
 
             if !appState.cmdOutput.isEmpty {
                 HStack(spacing: 0) {
@@ -54,8 +53,6 @@ struct PreviewContentView: View {
                 }
                 .scrollIndicators(.visible)
                 .padding([.horizontal, .bottom])
-
-
             }
         }
         .foregroundStyle(.primary)

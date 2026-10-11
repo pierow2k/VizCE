@@ -6,7 +6,7 @@ struct CameraPreviewView: NSViewRepresentable {
     let previewLayer: AVCaptureVideoPreviewLayer
 
     /// Creates a layer-backed view attached to the supplied camera preview layer.
-    func makeNSView(context: Context) -> NSView {
+    func makeNSView(context _: Context) -> NSView {
         let view = NSView()
         view.layer = previewLayer
         view.wantsLayer = true
@@ -18,7 +18,7 @@ struct CameraPreviewView: NSViewRepresentable {
     /// - Parameters:
     ///   - nsView: The hosted camera view.
     ///   - context: The SwiftUI representable context.
-    func updateNSView(_ nsView: NSView, context: Context) {
+    func updateNSView(_ nsView: NSView, context _: Context) {
         nsView.layer = previewLayer
         previewLayer.frame = nsView.bounds
     }

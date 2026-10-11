@@ -8,7 +8,6 @@ struct SpacedToggleSeconds: ToggleStyle {
     /// Builds the preview switch with dismissal choices of 3, 5, 10, 20, 30, and 60 seconds.
     func makeBody(configuration: Configuration) -> some View {
         HStack(spacing: 0) {
-
             configuration.label
 
             Picker("Preview duration", selection: $seconds) {

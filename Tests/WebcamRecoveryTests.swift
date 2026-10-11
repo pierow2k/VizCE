@@ -1,5 +1,5 @@
-import XCTest
 import AVFoundation
+import XCTest
 
 final class WebcamRecoveryTests: XCTestCase {
     @MainActor
@@ -9,7 +9,8 @@ final class WebcamRecoveryTests: XCTestCase {
         let coordinator = WebcamCaptureCoordinator(authorization: RecoveryAuthorization(allowed: true), backend: backend, devices: devices)
         coordinator.start(deviceID: "saved-camera")
         await coordinator.waitForPendingOperation()
-        guard case .failed = coordinator.state else { return XCTFail("Expected failed state") }
+        guard case .failed = coordinator.state else { XCTFail("Expected failed state")
+return }
         XCTAssertFalse(coordinator.isStarting)
         var starts = await backend.started
         XCTAssertEqual(starts, ["saved-camera"])
@@ -29,7 +30,8 @@ final class WebcamRecoveryTests: XCTestCase {
             let coordinator = WebcamCaptureCoordinator(authorization: RecoveryAuthorization(allowed: true), backend: RecoveryWebcamBackend(error: error))
             coordinator.start(deviceID: "camera")
             await coordinator.waitForPendingOperation()
-            guard case .failed(let message) = coordinator.state else { return XCTFail("Expected error") }
+            guard case .failed(let message) = coordinator.state else { XCTFail("Expected error")
+return }
             XCTAssertFalse(message.isEmpty)
             XCTAssertFalse(coordinator.isStarting)
             XCTAssertFalse(coordinator.isPreviewActive)
@@ -69,7 +71,8 @@ final class WebcamRecoveryTests: XCTestCase {
         await coordinator.waitForPendingOperation()
         coordinator.capturePhoto()
         await coordinator.waitForPendingOperation()
-        guard case .failed = coordinator.state else { return XCTFail("Expected capture error") }
+        guard case .failed = coordinator.state else { XCTFail("Expected capture error")
+return }
         XCTAssertNil(coordinator.previewLayer)
         XCTAssertFalse(coordinator.isPreviewActive)
         coordinator.restart(deviceID: "camera")
@@ -113,7 +116,7 @@ final class WebcamRecoveryTests: XCTestCase {
 
 private struct RecoveryAuthorization: WebcamAuthorizing {
     let allowed: Bool
-    func isAuthorized() async -> Bool { allowed }
+    func isAuthorized() -> Bool { allowed }
 }
 
 /// A backend with switchable startup failure and a deliberately unavailable capture frame.
@@ -122,17 +125,17 @@ private actor RecoveryWebcamBackend: WebcamCaptureBackend {
     private var error: WebcamCaptureError?
     init(error: WebcamCaptureError? = nil) { self.error = error }
     func setError(_ error: WebcamCaptureError?) { self.error = error }
-    func start(deviceID: String, operationID: UInt64) throws -> WebcamPreviewSource {
+    func start(deviceID: String, operationID _: UInt64) throws -> WebcamPreviewSource {
         started.append(deviceID)
         if let error { throw error }
         return WebcamPreviewSource(session: AVCaptureSession())
     }
-    func capture(operationID: UInt64) throws -> Data { throw WebcamCaptureError.noFrame }
-    func stop(operationID: UInt64) {}
+    func capture(operationID _: UInt64) throws -> Data { throw WebcamCaptureError.noFrame }
+    func stop(operationID _: UInt64) {}
 }
 
 private struct StaticWebcamDevices: WebcamDeviceDiscovering {
-    func snapshot() async -> WebcamDevices {
+    func snapshot() -> WebcamDevices {
         WebcamDevices(devices: [WebcamDevice(id: "preferred", name: "Camera")], defaultID: "preferred")
     }
 }

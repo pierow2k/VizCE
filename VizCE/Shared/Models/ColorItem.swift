@@ -1,6 +1,6 @@
+import AlinFoundation
 import Foundation
 import SwiftUI
-import AlinFoundation
 
 /// A captured color with clipboard representations and a stable history identifier.
 struct ColorItem: Identifiable, Codable {

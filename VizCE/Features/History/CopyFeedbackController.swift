@@ -1,5 +1,5 @@
-import Foundation
 import Combine
+import Foundation
 
 /// Transient copied-row feedback that prevents older expiry tasks from clearing newer feedback.
 @MainActor
@@ -24,9 +24,9 @@ final class CopyFeedbackController: ObservableObject {
         let sleep = sleep
         task = Task { [weak self] in
             do { try await sleep() } catch { return }
-            guard !Task.isCancelled, let self, self.generation == identity else { return }
-            self.copiedID = nil
-            self.task = nil
+            guard !Task.isCancelled, let self, generation == identity else { return }
+            copiedID = nil
+            task = nil
         }
     }
 

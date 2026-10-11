@@ -1,15 +1,16 @@
-import XCTest
 import AppKit
+import XCTest
 
 final class CaptureOutcomeTests: XCTestCase {
     private let options = RecognitionOptions(fast: false, languageCode: nil, keepLineBreaks: true, append: false, processing: false, commandTemplate: "")
 
     func testEmptyRecognitionAndErrorsAreTyped() async {
-        let empty = await RecognitionWorker(operation: { _, _ in "" }).outcome(imageData: Data(), options: options)
+        let empty = await RecognitionWorker { _, _ in "" }.outcome(imageData: Data(), options: options)
         XCTAssertEqual(empty, .noContent)
-        let failed = await RecognitionWorker(operation: { _, _ in throw CocoaError(.fileReadCorruptFile) })
+        let failed = await RecognitionWorker { _, _ in throw CocoaError(.fileReadCorruptFile) }
             .outcome(imageData: Data(), options: options)
-        guard case .failure(.recognition) = failed else { return XCTFail("Expected typed error") }
+        guard case .failure(.recognition) = failed else { XCTFail("Expected typed error")
+return }
     }
 
     @MainActor
@@ -82,11 +83,13 @@ final class CaptureOutcomeTests: XCTestCase {
         let root = temporaryRoot()
         defer { try? FileManager.default.removeItem(at: root) }
         let missing = await ScreenCaptureWorker(executable: URL(fileURLWithPath: "/missing-vizce-process"), temporaryDirectory: root).capture()
-        guard case .failure(.screenCapture) = missing else { return XCTFail("Expected launch failure") }
+        guard case .failure(.screenCapture) = missing else { XCTFail("Expected launch failure")
+return }
         let failed = await ScreenCaptureWorker(executable: URL(fileURLWithPath: "/bin/zsh"), temporaryDirectory: root) { _ in
             ["-c", "print -u2 permission-failure; exit 2"]
         }.capture()
-        guard case .failure(.screenCapture(let message)) = failed else { return XCTFail("Expected execution failure") }
+        guard case .failure(.screenCapture(let message)) = failed else { XCTFail("Expected execution failure")
+return }
         XCTAssertTrue(message.contains("permission-failure"))
         XCTAssertTrue(try FileManager.default.contentsOfDirectory(atPath: root.path).isEmpty)
     }
@@ -113,7 +116,8 @@ final class CaptureOutcomeTests: XCTestCase {
         let empty = await ScreenCaptureWorker(
             executable: URL(fileURLWithPath: "/bin/zsh"), temporaryDirectory: root
         ) { output in ["-c", "printf '' > \"$1\"", "vizce-test", output.path] }.capture()
-        guard case .failure(.screenCapture) = empty else { return XCTFail("Empty owned output must fail") }
+        guard case .failure(.screenCapture) = empty else { XCTFail("Empty owned output must fail")
+return }
         XCTAssertTrue(try FileManager.default.contentsOfDirectory(atPath: root.path).isEmpty)
     }
 
@@ -123,7 +127,8 @@ final class CaptureOutcomeTests: XCTestCase {
         let failed = await ScreenCaptureWorker(
             executable: URL(fileURLWithPath: "/bin/zsh"), temporaryDirectory: root
         ) { _ in ["-c", "print -u2 capture-failed; exit 1"] }.capture()
-        guard case .failure(.screenCapture(let message)) = failed else { return XCTFail("Expected diagnostic failure") }
+        guard case .failure(.screenCapture(let message)) = failed else { XCTFail("Expected diagnostic failure")
+return }
         XCTAssertEqual(message, "capture-failed")
         XCTAssertTrue(try FileManager.default.contentsOfDirectory(atPath: root.path).isEmpty)
     }

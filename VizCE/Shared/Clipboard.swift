@@ -8,7 +8,7 @@ func copyTextItemsToClipboard(textItems: [TextItem]) {
     let pasteboard = NSPasteboard.general
     pasteboard.clearContents()
 
-    let combinedText = textItems.map { $0.text }.joined(separator: "\n")
+    let combinedText = textItems.map(\.text).joined(separator: "\n")
     pasteboard.setString(combinedText, forType: .string)
 }
 

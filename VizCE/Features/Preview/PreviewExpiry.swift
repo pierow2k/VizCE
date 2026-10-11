@@ -25,10 +25,9 @@ final class PreviewExpiry {
         let identity = generation
         let sleep = sleep
         task = Task { @MainActor [weak self] in
-            do { try await sleep(duration) }
-            catch { return }
-            guard !Task.isCancelled, let self, self.generation == identity else { return }
-            self.task = nil
+            do { try await sleep(duration) } catch { return }
+            guard !Task.isCancelled, let self, generation == identity else { return }
+            task = nil
             close()
         }
     }

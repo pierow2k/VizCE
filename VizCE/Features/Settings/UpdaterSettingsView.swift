@@ -11,7 +11,6 @@ struct UpdaterSettingsView: View {
                 VStack(alignment: .center) {
                     GroupBox {
                         VStack(alignment: .leading, spacing: 10) {
-
                             HStack {
                                 FrequencyView(updater: updater)
                                 if updater.updateAvailable {
@@ -19,7 +18,6 @@ struct UpdaterSettingsView: View {
                                         .padding(.trailing, 8)
                                     UpdateBadge(updater: updater, hideLabel: true)
                                 }
-
                             }
                             .padding()
                             .background {

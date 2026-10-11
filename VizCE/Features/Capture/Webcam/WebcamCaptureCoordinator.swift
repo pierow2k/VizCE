@@ -1,5 +1,5 @@
-import AVFoundation
 import AppKit
+import AVFoundation
 import Combine
 
 /// Main-actor camera state that gates asynchronous authorization, startup, and capture by generation.
@@ -67,9 +67,9 @@ final class WebcamCaptureCoordinator: ObservableObject {
             await backend.stop(operationID: previousID)
             guard !Task.isCancelled, self?.identity.isCurrent(id) == true else { return }
             let authorized = await authorization.isAuthorized()
-            guard !Task.isCancelled, let self, self.identity.isCurrent(id) else { return }
+            guard !Task.isCancelled, let self, identity.isCurrent(id) else { return }
             guard authorized else {
-                self.state = .permissionDenied
+                state = .permissionDenied
                 return
             }
             do {
@@ -79,18 +79,18 @@ final class WebcamCaptureCoordinator: ObservableObject {
                 } else {
                     resolvedID = deviceID
                 }
-                guard !Task.isCancelled, self.identity.isCurrent(id) else { return }
-                self.state = .starting
+                guard !Task.isCancelled, identity.isCurrent(id) else { return }
+                state = .starting
                 let source = try await backend.start(deviceID: resolvedID, operationID: id)
-                guard !Task.isCancelled, self.identity.isCurrent(id) else {
+                guard !Task.isCancelled, identity.isCurrent(id) else {
                     await backend.stop(operationID: id)
                     return
                 }
-                self.previewLayer = source.makeLayer()
-                self.state = .previewing
+                previewLayer = source.makeLayer()
+                state = .previewing
             } catch {
-                guard !Task.isCancelled, self.identity.isCurrent(id) else { return }
-                self.state = .failed(error.localizedDescription)
+                guard !Task.isCancelled, identity.isCurrent(id) else { return }
+                state = .failed(error.localizedDescription)
             }
         }
     }
@@ -107,7 +107,7 @@ final class WebcamCaptureCoordinator: ObservableObject {
         task = Task { @MainActor [weak self] in
             do {
                 let data = try await backend.capture(operationID: id)
-                guard !Task.isCancelled, let self, self.identity.isCurrent(id) else { return }
+                guard !Task.isCancelled, let self, identity.isCurrent(id) else { return }
                 guard let image = NSImage(data: data) else {
                     throw WebcamCaptureError.conversionFailed
                 }
@@ -115,17 +115,17 @@ final class WebcamCaptureCoordinator: ObservableObject {
                     image.size = NSSize(width: pixels.width, height: pixels.height)
                 }
                 await backend.stop(operationID: id)
-                guard !Task.isCancelled, self.identity.isCurrent(id) else { return }
-                self.previewLayer = nil
-                self.state = .captured
-                self.capturedImage = image
-                self.onCapture?(image)
+                guard !Task.isCancelled, identity.isCurrent(id) else { return }
+                previewLayer = nil
+                state = .captured
+                capturedImage = image
+                onCapture?(image)
             } catch {
-                guard !Task.isCancelled, let self, self.identity.isCurrent(id) else { return }
+                guard !Task.isCancelled, let self, identity.isCurrent(id) else { return }
                 await backend.stop(operationID: id)
-                guard !Task.isCancelled, self.identity.isCurrent(id) else { return }
-                self.previewLayer = nil
-                self.state = .failed(error.localizedDescription)
+                guard !Task.isCancelled, identity.isCurrent(id) else { return }
+                previewLayer = nil
+                state = .failed(error.localizedDescription)
             }
         }
     }

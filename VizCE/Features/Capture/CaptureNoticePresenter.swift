@@ -17,13 +17,15 @@ final class CaptureNoticePresenter {
         case .noContent:
             title = "No content recognized"
             message = String(localized: "No text or barcode was found in the selection.")
+
         case .failure(let error):
             title = "Capture failed"
             message = error.localizedDescription
+
         default: return
         }
         close()
-        let view = CaptureNoticeView(title: title, message: message, close: { [weak self] in self?.close() })
+        let view = CaptureNoticeView(title: title, message: message) { [weak self] in self?.close() }
         let window = NSWindow(contentViewController: NSHostingController(rootView: view))
         window.title = String(localized: title)
         window.styleMask = [.titled, .closable]

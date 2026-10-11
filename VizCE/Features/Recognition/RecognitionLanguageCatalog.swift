@@ -25,8 +25,7 @@ actor RecognitionLanguageCatalog {
         let discover = discover
         let task = Task { try await discover(configuration) }
         requests[configuration] = task
-        do { return try await task.value }
-        catch { requests[configuration] = nil; throw error }
+        do { return try await task.value } catch { requests[configuration] = nil; throw error }
     }
 
     /// Resolves a stored selection to a supported code or automatic language handling.

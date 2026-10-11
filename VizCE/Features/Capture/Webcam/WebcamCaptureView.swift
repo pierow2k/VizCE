@@ -5,8 +5,8 @@
 //  Created by Alin Lupascu on 8/29/25.
 //
 
-@preconcurrency import AVFoundation
 import AlinFoundation
+@preconcurrency import AVFoundation
 import Combine
 import SwiftUI
 
@@ -36,8 +36,7 @@ struct WebcamCaptureView: View {
                     CapturedImageSelectionView(
                         image: image, size: viewport, isSnipping: isSnipping, selection: $selection)
                 } else if let preview = captureManager.previewLayer,
-                    captureManager.state == .previewing || captureManager.state == .capturing
-                {
+                    captureManager.state == .previewing || captureManager.state == .capturing {
                     CameraPreviewView(previewLayer: preview)
                 } else {
                     WebcamRecoveryView(
@@ -69,8 +68,7 @@ struct WebcamCaptureView: View {
         .safeAreaInset(edge: .top, spacing: 0) {
             if captureManager.capturedImage == nil, !webcamManager.availableDevices.isEmpty {
                 WebcamCameraPicker(
-                    devices: webcamManager.availableDevices, selection: selectedWebcam,
-                    choose: { selectedWebcamID = $0 })
+                    devices: webcamManager.availableDevices, selection: selectedWebcam) { selectedWebcamID = $0 }
             }
         }
         .frame(minWidth: 320, minHeight: 240)
@@ -134,5 +132,4 @@ struct WebcamCaptureView: View {
         else { return nil }
         return NSImage(cgImage: cropped, size: NSSize(width: cropped.width, height: cropped.height))
     }
-
 }

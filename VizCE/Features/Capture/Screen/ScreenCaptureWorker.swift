@@ -110,5 +110,4 @@ final class ScreenCaptureWorker: Sendable {
         files.remove()
         return result
     }
-
 }

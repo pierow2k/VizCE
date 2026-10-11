@@ -8,7 +8,7 @@ import SwiftUI
 func pickColor() async -> ColorItem {
     await withCheckedContinuation { continuation in
         NSColorSampler().show { selectedColor in
-            if let selectedColor = selectedColor,
+            if let selectedColor,
                let color = selectedColor.usingColorSpace(.deviceRGB) {
                 let red = Int(color.redComponent * 255)
                 let green = Int(color.greenComponent * 255)

@@ -1,5 +1,5 @@
-import SwiftUI
 import AlinFoundation
+import SwiftUI
 
 /// A capture row with copy confirmation, optional link navigation, and a delete action.
 struct HistoryRow: View {
@@ -27,6 +27,7 @@ struct HistoryRow: View {
                         .frame(maxWidth: .infinity).accessibilityHidden(true)
                 }
                 .background(.secondary.opacity(0.1), in: RoundedRectangle(cornerRadius: 8))
+
             case .text(let item):
                 if let url = recognizedURL(item.text) {
                     Button { NSWorkspace.shared.open(url) } label: {

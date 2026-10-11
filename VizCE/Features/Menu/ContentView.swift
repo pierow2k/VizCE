@@ -5,11 +5,11 @@
 //  Created by Alin Lupascu on 4/9/24.
 //
 
+import AlinFoundation
 import AppKit
 import Foundation
-import SwiftUI
 import KeyboardShortcuts
-import AlinFoundation
+import SwiftUI
 
 /// The menu bar controls for capture, history, settings, and application termination.
 struct ContentView: View {
@@ -19,13 +19,9 @@ struct ContentView: View {
     /// The registration token that allows this menu view to remove only its own dismissal action.
     @State private var menuRegistration: UUID?
 
-
     var body: some View {
-
         VStack(alignment: .center, spacing: 0) {
-
             HStack(alignment: .center, spacing: 10) {
-
                 Text("V I Z C E")
                     .font(.system(size: 18, design: .rounded))
                     .bold()
@@ -39,15 +35,12 @@ struct ContentView: View {
                     .shadow(color: .black, radius: 2, x: 0, y: 0)
                     .padding(.leading, 5)
 
-
                 Spacer()
 
-                HStack() {
-
+                HStack {
                     Button(action: showSettings) {
                         Group {
-                            if updater.updateAvailable { Label("Updates", systemImage: "arrow.down.circle") }
-                            else { Label("Settings", systemImage: "gear") }
+                            if updater.updateAvailable { Label("Updates", systemImage: "arrow.down.circle") } else { Label("Settings", systemImage: "gear") }
                         }
                         .labelStyle(.iconOnly)
                         .font(.system(size: 17))
@@ -74,7 +67,6 @@ struct ContentView: View {
             }
             .padding(6)
 
-
             HStack(spacing: 5) {
                 MenuActionTile(
                     title: "Capture", icon: "viewfinder",
@@ -98,8 +90,6 @@ struct ContentView: View {
                     shortcut: .clear, shortcutLabel: "Edit Clear shortcut", action: clearCaptures)
             }
             .padding([.horizontal, .bottom, .top])
-
-
         }
         .background(Color("bg"))
         .frame(width: 600)
@@ -151,5 +141,4 @@ struct ContentView: View {
 
     /// Clears capture history and the clipboard while invalidating pending capture delivery.
     private func clearCaptures() { clearCaptureHistoryAndClipboard() }
-
 }

@@ -1,6 +1,6 @@
-import Foundation
-import Combine
 import AlinFoundation
+import Combine
+import Foundation
 
 /// Main-actor adaptation of immutable stored records into the history interface models.
 @MainActor

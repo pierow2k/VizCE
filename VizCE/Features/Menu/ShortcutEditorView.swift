@@ -1,7 +1,7 @@
 import AppKit
-import SwiftUI
 import Foundation
 import KeyboardShortcuts
+import SwiftUI
 
 /// A shortcut badge that opens settings when a shortcut is assigned.
 struct ShortcutEditorView: View {

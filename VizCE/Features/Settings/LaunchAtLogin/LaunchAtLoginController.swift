@@ -1,5 +1,5 @@
-import Foundation
 import Combine
+import Foundation
 
 /// Main-actor login registration state that publishes the actual service status after each request.
 @MainActor
@@ -32,7 +32,7 @@ final class LaunchAtLoginController: ObservableObject {
             let status = await service.status()
             guard let self else { return }
             self.status = status
-            self.isPending = false
+            isPending = false
         }
     }
 
@@ -49,7 +49,7 @@ final class LaunchAtLoginController: ObservableObject {
             var message: String?
             do {
                 if enabled {
-                    if current != .enabled && current != .requiresApproval { try await service.register() }
+                    if current != .enabled, current != .requiresApproval { try await service.register() }
                 } else if current == .enabled || current == .requiresApproval {
                     try await service.unregister()
                 }
@@ -58,9 +58,9 @@ final class LaunchAtLoginController: ObservableObject {
             }
             let actual = await service.status()
             guard let self else { return }
-            self.status = actual
-            self.errorMessage = message
-            self.isPending = false
+            status = actual
+            errorMessage = message
+            isPending = false
         }
     }
 

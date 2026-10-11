@@ -3,17 +3,17 @@ import XCTest
 final class ImageCropTests: XCTestCase {
     func testMatchingAspectRatioUsesPixelDimensions() {
         let result = ImageCropTransform.map(selection: CGRect(x: 100, y: 50, width: 200, height: 100),
-            viewport: CGSize(width: 800, height: 600), pixels: CGSize(width: 1600, height: 1200))
+            viewport: CGSize(width: 800, height: 600), pixels: CGSize(width: 1_600, height: 1_200))
         XCTAssertEqual(result, CGRect(x: 200, y: 100, width: 400, height: 200))
     }
 
     func test1920By1080In800By600IncludesHorizontalCropOffset() {
         let viewport = CGSize(width: 800, height: 600)
-        let pixels = CGSize(width: 1920, height: 1080)
+        let pixels = CGSize(width: 1_920, height: 1_080)
         XCTAssertEqual(ImageCropTransform.map(selection: CGRect(x: 0, y: 0, width: 100, height: 600), viewport: viewport, pixels: pixels),
-            CGRect(x: 240, y: 0, width: 180, height: 1080))
+            CGRect(x: 240, y: 0, width: 180, height: 1_080))
         XCTAssertEqual(ImageCropTransform.map(selection: CGRect(origin: .zero, size: viewport), viewport: viewport, pixels: pixels),
-            CGRect(x: 240, y: 0, width: 1440, height: 1080))
+            CGRect(x: 240, y: 0, width: 1_440, height: 1_080))
         XCTAssertEqual(ImageCropTransform.map(selection: CGRect(x: 100, y: 100, width: 200, height: 200), viewport: viewport, pixels: pixels),
             CGRect(x: 420, y: 180, width: 360, height: 360))
     }
@@ -21,8 +21,8 @@ final class ImageCropTests: XCTestCase {
     func testTallImageIncludesVerticalCropOffset() {
         let viewport = CGSize(width: 800, height: 600)
         XCTAssertEqual(ImageCropTransform.map(selection: CGRect(origin: .zero, size: viewport),
-            viewport: viewport, pixels: CGSize(width: 1080, height: 1920)),
-            CGRect(x: 0, y: 555, width: 1080, height: 810))
+            viewport: viewport, pixels: CGSize(width: 1_080, height: 1_920)),
+            CGRect(x: 0, y: 555, width: 1_080, height: 810))
     }
 
     func testReversedAndOutOfBoundsSelectionsAreIntersected() {

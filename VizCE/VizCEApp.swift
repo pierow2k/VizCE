@@ -5,8 +5,8 @@
 //  Created by Alin Lupascu on 4/5/24.
 //
 
-import SwiftUI
 import AlinFoundation
+import SwiftUI
 
 /// The menu bar application and settings scene with shared capture, history, and updater state.
 @main
@@ -16,16 +16,16 @@ struct VizCEApp: App {
     @StateObject private var updater = Updater(owner: "pierow2k", repo: "VizCE")
 
     var body: some Scene {
-        MenuBarExtra("VizCE", systemImage: updater.updateAvailable ? "arrow.down.circle" : "eye", content: {
+        MenuBarExtra("VizCE", systemImage: updater.updateAvailable ? "arrow.down.circle" : "eye") {
             ContentView()
                 .environment(\.colorScheme, .dark)
                 .preferredColorScheme(.dark)
                 .environmentObject(updater)
                 .environmentObject(appState)
                 .environmentObject(HistoryState.shared)
-        })
+        }
         .menuBarExtraStyle(.window)
-        
+
         Settings {
             SettingsView()
                 .environmentObject(appState)

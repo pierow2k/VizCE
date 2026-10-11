@@ -1,5 +1,5 @@
-import Foundation
 import Combine
+import Foundation
 
 /// Main-actor history storage that replays edits made during loading and serializes snapshot saves.
 @MainActor
@@ -38,8 +38,7 @@ final class HistoryRepository: ObservableObject {
     /// Applies an edit immediately and queues it for replay until disk history has loaded successfully.
     private func mutate(_ mutation: HistoryMutation) {
         mutation.apply(to: &items)
-        if loaded { enqueue() }
-        else { mutations.append(mutation) }
+        if loaded { enqueue() } else { mutations.append(mutation) }
     }
 
     /// Loads disk history once at a time and replays buffered edits before enabling saves.
@@ -53,18 +52,18 @@ final class HistoryRepository: ObservableObject {
             do {
                 var entries = try await store.load()
                 guard let self else { return }
-                for mutation in self.mutations { mutation.apply(to: &entries) }
-                let edited = !self.mutations.isEmpty
-                self.mutations.removeAll()
-                self.items = entries
-                self.loaded = true
-                self.isLoading = false
-                if edited { self.enqueue() }
+                for mutation in mutations { mutation.apply(to: &entries) }
+                let edited = !mutations.isEmpty
+                mutations.removeAll()
+                items = entries
+                loaded = true
+                isLoading = false
+                if edited { enqueue() }
             } catch {
                 guard let self else { return }
-                self.lastError = error
-                self.failure = String(localized: "Unable to load history: \(error.localizedDescription)")
-                self.isLoading = false
+                lastError = error
+                failure = String(localized: "Unable to load history: \(error.localizedDescription)")
+                isLoading = false
                 // Keep edits buffered; never overwrite a file that could not be read.
             }
         }
@@ -83,25 +82,23 @@ final class HistoryRepository: ObservableObject {
         let store = store
         saveTask = Task { [weak self] in
             guard let self else { return }
-            while let snapshot = self.pending {
-                self.pending = nil
-                do { try await store.save(snapshot) }
-                catch {
+            while let snapshot = pending {
+                pending = nil
+                do { try await store.save(snapshot) } catch {
                     // A newer pending snapshot already contains all subsequent edits.
-                    if self.pending == nil { self.pending = snapshot }
-                    self.lastError = error
-                    self.failure = String(localized: "Unable to save history: \(error.localizedDescription)")
+                    if pending == nil { pending = snapshot }
+                    lastError = error
+                    failure = String(localized: "Unable to save history: \(error.localizedDescription)")
                     break
                 }
             }
-            self.saveTask = nil
+            saveTask = nil
         }
     }
 
     /// Retries loading after a read failure, or resumes pending writes after a save failure.
     func retry() {
-        if !loaded { load() }
-        else {
+        if !loaded { load() } else {
             lastError = nil
             failure = nil
             drain()

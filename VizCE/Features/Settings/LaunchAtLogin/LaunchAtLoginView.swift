@@ -1,5 +1,5 @@
-import SwiftUI
 import ServiceManagement
+import SwiftUI
 
 /// Login registration controls that refresh on activation and expose service errors and approval actions.
 struct LaunchAtLoginView: View {

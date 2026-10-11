@@ -5,10 +5,10 @@
 //  Created by Alin Lupascu on 4/8/24.
 //
 
-import Foundation
-import Combine
-import SwiftUI
 import AlinFoundation
+import Combine
+import Foundation
+import SwiftUI
 import Vision
 
 /// Main-actor preferences and capture generations shared by menu actions and recognition.
@@ -38,7 +38,7 @@ final class AppState: ObservableObject {
         beginCapture()
     }
     /// The last published color; empty representations indicate that no color has been captured.
-    @Published var colorSample: ColorItem = ColorItem(hex: "", rgb: "")
+    @Published var colorSample = ColorItem(hex: "", rgb: "")
     /// The persisted Vision language code, with `"All"` selecting automatic language handling.
     @AppStorage("selectedLanguageCode") private var storedLanguageCode: String = "All"
     @AppStorage("selectedQuality") private var selectedQualityRaw: String = TextRecognitionQuality.accurate.rawValue
@@ -77,6 +77,4 @@ final class AppState: ObservableObject {
         languageSubscription = languages.objectWillChange.sink { [weak self] _ in self?.objectWillChange.send() }
         refreshLanguages()
     }
-
-
 }

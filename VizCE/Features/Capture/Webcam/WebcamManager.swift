@@ -25,9 +25,9 @@ final class WebcamManager: ObservableObject {
         let provider = provider
         task = Task { [weak self] in
             let snapshot = await provider.snapshot()
-            guard !Task.isCancelled, let self, self.generation == id else { return }
-            self.availableDevices = snapshot.devices
-            self.defaultDevice = snapshot.defaultDevice
+            guard !Task.isCancelled, let self, generation == id else { return }
+            availableDevices = snapshot.devices
+            defaultDevice = snapshot.defaultDevice
         }
     }
 

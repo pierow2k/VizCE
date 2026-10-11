@@ -49,7 +49,7 @@ final class PostProcessingTests: XCTestCase {
 
     func testLargeOutputAndExitError() async throws {
         let output = try await PostProcessingRunner().run(template: "head -c 1048576 /dev/zero", content: "")
-        XCTAssertEqual(output.utf8.count, 1048576)
+        XCTAssertEqual(output.utf8.count, 1_048_576)
         let failure = try await PostProcessingRunner().run(template: "printf failure >&2; exit 7", content: "")
         XCTAssertTrue(failure.contains("status 7")); XCTAssertTrue(failure.contains("failure"))
     }

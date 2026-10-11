@@ -1,5 +1,5 @@
-import Foundation
 import Combine
+import Foundation
 
 /// Main-actor language picker state that rejects results from earlier quality selections.
 @MainActor
@@ -28,13 +28,13 @@ final class RecognitionLanguageSelection: ObservableObject {
         task = Task { [weak self] in
             do {
                 let codes = try await catalog.codes(for: configuration)
-                guard !Task.isCancelled, let self, self.generation == id else { return }
+                guard !Task.isCancelled, let self, generation == id else { return }
                 self.codes = codes
-                self.isLoading = false
+                isLoading = false
             } catch {
-                guard !Task.isCancelled, let self, self.generation == id else { return }
-                self.failure = String(localized: "Unable to load recognition languages: \(error.localizedDescription)")
-                self.isLoading = false
+                guard !Task.isCancelled, let self, generation == id else { return }
+                failure = String(localized: "Unable to load recognition languages: \(error.localizedDescription)")
+                isLoading = false
             }
         }
     }

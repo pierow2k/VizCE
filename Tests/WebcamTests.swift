@@ -1,5 +1,5 @@
-import XCTest
 import AppKit
+import XCTest
 
 final class WebcamTests: XCTestCase {
     @MainActor
@@ -127,7 +127,8 @@ final class WebcamTests: XCTestCase {
         let failing = WebcamCaptureCoordinator(authorization: AllowedAuthorization(), backend: FakeWebcamBackend(failStart: true))
         failing.start(deviceID: "missing")
         await failing.waitForPendingOperation()
-        guard case .failed(let message) = failing.state else { return XCTFail("Expected failure state") }
+        guard case .failed(let message) = failing.state else { XCTFail("Expected failure state")
+return }
         XCTAssertFalse(message.isEmpty)
         XCTAssertFalse(failing.isStarting)
         XCTAssertFalse(failing.isPreviewActive)
@@ -163,7 +164,7 @@ final class WebcamTests: XCTestCase {
 }
 
 private struct AllowedAuthorization: WebcamAuthorizing {
-    func isAuthorized() async -> Bool { true }
+    func isAuthorized() -> Bool { true }
 }
 
 /// A permission fixture whose requests remain pending until explicitly released by index.
@@ -209,7 +210,7 @@ private actor FakeWebcamBackend: WebcamCaptureBackend {
         if failStart { throw WebcamCaptureError.noDevice }
         return WebcamPreviewSource()
     }
-    func capture(operationID: UInt64) async throws -> Data {
+    func capture(operationID _: UInt64) async -> Data {
         if holdCapture { await withCheckedContinuation { pendingCapture = $0 } }
         return imageData
     }

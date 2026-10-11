@@ -5,9 +5,9 @@
 //  Created by Alin Lupascu on 3/27/25.
 //
 
-import SwiftUI
 import AlinFoundation
 import AVFoundation
+import SwiftUI
 
 /// Opens the history window through the shared window manager.
 @MainActor
