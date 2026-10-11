@@ -3,6 +3,7 @@ import XCTest
 final class LaunchAtLoginTests: XCTestCase {
     @MainActor
     func testRefreshReflectsEveryStatusWithoutRegistering() async {
+        XCTAssertEqual(LaunchAtLoginStatus.allCases, [.notRegistered, .enabled, .requiresApproval, .notFound])
         for status in LaunchAtLoginStatus.allCases {
             let service = FakeLoginService(status: status)
             let controller = LaunchAtLoginController(service: service)
@@ -87,8 +88,11 @@ private actor FakeLoginService: LaunchAtLoginServicing {
     private let partialSuccess: Bool
     private var registrations = 0
     private var unregistrations = 0
+
     init(status: LaunchAtLoginStatus, fail: Bool = false, partialSuccess: Bool = false) {
-        actual = status; self.fail = fail; self.partialSuccess = partialSuccess
+        actual = status
+        self.fail = fail
+        self.partialSuccess = partialSuccess
     }
     func status() -> LaunchAtLoginStatus { actual }
     func register() throws {

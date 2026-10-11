@@ -40,7 +40,11 @@ struct ContentView: View {
                 HStack {
                     Button(action: showSettings) {
                         Group {
-                            if updater.updateAvailable { Label("Updates", systemImage: "arrow.down.circle") } else { Label("Settings", systemImage: "gear") }
+                            if updater.updateAvailable {
+                                Label("Updates", systemImage: "arrow.down.circle")
+                            } else {
+                                Label("Settings", systemImage: "gear")
+                            }
                         }
                         .labelStyle(.iconOnly)
                         .font(.system(size: 17))
@@ -69,25 +73,45 @@ struct ContentView: View {
 
             HStack(spacing: 5) {
                 MenuActionTile(
-                    title: "Capture", icon: "viewfinder",
+                    title: "Capture",
+                    icon: "viewfinder",
                     help: "Capture section of screen to extract text and barcodes",
-                    shortcut: .captureContent, shortcutLabel: "Edit Capture shortcut", action: capture)
+                    shortcut: .captureContent,
+                    shortcutLabel: "Edit Capture shortcut",
+                    action: capture
+                )
                 MenuActionTile(
-                    title: "Webcam", icon: "camera",
+                    title: "Webcam",
+                    icon: "camera",
                     help: "Open webcam capture window for OCR",
-                    shortcut: .captureWebcam, shortcutLabel: "Edit Webcam shortcut", action: captureWebcam)
+                    shortcut: .captureWebcam,
+                    shortcutLabel: "Edit Webcam shortcut",
+                    action: captureWebcam
+                )
                 MenuActionTile(
-                    title: "Color", icon: "eyedropper",
+                    title: "Color",
+                    icon: "eyedropper",
                     help: "Capture hex/rgb value from click location",
-                    shortcut: .eyedropper, shortcutLabel: "Edit Color shortcut", action: captureColor)
+                    shortcut: .eyedropper,
+                    shortcutLabel: "Edit Color shortcut",
+                    action: captureColor
+                )
                 MenuActionTile(
-                    title: "History", icon: "clock",
+                    title: "History",
+                    icon: "clock",
                     help: "Show history of captures from this session",
-                    shortcut: .history, shortcutLabel: "Edit History shortcut", action: showHistory)
+                    shortcut: .history,
+                    shortcutLabel: "Edit History shortcut",
+                    action: showHistory
+                )
                 MenuActionTile(
-                    title: "Clear", icon: "delete.left",
+                    title: "Clear",
+                    icon: "delete.left",
                     help: "Clear clipboard contents and stored captures",
-                    shortcut: .clear, shortcutLabel: "Edit Clear shortcut", action: clearCaptures)
+                    shortcut: .clear,
+                    shortcutLabel: "Edit Clear shortcut",
+                    action: clearCaptures
+                )
             }
             .padding([.horizontal, .bottom, .top])
         }
@@ -106,7 +130,8 @@ struct ContentView: View {
     private func showSettings() {
         UserDefaults.standard.set(
             updater.updateAvailable ? SettingsTab.updates.rawValue : SettingsTab.general.rawValue,
-            forKey: "settingsSelectedTab")
+            forKey: "settingsSelectedTab"
+        )
         NSApp.activate()
         openSettings()
         dismiss()

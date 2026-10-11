@@ -7,6 +7,7 @@ struct AboutView: View {
         VStack(spacing: 0) {
             Image(nsImage: NSApp.applicationIconImage ?? NSImage())
                 .padding()
+                .accessibilityHidden(true)
 
             Text(Bundle.main.name)
                 .font(.title)
@@ -23,7 +24,8 @@ struct AboutView: View {
                 .padding(.vertical, 4)
 
             Button {
-                NSWorkspace.shared.open(URL(string: "https://github.com/pierow2k/VizCE")!)
+                guard let url = URL(string: "https://github.com/pierow2k/VizCE") else { return }
+                NSWorkspace.shared.open(url)
             } label: {
                 Label("GitHub", systemImage: "paperplane")
                     .padding(5)

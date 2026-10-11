@@ -43,7 +43,10 @@ struct GeneralSettingsView: View {
                         Toggle("Show capture window for", isOn: $showPreview)
                             .toggleStyle(SpacedToggleSeconds(seconds: $seconds))
                             .help(
-                                "When enabled, captured content preview will show and close after \(Int(seconds)) seconds. Otherwise it's not shown at all."
+                                """
+                                When enabled, captured content preview will show and close \
+                                after \(Int(seconds)) seconds. Otherwise it's not shown at all.
+                                """
                             )
 
                         Toggle("Post-processing", isOn: $processingIsEnabled)
@@ -61,13 +64,17 @@ struct GeneralSettingsView: View {
                                 HStack {
                                     Text("W:")
                                     Stepper(
-                                        "\(Int(viewWidth))", value: $viewWidth, in: 200...1_000,
+                                        "\(Int(viewWidth))",
+                                        value: $viewWidth,
+                                        in: 200...1_000,
                                         step: 10
                                     )
                                     .frame(width: 60, alignment: .trailing)
                                     Text("H:")
                                     Stepper(
-                                        "\(Int(viewHeight))", value: $viewHeight, in: 100...1_000,
+                                        "\(Int(viewHeight))",
+                                        value: $viewHeight,
+                                        in: 100...1_000,
                                         step: 10
                                     )
                                     .frame(width: 60, alignment: .trailing)
@@ -78,6 +85,7 @@ struct GeneralSettingsView: View {
                                     viewHeight = 200.0
                                 } label: {
                                     Image(systemName: "arrow.counterclockwise")
+                                        .accessibilityLabel("Reset capture window dimensions")
                                         .font(.system(size: 12))
                                 }
                                 .buttonStyle(.plain)
@@ -88,6 +96,7 @@ struct GeneralSettingsView: View {
                                     PreviewWindowController.shared.show(PreviewContentView())
                                 } label: {
                                     Image(systemName: "macwindow")
+                                        .accessibilityLabel("Show example capture preview")
                                         .font(.system(size: 12))
                                 }
                                 .buttonStyle(.plain)

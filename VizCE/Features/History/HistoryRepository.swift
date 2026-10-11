@@ -14,8 +14,9 @@ final class HistoryRepository: ObservableObject {
     private var loaded = false
     /// Edits awaiting replay on a successfully loaded snapshot, in application order.
     private var mutations: [HistoryMutation] = []
+    // nil means no queued write; an empty snapshot must still persist a history clear.
     /// The newest unsaved snapshot; `nil` means no replacement snapshot is queued.
-    private var pending: [StoredHistoryEntry]?
+    private var pending: [StoredHistoryEntry]? // swiftlint:disable:this discouraged_optional_collection
     private var loadTask: Task<Void, Never>?
     /// The sole snapshot drain task, preventing writes from competing with one another.
     private var saveTask: Task<Void, Never>?
@@ -98,7 +99,9 @@ final class HistoryRepository: ObservableObject {
 
     /// Retries loading after a read failure, or resumes pending writes after a save failure.
     func retry() {
-        if !loaded { load() } else {
+        if !loaded {
+            load()
+        } else {
             lastError = nil
             failure = nil
             drain()

@@ -16,7 +16,9 @@ struct MovableWindowAccessor: NSViewRepresentable {
         return nsView
     }
 
-    func updateNSView(_: NSView, context _: Context) {}
+    func updateNSView(_: NSView, context _: Context) {
+        // Background dragging is configured once when the bridge attaches to its window.
+    }
 }
 
 extension View {

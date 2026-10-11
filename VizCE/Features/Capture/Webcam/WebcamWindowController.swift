@@ -16,7 +16,9 @@ final class WebcamWindowController: NSObject, NSWindowDelegate {
             return
         }
         let coordinator = WebcamCaptureCoordinator()
-        let window = NSWindow(contentViewController: NSHostingController(rootView: WebcamCaptureView(captureManager: coordinator)))
+        let window = NSWindow(
+            contentViewController: NSHostingController(rootView: WebcamCaptureView(captureManager: coordinator))
+        )
         window.setContentSize(NSSize(width: 650, height: 450))
         window.styleMask = [.titled, .closable, .resizable, .fullSizeContentView]
         window.titlebarAppearsTransparent = true

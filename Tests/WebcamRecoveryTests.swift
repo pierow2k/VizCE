@@ -6,11 +6,17 @@ final class WebcamRecoveryTests: XCTestCase {
     func testMissingSavedCameraFailsWithoutFallingBackAndRetryCanRecover() async {
         let backend = RecoveryWebcamBackend(error: .noDevice)
         let devices = StaticWebcamDevices()
-        let coordinator = WebcamCaptureCoordinator(authorization: RecoveryAuthorization(allowed: true), backend: backend, devices: devices)
+        let coordinator = WebcamCaptureCoordinator(
+            authorization: RecoveryAuthorization(allowed: true),
+            backend: backend,
+            devices: devices
+        )
         coordinator.start(deviceID: "saved-camera")
         await coordinator.waitForPendingOperation()
-        guard case .failed = coordinator.state else { XCTFail("Expected failed state")
-return }
+        guard case .failed = coordinator.state else {
+            XCTFail("Expected failed state")
+            return
+        }
         XCTAssertFalse(coordinator.isStarting)
         var starts = await backend.started
         XCTAssertEqual(starts, ["saved-camera"])
@@ -27,11 +33,16 @@ return }
     @MainActor
     func testEverySetupFailureFinishesStartingState() async {
         for error in [WebcamCaptureError.unsupportedInput, .unsupportedOutput, .startFailed] {
-            let coordinator = WebcamCaptureCoordinator(authorization: RecoveryAuthorization(allowed: true), backend: RecoveryWebcamBackend(error: error))
+            let coordinator = WebcamCaptureCoordinator(
+                authorization: RecoveryAuthorization(allowed: true),
+                backend: RecoveryWebcamBackend(error: error)
+            )
             coordinator.start(deviceID: "camera")
             await coordinator.waitForPendingOperation()
-            guard case .failed(let message) = coordinator.state else { XCTFail("Expected error")
-return }
+            guard case .failed(let message) = coordinator.state else {
+                XCTFail("Expected error")
+                return
+            }
             XCTAssertFalse(message.isEmpty)
             XCTAssertFalse(coordinator.isStarting)
             XCTAssertFalse(coordinator.isPreviewActive)
@@ -43,7 +54,10 @@ return }
     @MainActor
     func testPermissionDenialIsDistinctAndCannotStartSession() async {
         let backend = RecoveryWebcamBackend()
-        let coordinator = WebcamCaptureCoordinator(authorization: RecoveryAuthorization(allowed: false), backend: backend)
+        let coordinator = WebcamCaptureCoordinator(
+            authorization: RecoveryAuthorization(allowed: false),
+            backend: backend
+        )
         coordinator.start(deviceID: "camera")
         await coordinator.waitForPendingOperation()
         XCTAssertEqual(coordinator.state, .permissionDenied)
@@ -54,7 +68,11 @@ return }
     @MainActor
     func testEmptySelectionResolvesPreferredDefaultBeforeStarting() async {
         let backend = RecoveryWebcamBackend()
-        let coordinator = WebcamCaptureCoordinator(authorization: RecoveryAuthorization(allowed: true), backend: backend, devices: StaticWebcamDevices())
+        let coordinator = WebcamCaptureCoordinator(
+            authorization: RecoveryAuthorization(allowed: true),
+            backend: backend,
+            devices: StaticWebcamDevices()
+        )
         coordinator.start(deviceID: "")
         await coordinator.waitForPendingOperation()
         let starts = await backend.started
@@ -66,13 +84,18 @@ return }
     @MainActor
     func testCaptureFailureStopsSessionAndOffersRetry() async {
         let backend = RecoveryWebcamBackend()
-        let coordinator = WebcamCaptureCoordinator(authorization: RecoveryAuthorization(allowed: true), backend: backend)
+        let coordinator = WebcamCaptureCoordinator(
+            authorization: RecoveryAuthorization(allowed: true),
+            backend: backend
+        )
         coordinator.start(deviceID: "camera")
         await coordinator.waitForPendingOperation()
         coordinator.capturePhoto()
         await coordinator.waitForPendingOperation()
-        guard case .failed = coordinator.state else { XCTFail("Expected capture error")
-return }
+        guard case .failed = coordinator.state else {
+            XCTFail("Expected capture error")
+            return
+        }
         XCTAssertNil(coordinator.previewLayer)
         XCTAssertFalse(coordinator.isPreviewActive)
         coordinator.restart(deviceID: "camera")
@@ -86,7 +109,11 @@ return }
     func testLateDeviceCatalogCompletionAfterCloseCannotStartSession() async {
         let backend = RecoveryWebcamBackend()
         let devices = DelayedWebcamDevices()
-        let coordinator = WebcamCaptureCoordinator(authorization: RecoveryAuthorization(allowed: true), backend: backend, devices: devices)
+        let coordinator = WebcamCaptureCoordinator(
+            authorization: RecoveryAuthorization(allowed: true),
+            backend: backend,
+            devices: devices
+        )
         coordinator.start(deviceID: "")
         await devices.waitForRequests(1)
         coordinator.stop()
@@ -116,6 +143,7 @@ return }
 
 private struct RecoveryAuthorization: WebcamAuthorizing {
     let allowed: Bool
+
     func isAuthorized() -> Bool { allowed }
 }
 
@@ -123,6 +151,7 @@ private struct RecoveryAuthorization: WebcamAuthorizing {
 private actor RecoveryWebcamBackend: WebcamCaptureBackend {
     var started: [String] = []
     private var error: WebcamCaptureError?
+
     init(error: WebcamCaptureError? = nil) { self.error = error }
     func setError(_ error: WebcamCaptureError?) { self.error = error }
     func start(deviceID: String, operationID _: UInt64) throws -> WebcamPreviewSource {
@@ -131,7 +160,9 @@ private actor RecoveryWebcamBackend: WebcamCaptureBackend {
         return WebcamPreviewSource(session: AVCaptureSession())
     }
     func capture(operationID _: UInt64) throws -> Data { throw WebcamCaptureError.noFrame }
-    func stop(operationID _: UInt64) {}
+    func stop(operationID _: UInt64) {
+        // This fixture has no session resources to tear down.
+    }
 }
 
 private struct StaticWebcamDevices: WebcamDeviceDiscovering {
@@ -143,6 +174,7 @@ private struct StaticWebcamDevices: WebcamDeviceDiscovering {
 /// A camera discovery fixture that lets tests deliver catalog snapshots out of order.
 private actor DelayedWebcamDevices: WebcamDeviceDiscovering {
     private var continuations: [CheckedContinuation<WebcamDevices, Never>] = []
+
     func snapshot() async -> WebcamDevices { await withCheckedContinuation { continuations.append($0) } }
     func waitForRequests(_ count: Int) async { while continuations.count < count { await Task.yield() } }
     func finish(_ index: Int, id: String) {

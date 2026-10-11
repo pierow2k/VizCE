@@ -30,7 +30,12 @@ final class PreviewWindowController {
         let height = (processing && content is PreviewContentView) ? viewHeight + 100 : viewHeight
         let hostingView = NSHostingView(rootView: content)
         hostingView.frame = CGRect(x: 0, y: 0, width: width, height: height)
-        let presentation = NSWindow(contentRect: hostingView.frame, styleMask: .borderless, backing: .buffered, defer: false)
+        let presentation = NSWindow(
+            contentRect: hostingView.frame,
+            styleMask: .borderless,
+            backing: .buffered,
+            defer: false
+        )
         presentation.contentView = hostingView
         hostingView.wantsLayer = true
         hostingView.layer?.cornerRadius = 10
@@ -40,8 +45,12 @@ final class PreviewWindowController {
         presentation.backgroundColor = .clear
         // Keep a 30-point inset from the visible screen’s top-right edge.
         if let screen = NSScreen.main {
-            presentation.setFrameOrigin(NSPoint(x: screen.visibleFrame.maxX - width - 30,
-                                               y: screen.visibleFrame.maxY - height - 30))
+            presentation.setFrameOrigin(
+                NSPoint(
+                    x: screen.visibleFrame.maxX - width - 30,
+                    y: screen.visibleFrame.maxY - height - 30
+                )
+            )
         }
         window = presentation
         presentation.orderFront(nil)

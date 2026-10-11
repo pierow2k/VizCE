@@ -73,6 +73,7 @@ final class RecognitionLanguageTests: XCTestCase {
 /// A discovery fixture that records configuration queries before returning one language.
 private actor LanguageDiscoveryProbe {
     var calls: [RecognitionConfiguration] = []
+
     func discover(_ configuration: RecognitionConfiguration) -> [String] {
         calls.append(configuration)
         return ["en-US"]
@@ -82,6 +83,7 @@ private actor LanguageDiscoveryProbe {
 /// A discovery fixture with independently held results keyed by recognition quality.
 private actor DelayedLanguageDiscovery {
     private var continuations: [Bool: CheckedContinuation<[String], Never>] = [:]
+
     func discover(_ configuration: RecognitionConfiguration) async -> [String] {
         await withCheckedContinuation { continuations[configuration.fast] = $0 }
     }
@@ -92,8 +94,12 @@ private actor DelayedLanguageDiscovery {
 /// A discovery fixture that fails once so the catalog’s retry behavior can be exercised.
 private actor FailingLanguageDiscovery {
     private var fail = true
+
     func discover() throws -> [String] {
-        if fail { fail = false; throw CocoaError(.fileReadUnknown) }
+        if fail {
+            fail = false
+            throw CocoaError(.fileReadUnknown)
+        }
         return ["en-US"]
     }
 }

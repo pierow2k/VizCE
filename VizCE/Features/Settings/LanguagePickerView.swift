@@ -6,7 +6,8 @@ struct LanguagePickerView: View {
     @Environment(\.locale) private var locale
 
     var body: some View {
-        let selectionIsUnavailable = appState.selectedLanguageCode != "All"
+        let selectionIsUnavailable =
+            appState.selectedLanguageCode != "All"
             && !appState.languages.codes.contains(appState.selectedLanguageCode)
         VStack(alignment: .leading) {
             Picker("OCR language", selection: $appState.selectedLanguageCode) {
@@ -15,9 +16,14 @@ struct LanguagePickerView: View {
                     Text(RecognitionLanguageName.displayName(for: code, locale: locale)).tag(code)
                 }
                 if selectionIsUnavailable {
-                    Text("\(RecognitionLanguageName.displayName(for: appState.selectedLanguageCode, locale: locale)) (Unavailable)")
-                        .tag(appState.selectedLanguageCode)
-                        .disabled(true)
+                    Text(
+                        """
+                        \(RecognitionLanguageName.displayName(for: appState.selectedLanguageCode, locale: locale)) \
+                        (Unavailable)
+                        """
+                    )
+                    .tag(appState.selectedLanguageCode)
+                    .disabled(true)
                 }
             }
             .pickerStyle(.menu)

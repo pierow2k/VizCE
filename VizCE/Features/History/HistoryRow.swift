@@ -13,10 +13,16 @@ struct HistoryRow: View {
             case .color(let item):
                 HStack {
                     VStack(alignment: .leading) {
-                        Button { copy(item.hex) } label: { Text("HEX: \(item.hex)") }
-                            .accessibilityLabel("Copy hexadecimal color")
-                            .accessibilityValue(Text(item.hex))
-                        Button { copy(item.rgb) } label: {
+                        Button {
+                            copy(item.hex)
+                        } label: {
+                            Text("HEX: \(item.hex)")
+                        }
+                        .accessibilityLabel("Copy hexadecimal color")
+                        .accessibilityValue(Text(item.hex))
+                        Button {
+                            copy(item.rgb)
+                        } label: {
                             Text("RGB: \(item.rgb)").font(.footnote).foregroundStyle(.secondary)
                         }
                         .accessibilityLabel("Copy RGB color")
@@ -24,18 +30,23 @@ struct HistoryRow: View {
                     }
                     .padding()
                     TrailingRoundedRectangle(cornerRadius: 8).fill(item.color)
-                        .frame(maxWidth: .infinity).accessibilityHidden(true)
+                        .frame(maxWidth: .infinity)
+                        .accessibilityHidden(true)
                 }
                 .background(.secondary.opacity(0.1), in: RoundedRectangle(cornerRadius: 8))
 
             case .text(let item):
                 if let url = recognizedURL(item.text) {
-                    Button { NSWorkspace.shared.open(url) } label: {
+                    Button {
+                        NSWorkspace.shared.open(url)
+                    } label: {
                         Label("Open captured link", systemImage: "safari").labelStyle(.iconOnly)
                     }
                     .help("Open captured link")
                 }
-                Button { copy(item.text) } label: {
+                Button {
+                    copy(item.text)
+                } label: {
                     Text(item.text)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding()

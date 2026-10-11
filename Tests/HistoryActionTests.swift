@@ -9,6 +9,8 @@ final class HistoryActionTests: XCTestCase {
         XCTAssertFalse(HistoryFilter.colors.includes(isText: true))
         XCTAssertTrue(HistoryFilter.colors.includes(isText: false))
         XCTAssertEqual(HistoryFilter.all.rawValue, "all")
+        XCTAssertEqual(HistoryFilter.allCases, [.all, .text, .colors])
+        XCTAssertEqual(HistoryFilter.allCases.map(\.rawValue), ["all", "text", "colors"])
     }
 
     @MainActor
@@ -52,6 +54,7 @@ final class HistoryActionTests: XCTestCase {
 /// A manual feedback clock that retains canceled sleepers to exercise generation checks.
 private actor CopyFeedbackClock {
     private var continuations: [CheckedContinuation<Void, Never>] = []
+
     func sleep() async { await withCheckedContinuation { continuations.append($0) } }
     func waitFor(_ count: Int) async { while continuations.count < count { await Task.yield() } }
     func finish(_ index: Int) { continuations[index].resume() }

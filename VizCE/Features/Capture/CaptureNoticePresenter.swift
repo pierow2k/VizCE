@@ -22,7 +22,8 @@ final class CaptureNoticePresenter {
             title = "Capture failed"
             message = error.localizedDescription
 
-        default: return
+        default:
+            return
         }
         close()
         let view = CaptureNoticeView(title: title, message: message) { [weak self] in self?.close() }
@@ -38,5 +39,8 @@ final class CaptureNoticePresenter {
     }
 
     /// Closes and releases the currently retained notice window.
-    func close() { window?.close(); window = nil }
+    func close() {
+        window?.close()
+        window = nil
+    }
 }

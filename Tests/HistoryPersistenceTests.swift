@@ -7,11 +7,16 @@ final class HistoryPersistenceTests: XCTestCase {
     }
 
     func testLegacyEncodingAndAtomicRoundTrip() async throws {
-        let json = ##"[{"text":{"_0":{"id":"old-text","text":"hello"}}},{"color":{"_0":{"id":"old-color","hex":"#123456","rgb":"(18,52,86)"}}}]"##.data(using: .utf8)!
+        let fixture =
+            ##"[{"text":{"_0":{"id":"old-text","text":"hello"}}},"##
+            + ##"{"color":{"_0":{"id":"old-color","hex":"#123456","rgb":"(18,52,86)"}}}]"##
+        let json = Data(fixture.utf8)
         let records = try JSONDecoder().decode([StoredHistoryEntry].self, from: json)
         let encoded = try JSONEncoder().encode(records)
-        XCTAssertEqual(try JSONSerialization.jsonObject(with: encoded) as? NSArray,
-                       try JSONSerialization.jsonObject(with: json) as? NSArray)
+        XCTAssertEqual(
+            try JSONDecoder().decode([[String: [String: [String: String]]]].self, from: encoded),
+            try JSONDecoder().decode([[String: [String: [String: String]]]].self, from: json)
+        )
         let dir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: dir) }
         let store = HistoryFileStore(url: dir.appendingPathComponent("historyItems.json"))
@@ -47,7 +52,10 @@ final class HistoryPersistenceTests: XCTestCase {
         repository.append(entry("two"))
         repository.append(entry("three"))
         var finished = false
-        let flush = Task { try await repository.flush(); finished = true }
+        let flush = Task {
+            try await repository.flush()
+            finished = true
+        }
         await Task.yield()
         XCTAssertFalse(finished)
         await store.finishSave()
@@ -62,7 +70,12 @@ final class HistoryPersistenceTests: XCTestCase {
         let repository = HistoryRepository(store: store)
         try await repository.flush()
         repository.append(entry("one"))
-        do { try await repository.flush(); XCTFail("Expected write failure") } catch {}
+        do {
+            try await repository.flush()
+            XCTFail("Expected write failure")
+        } catch {
+            // Failure is expected; the assertions after this block verify the resulting state.
+        }
         XCTAssertNotNil(repository.failure)
         repository.append(entry("two"))
         await store.allowSave()
@@ -84,7 +97,12 @@ final class HistoryPersistenceTests: XCTestCase {
         let repository = HistoryRepository(store: HistoryFileStore(url: url))
         repository.clear()
         repository.append(entry("new"))
-        do { try await repository.flush(); XCTFail("Expected read failure") } catch {}
+        do {
+            try await repository.flush()
+            XCTFail("Expected read failure")
+        } catch {
+            // Failure is expected; the assertions after this block verify the resulting state.
+        }
         XCTAssertEqual(try Data(contentsOf: url), original)
         try JSONEncoder().encode([entry("old")]).write(to: url)
         repository.retry()
@@ -99,7 +117,12 @@ final class HistoryPersistenceTests: XCTestCase {
         let blocked = dir.appendingPathComponent("blocked")
         try Data("unchanged".utf8).write(to: blocked)
         let store = HistoryFileStore(url: blocked.appendingPathComponent("historyItems.json"))
-        do { try await store.save([entry("new")]); XCTFail("Expected write failure") } catch {}
+        do {
+            try await store.save([entry("new")])
+            XCTFail("Expected write failure")
+        } catch {
+            // Failure is expected; the assertions after this block verify the resulting state.
+        }
         XCTAssertEqual(try String(contentsOf: blocked, encoding: .utf8), "unchanged")
     }
 }
@@ -138,8 +161,14 @@ private actor ControlledHistoryStore: HistoryStoring {
         }
     }
     func waitForLoad() async { while loadContinuation == nil { await Task.yield() } }
-    func finishLoad(_ entries: [StoredHistoryEntry]) { loadContinuation?.resume(returning: entries); loadContinuation = nil }
+    func finishLoad(_ entries: [StoredHistoryEntry]) {
+        loadContinuation?.resume(returning: entries)
+        loadContinuation = nil
+    }
     func waitForSave() async { while saveContinuation == nil { await Task.yield() } }
-    func finishSave() { saveContinuation?.resume(); saveContinuation = nil }
+    func finishSave() {
+        saveContinuation?.resume()
+        saveContinuation = nil
+    }
     func allowSave() { failSave = false }
 }

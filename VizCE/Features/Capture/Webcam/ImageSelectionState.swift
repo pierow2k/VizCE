@@ -24,18 +24,33 @@ struct ImageSelectionState {
     ///   - current: The latest gesture location used to form the selection.
     mutating func drag(start: CGPoint, current: CGPoint) {
         guard let start = ImageCropTransform.clamp(start, viewport: viewport),
-              let current = ImageCropTransform.clamp(current, viewport: viewport) else {
+            let current = ImageCropTransform.clamp(current, viewport: viewport)
+        else {
             clear()
             return
         }
-        if !isDragging { dragStart = start; isDragging = true }
-        rect = CGRect(x: min(dragStart.x, current.x), y: min(dragStart.y, current.y),
-                      width: abs(current.x - dragStart.x), height: abs(current.y - dragStart.y))
+        if !isDragging {
+            dragStart = start
+            isDragging = true
+        }
+        rect = CGRect(
+            x: min(dragStart.x, current.x),
+            y: min(dragStart.y, current.y),
+            width: abs(current.x - dragStart.x),
+            height: abs(current.y - dragStart.y)
+        )
     }
 
     /// Ends the drag and clears its anchor while retaining the selected rectangle.
-    mutating func endDrag() { isDragging = false; dragStart = .zero }
+    mutating func endDrag() {
+        isDragging = false
+        dragStart = .zero
+    }
 
     /// Clears the selection rectangle and any active drag anchor.
-    mutating func clear() { rect = .zero; isDragging = false; dragStart = .zero }
+    mutating func clear() {
+        rect = .zero
+        isDragging = false
+        dragStart = .zero
+    }
 }

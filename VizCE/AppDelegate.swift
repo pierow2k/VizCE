@@ -36,7 +36,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     self.quitWithoutSaving = true
                     sender.terminate(nil)
 
-                default: break
+                default:
+                    break
                 }
             }
         }
@@ -67,8 +68,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             clearCaptureHistoryAndClipboard()
         }
 
-#if !DEBUG
-        ensureApplicationSupportFolderExists()
-#endif
+        #if !DEBUG
+            ensureApplicationSupportFolderExists()
+        #endif
     }
 }

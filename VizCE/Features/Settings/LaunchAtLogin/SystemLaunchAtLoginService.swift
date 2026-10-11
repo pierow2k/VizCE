@@ -5,11 +5,20 @@ actor SystemLaunchAtLoginService: LaunchAtLoginServicing {
     /// Maps the system main-app registration state, treating unknown states as unavailable.
     func status() -> LaunchAtLoginStatus {
         switch SMAppService.mainApp.status {
-        case .enabled: .enabled
-        case .notRegistered: .notRegistered
-        case .requiresApproval: .requiresApproval
-        case .notFound: .notFound
-        @unknown default: .notFound
+        case .enabled:
+            .enabled
+
+        case .notRegistered:
+            .notRegistered
+
+        case .requiresApproval:
+            .requiresApproval
+
+        case .notFound:
+            .notFound
+
+        @unknown default:
+            .notFound
         }
     }
     /// Requests main-app login registration and propagates service errors.

@@ -18,11 +18,19 @@ struct LaunchAtLoginView: View {
             }
         }
         .task { controller.refresh() }
-        .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in controller.refresh() }
-        .alert("Launch at login failed", isPresented: Binding(
-            get: { controller.errorMessage != nil }, set: { if !$0 { controller.errorMessage = nil } }
-        )) {
+        .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
+            controller.refresh()
+        }
+        .alert(
+            "Launch at login failed",
+            isPresented: Binding(
+                get: { controller.errorMessage != nil },
+                set: { if !$0 { controller.errorMessage = nil } }
+            )
+        ) {
             Button("OK") { controller.errorMessage = nil }
-        } message: { Text(controller.errorMessage ?? "") }
+        } message: {
+            Text(controller.errorMessage ?? "")
+        }
     }
 }

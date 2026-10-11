@@ -6,14 +6,17 @@ actor RecognitionLanguageCatalog {
     static let shared = RecognitionLanguageCatalog()
     /// An injectable asynchronous query for language codes supported by one request configuration.
     typealias Discover = @Sendable (RecognitionConfiguration) async throws -> [String]
+
     private let discover: Discover
     /// Shared discovery tasks, retained after success and removed after failure so requests can retry.
     private var requests: [RecognitionConfiguration: Task<[String], Error>] = [:]
 
     /// Creates a catalog with an injectable language query, using Vision discovery by default.
-    init(discover: @escaping Discover = { configuration in
-        try await RecognitionLanguageCatalog.discoverSupportedCodes(configuration)
-    }) {
+    init(
+        discover: @escaping Discover = { configuration in
+            try await RecognitionLanguageCatalog.discoverSupportedCodes(configuration)
+        }
+    ) {
         self.discover = discover
     }
 
@@ -25,7 +28,10 @@ actor RecognitionLanguageCatalog {
         let discover = discover
         let task = Task { try await discover(configuration) }
         requests[configuration] = task
-        do { return try await task.value } catch { requests[configuration] = nil; throw error }
+        do { return try await task.value } catch {
+            requests[configuration] = nil
+            throw error
+        }
     }
 
     /// Resolves a stored selection to a supported code or automatic language handling.
@@ -45,14 +51,15 @@ actor RecognitionLanguageCatalog {
     /// - Throws: The Vision request’s language discovery error.
     nonisolated static func discoverSupportedCodes(_ configuration: RecognitionConfiguration) async throws -> [String] {
         try await withCheckedThrowingContinuation { continuation in
-            DispatchQueue(label: "VizCE.recognition.languages", qos: .userInitiated).async {
-                do {
-                    let request = VNRecognizeTextRequest()
-                    request.recognitionLevel = configuration.fast ? .fast : .accurate
-                    request.revision = configuration.revision
-                    continuation.resume(returning: try request.supportedRecognitionLanguages())
-                } catch { continuation.resume(throwing: error) }
-            }
+            DispatchQueue(label: "VizCE.recognition.languages", qos: .userInitiated)
+                .async {
+                    do {
+                        let request = VNRecognizeTextRequest()
+                        request.recognitionLevel = configuration.fast ? .fast : .accurate
+                        request.revision = configuration.revision
+                        continuation.resume(returning: try request.supportedRecognitionLanguages())
+                    } catch { continuation.resume(throwing: error) }
+                }
         }
     }
 }

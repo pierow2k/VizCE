@@ -8,9 +8,9 @@ class TextItem: Identifiable, Codable {
     /// Creates a text capture, preserving a supplied history identifier or generating a new one.
     ///
     /// - Parameters:
-    ///   - id: The stable identity shared by preview and history.
     ///   - text: The recognized content to display and copy.
-    init(id: String = UUID().uuidString, text: String) {
+    ///   - id: The stable identity shared by preview and history.
+    init(text: String, id: String = UUID().uuidString) {
         self.id = id
         self.text = text
     }

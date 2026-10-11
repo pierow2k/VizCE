@@ -29,8 +29,10 @@ struct WebcamControlsView: View {
         if !captured {
             Button("Capture", systemImage: "camera.fill", action: capture).disabled(!canCapture)
         } else if snipping {
-            Button("Extract", systemImage: "doc.text.viewfinder", action: extract).disabled(
-                !canExtract)
+            Button("Extract", systemImage: "doc.text.viewfinder", action: extract)
+                .disabled(
+                    !canExtract
+                )
             Button("Cancel selection", systemImage: "xmark", action: cancel)
             Button("Back", systemImage: "arrow.backward", action: back)
         } else {

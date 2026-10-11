@@ -11,7 +11,8 @@ enum ImageCropTransform {
     /// - Returns: An integral crop including the centered aspect-fill offsets, or `nil` for invalid or empty input.
     static func map(selection: CGRect, viewport: CGSize, pixels: CGSize) -> CGRect? {
         guard valid(viewport), valid(pixels),
-              [selection.origin.x, selection.origin.y, selection.width, selection.height].allSatisfy(\.isFinite) else { return nil }
+            [selection.origin.x, selection.origin.y, selection.width, selection.height].allSatisfy(\.isFinite)
+        else { return nil }
         let visible = selection.standardized.intersection(CGRect(origin: .zero, size: viewport))
         guard !visible.isNull, !visible.isEmpty else { return nil }
         // Undo aspect-fill scaling, then restore the source pixels clipped from each centered edge.
@@ -23,7 +24,8 @@ enum ImageCropTransform {
         let maxX = visible.maxX * inverseScale + offsetX
         let maxY = visible.maxY * inverseScale + offsetY
         guard inverseScale.isFinite, inverseScale > 0,
-              [minX, minY, maxX, maxY].allSatisfy(\.isFinite) else { return nil }
+            [minX, minY, maxX, maxY].allSatisfy(\.isFinite)
+        else { return nil }
         let bounds = CGRect(origin: .zero, size: pixels)
         let mapped = CGRect(x: minX, y: minY, width: maxX - minX, height: maxY - minY).intersection(bounds)
         guard !mapped.isNull, !mapped.isEmpty else { return nil }
@@ -40,8 +42,10 @@ enum ImageCropTransform {
     /// - Returns: The clamped location, or `nil` when the point or viewport is invalid.
     static func clamp(_ point: CGPoint, viewport: CGSize) -> CGPoint? {
         guard valid(viewport), point.x.isFinite, point.y.isFinite else { return nil }
-        return CGPoint(x: min(max(point.x, 0), viewport.width),
-                       y: min(max(point.y, 0), viewport.height))
+        return CGPoint(
+            x: min(max(point.x, 0), viewport.width),
+            y: min(max(point.y, 0), viewport.height)
+        )
     }
 
     /// Accepts only finite dimensions strictly greater than zero for coordinate conversion.

@@ -5,6 +5,7 @@ import Foundation
 final class PreviewExpiry {
     /// An injectable main-actor wait that may throw when the caller is canceled.
     typealias Sleep = @MainActor (Duration) async throws -> Void
+
     private let sleep: Sleep
     private var task: Task<Void, Never>?
     /// The timer generation that invalidates callbacks even when an injected wait ignores cancellation.

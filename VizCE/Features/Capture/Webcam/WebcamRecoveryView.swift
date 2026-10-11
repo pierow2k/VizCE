@@ -11,8 +11,11 @@ struct WebcamRecoveryView: View {
     var body: some View {
         VStack(spacing: 12) {
             switch state {
-            case .authorizing: ProgressView("Requesting camera access")
-            case .starting: ProgressView("Starting camera")
+            case .authorizing:
+                ProgressView("Requesting camera access")
+
+            case .starting:
+                ProgressView("Starting camera")
 
             case .permissionDenied:
                 Text("Camera access denied").font(.headline)
@@ -37,7 +40,8 @@ struct WebcamRecoveryView: View {
                 }
                 .onAppear(perform: refresh)
 
-            default: Text("Camera stopped")
+            default:
+                Text("Camera stopped")
             }
         }
         .padding()

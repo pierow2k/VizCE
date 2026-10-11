@@ -34,15 +34,22 @@ struct WebcamCaptureView: View {
             ZStack {
                 if let image = captureManager.capturedImage {
                     CapturedImageSelectionView(
-                        image: image, size: viewport, isSnipping: isSnipping, selection: $selection)
+                        image: image,
+                        size: viewport,
+                        isSnipping: isSnipping,
+                        selection: $selection
+                    )
                 } else if let preview = captureManager.previewLayer,
                     captureManager.state == .previewing || captureManager.state == .capturing {
                     CameraPreviewView(previewLayer: preview)
                 } else {
                     WebcamRecoveryView(
-                        state: captureManager.state, devices: webcamManager.availableDevices,
-                        retry: restart, refresh: { webcamManager.refresh() },
-                        choose: { selectedWebcamID = $0 })
+                        state: captureManager.state,
+                        devices: webcamManager.availableDevices,
+                        retry: restart,
+                        refresh: { webcamManager.refresh() },
+                        choose: { selectedWebcamID = $0 }
+                    )
                 }
             }
             .frame(width: viewport.width, height: viewport.height)
@@ -51,24 +58,31 @@ struct WebcamCaptureView: View {
         .safeAreaInset(edge: .bottom, spacing: 0) {
             if captureManager.capturedImage != nil || captureManager.previewLayer != nil {
                 WebcamControlsView(
-                    captured: captureManager.capturedImage != nil, snipping: isSnipping,
+                    captured: captureManager.capturedImage != nil,
+                    snipping: isSnipping,
                     canCapture: captureManager.isPreviewActive,
                     canExtract: selectionCropRect != nil,
-                    capture: { captureManager.capturePhoto() }, autoExtract: extractWholeImage,
+                    capture: { captureManager.capturePhoto() },
+                    autoExtract: extractWholeImage,
                     manualExtract: {
                         selection.clear()
                         isSnipping = true
-                    }, extract: extractFromSelection,
+                    },
+                    extract: extractFromSelection,
                     cancel: {
                         selection.clear()
                         isSnipping = false
-                    }, back: restart)
+                    },
+                    back: restart
+                )
             }
         }
         .safeAreaInset(edge: .top, spacing: 0) {
             if captureManager.capturedImage == nil, !webcamManager.availableDevices.isEmpty {
                 WebcamCameraPicker(
-                    devices: webcamManager.availableDevices, selection: selectedWebcam) { selectedWebcamID = $0 }
+                    devices: webcamManager.availableDevices,
+                    selection: selectedWebcam
+                ) { selectedWebcamID = $0 }
             }
         }
         .frame(minWidth: 320, minHeight: 240)
@@ -113,8 +127,10 @@ struct WebcamCaptureView: View {
             let pixels = image.cgImage(forProposedRect: nil, context: nil, hints: nil)
         else { return nil }
         return ImageCropTransform.map(
-            selection: selection.rect, viewport: selection.viewport,
-            pixels: CGSize(width: pixels.width, height: pixels.height))
+            selection: selection.rect,
+            viewport: selection.viewport,
+            pixels: CGSize(width: pixels.width, height: pixels.height)
+        )
     }
 
     /// Converts a viewport selection to a centered aspect-fill pixel crop and creates a still image.
@@ -126,8 +142,10 @@ struct WebcamCaptureView: View {
     private func cropImage(image: NSImage, rect: CGRect) -> NSImage? {
         guard let pixels = image.cgImage(forProposedRect: nil, context: nil, hints: nil),
             let crop = ImageCropTransform.map(
-                selection: rect, viewport: selection.viewport,
-                pixels: CGSize(width: pixels.width, height: pixels.height)),
+                selection: rect,
+                viewport: selection.viewport,
+                pixels: CGSize(width: pixels.width, height: pixels.height)
+            ),
             let cropped = pixels.cropping(to: crop)
         else { return nil }
         return NSImage(cgImage: cropped, size: NSSize(width: cropped.width, height: cropped.height))

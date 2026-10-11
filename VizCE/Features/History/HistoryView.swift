@@ -15,12 +15,16 @@ struct HistoryView: View {
 
     /// Matching history entries in newest-first order.
     private var filteredItems: [HistoryEntry] {
-        historyState.historyItems.reversed().filter { entry in
-            switch entry {
-            case .text: filterSelection.includes(isText: true)
-            case .color: filterSelection.includes(isText: false)
+        historyState.historyItems.reversed()
+            .filter { entry in
+                switch entry {
+                case .text:
+                    filterSelection.includes(isText: true)
+
+                case .color:
+                    filterSelection.includes(isText: false)
+                }
             }
-        }
     }
 
     var body: some View {
@@ -32,7 +36,8 @@ struct HistoryView: View {
                 VStack {
                     Text(failure).foregroundStyle(.red)
                     Button("Retry") { historyState.repository.retry() }
-                }.padding()
+                }
+                .padding()
             }
             Spacer()
             HistoryListContentView(

@@ -7,19 +7,20 @@ import SwiftUI
 @MainActor
 func pickColor() async -> ColorItem {
     await withCheckedContinuation { continuation in
-        NSColorSampler().show { selectedColor in
-            if let selectedColor,
-               let color = selectedColor.usingColorSpace(.deviceRGB) {
-                let red = Int(color.redComponent * 255)
-                let green = Int(color.greenComponent * 255)
-                let blue = Int(color.blueComponent * 255)
-                let hex = String(format: "#%02X%02X%02X", red, green, blue)
-                let rgb = "(\(red),\(green),\(blue))"
-                continuation.resume(returning: ColorItem(hex: hex, rgb: rgb))
-            } else {
-                continuation.resume(returning: ColorItem(hex: "", rgb: ""))
+        NSColorSampler()
+            .show { selectedColor in
+                if let selectedColor,
+                    let color = selectedColor.usingColorSpace(.deviceRGB) {
+                    let red = Int(color.redComponent * 255)
+                    let green = Int(color.greenComponent * 255)
+                    let blue = Int(color.blueComponent * 255)
+                    let hex = String(format: "#%02X%02X%02X", red, green, blue)
+                    let rgb = "(\(red),\(green),\(blue))"
+                    continuation.resume(returning: ColorItem(hex: hex, rgb: rgb))
+                } else {
+                    continuation.resume(returning: ColorItem(hex: "", rgb: ""))
+                }
             }
-        }
     }
 }
 

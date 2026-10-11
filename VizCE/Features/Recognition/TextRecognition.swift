@@ -22,7 +22,8 @@ struct TextRecognition {
             if case .content = outcome {
                 PreviewWindowController.shared.show(PreviewContentView())
             }
-        }.recognizeContent(operationID: operationID)
+        }
+        .recognizeContent(operationID: operationID)
     }
 
     /// Snapshots capture preferences, resolves language availability, and schedules recognition.
@@ -48,13 +49,27 @@ struct TextRecognition {
         Task { @MainActor in
             do {
                 let configuration = RecognitionConfiguration(fast: options.fast)
-                let code = try await RecognitionLanguageCatalog.shared.effectiveCode(options.languageCode, for: configuration)
-                let resolved = RecognitionOptions(fast: options.fast, languageCode: code, keepLineBreaks: options.keepLineBreaks,
-                                                  append: options.append, processing: options.processing, commandTemplate: options.commandTemplate)
+                let code = try await RecognitionLanguageCatalog.shared.effectiveCode(
+                    options.languageCode,
+                    for: configuration
+                )
+                let resolved = RecognitionOptions(
+                    fast: options.fast,
+                    languageCode: code,
+                    keepLineBreaks: options.keepLineBreaks,
+                    append: options.append,
+                    processing: options.processing,
+                    commandTemplate: options.commandTemplate
+                )
                 let outcome = await RecognitionWorker().outcome(imageData: imageData, options: resolved)
                 finish(outcome, options: options, token: token, clearToken: clearToken)
             } catch {
-                finish(.failure(.recognition(error.localizedDescription)), options: options, token: token, clearToken: clearToken)
+                finish(
+                    .failure(.recognition(error.localizedDescription)),
+                    options: options,
+                    token: token,
+                    clearToken: clearToken
+                )
             }
         }
     }
@@ -62,10 +77,14 @@ struct TextRecognition {
     /// Applies clear-generation and current-capture checks before delivering a recognition outcome.
     private func finish(_ outcome: RecognitionOutcome, options: RecognitionOptions, token: UInt64, clearToken: UInt64) {
         let state = AppState.shared
-        RecognitionDelivery.finish(outcome, valid: state.clearGeneration == clearToken,
-                                   current: state.captureIdentity.isCurrent(token),
-                                   publish: { apply(text: $0, options: options, token: token) },
-                                   notice: { CaptureNoticePresenter.shared.show($0) }, completion: didFinishRecognition)
+        RecognitionDelivery.finish(
+            outcome,
+            valid: state.clearGeneration == clearToken,
+            current: state.captureIdentity.isCurrent(token),
+            publish: { apply(text: $0, options: options, token: token) },
+            notice: { CaptureNoticePresenter.shared.show($0) },
+            completion: didFinishRecognition
+        )
     }
 
     /// Publishes text to the clipboard and history, then optionally starts shell processing.
@@ -83,7 +102,10 @@ struct TextRecognition {
         if state.captureIdentity.isCurrent(token) { state.cmdOutput = "Running post-processing commands.." }
         Task { @MainActor in
             let output: String
-            do { output = try await PostProcessingRunner().run(template: options.commandTemplate, content: contentSnapshot) } catch { output = "Post-processing failed: \(error.localizedDescription)" }
+            do {
+                output = try await PostProcessingRunner()
+                    .run(template: options.commandTemplate, content: contentSnapshot)
+            } catch { output = "Post-processing failed: \(error.localizedDescription)" }
             guard state.captureIdentity.isCurrent(token) else { return }
             state.cmdOutput = output
         }

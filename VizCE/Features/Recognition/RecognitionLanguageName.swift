@@ -1,7 +1,7 @@
 import Foundation
 
 /// Localized display names for Vision language codes, with a Vietnamese identifier correction.
-struct RecognitionLanguageName {
+enum RecognitionLanguageName {
     /// Returns a localized language name, correcting `vi-VT` to `vi-VN` only for display.
     ///
     /// - Parameters:

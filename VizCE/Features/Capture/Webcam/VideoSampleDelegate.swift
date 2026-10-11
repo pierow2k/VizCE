@@ -7,8 +7,11 @@ final class VideoSampleDelegate: NSObject, AVCaptureVideoDataOutputSampleBufferD
     init(worker: WebcamCaptureWorker) { self.worker = worker }
 
     /// Forwards a video frame to the worker on the queue configured for the video output delegate.
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer,
-                       from _: AVCaptureConnection) {
+    func captureOutput(
+        _ output: AVCaptureOutput,
+        didOutput sampleBuffer: CMSampleBuffer,
+        from _: AVCaptureConnection
+    ) {
         worker?.receive(sampleBuffer, from: output)
     }
 }

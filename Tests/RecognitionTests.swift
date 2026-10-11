@@ -16,7 +16,14 @@ final class RecognitionTests: XCTestCase {
 
     @MainActor
     func testWorkerReceivesFrozenInputsOffMainThread() async throws {
-        let options = RecognitionOptions(fast: false, languageCode: "en-US", keepLineBreaks: true, append: true, processing: true, commandTemplate: "say [ocr]")
+        let options = RecognitionOptions(
+            fast: false,
+            languageCode: "en-US",
+            keepLineBreaks: true,
+            append: true,
+            processing: true,
+            commandTemplate: "say [ocr]"
+        )
         let worker = RecognitionWorker { data, snapshot in
             XCTAssertFalse(Thread.isMainThread)
             XCTAssertEqual(data, Data([1, 2, 3]))

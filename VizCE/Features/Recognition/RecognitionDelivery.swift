@@ -2,7 +2,8 @@ import Foundation
 
 /// Main-actor delivery rules for publishing captures and suppressing stale notices.
 @MainActor
-struct RecognitionDelivery {
+enum RecognitionDelivery {
+    // Keep validity, recency, and the three delivery callbacks explicit in this shared contract.
     /// Publishes valid content, shows current notices, and calls completion once.
     ///
     /// Valid content from an older capture still publishes; only notices require a current capture.
@@ -14,17 +15,27 @@ struct RecognitionDelivery {
     ///   - publish: Receives recognized content when the capture is valid.
     ///   - notice: Receives empty results or failures only when the capture is current.
     ///   - completion: Receives the delivered outcome, or cancellation when invalidated.
-    static func finish(_ outcome: RecognitionOutcome, valid: Bool, current: Bool,
-                       publish: (String) -> Void, notice: (RecognitionOutcome) -> Void,
-                       completion: (RecognitionOutcome) -> Void) {
-        guard valid else { completion(.cancelled); return }
+    static func finish( // swiftlint:disable:this function_parameter_count
+        _ outcome: RecognitionOutcome,
+        valid: Bool,
+        current: Bool,
+        publish: (String) -> Void,
+        notice: (RecognitionOutcome) -> Void,
+        completion: (RecognitionOutcome) -> Void
+    ) {
+        guard valid else {
+            completion(.cancelled)
+            return
+        }
         switch outcome {
-        case .content(let text): publish(text)
+        case .content(let text):
+            publish(text)
 
         case .noContent, .failure:
             if current { notice(outcome) }
 
-        case .cancelled: break
+        case .cancelled:
+            break
         }
         completion(outcome)
     }

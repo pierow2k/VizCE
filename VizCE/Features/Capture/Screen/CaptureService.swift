@@ -33,8 +33,11 @@ final class CaptureService {
                 }
                 TextRecognition.recognizeAndPreview(image, operationID: token)
 
-            case .failure(let error): CaptureNoticePresenter.shared.show(.failure(error))
-            case .cancelled: break
+            case .failure(let error):
+                CaptureNoticePresenter.shared.show(.failure(error))
+
+            case .cancelled:
+                break
             }
         }
     }

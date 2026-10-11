@@ -21,7 +21,7 @@
 		2607F92CE6BE4065C550DF95 /* WebcamDeviceDiscovering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AAF0C348B33E332FC95AE93 /* WebcamDeviceDiscovering.swift */; };
 		2661D1A82C60939AF94B6EFD /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDA908A4D47653879D1E13E /* CameraPreviewView.swift */; };
 		27E829BF0AE310019E3D72C4 /* SpacedToggleSeconds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CA5E10C90BDD07C26C8E326 /* SpacedToggleSeconds.swift */; };
-		2B05F92C8771C012E6B6471C /* KeyboardShortcuts+Names.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB04B477C14BBE259CC14133 /* KeyboardShortcuts+Names.swift */; };
+		2B05F92C8771C012E6B6471C /* KeyboardShortcuts.Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB04B477C14BBE259CC14133 /* KeyboardShortcuts.Name.swift */; };
 		304675F0004164A1DFC5B5AC /* OperationIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DB3F14F82BEC260463A582E /* OperationIdentity.swift */; };
 		30DC57EE5ADFF82585827B43 /* LaunchAtLoginServicing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96B1A4F42A4D390987CE22B /* LaunchAtLoginServicing.swift */; };
 		33A241DA3042475B2B073BB6 /* CaptureNoticeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2295835C31B445C5E7361B2 /* CaptureNoticeView.swift */; };
@@ -222,7 +222,7 @@
 		D2CBD2809A9BDC29043038C5 /* LaunchAtLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchAtLoginView.swift; sourceTree = "<group>"; };
 		D3345C2A700F4A5336373AF8 /* PreviewWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewWindowController.swift; sourceTree = "<group>"; };
 		D6162E61DDDBECE2441A13CE /* SystemWebcamAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemWebcamAuthorization.swift; sourceTree = "<group>"; };
-		DB04B477C14BBE259CC14133 /* KeyboardShortcuts+Names.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyboardShortcuts+Names.swift"; sourceTree = "<group>"; };
+		DB04B477C14BBE259CC14133 /* KeyboardShortcuts.Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyboardShortcuts.Name.swift"; sourceTree = "<group>"; };
 		DB936D09F10C5672FF55A657 /* TextItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextItem.swift; sourceTree = "<group>"; };
 		DF2877F8EA972E04B181C370 /* VideoSampleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSampleDelegate.swift; sourceTree = "<group>"; };
 		E3765DCCFAE0E1CE5A0E39AE /* HistoryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryEntry.swift; sourceTree = "<group>"; };
@@ -337,7 +337,7 @@
 			isa = PBXGroup;
 			children = (
 				C76920102BC5EB5E00D23CEC /* ContentView.swift */,
-				DB04B477C14BBE259CC14133 /* KeyboardShortcuts+Names.swift */,
+				DB04B477C14BBE259CC14133 /* KeyboardShortcuts.Name.swift */,
 				2424F44004D17E2078C5ABD6 /* MenuActionTile.swift */,
 				893BFBB377A8B0F7096708D9 /* MenuPresentationController.swift */,
 				57AE8995C2F74D3BD1916092 /* ShortcutEditorView.swift */,
@@ -596,7 +596,7 @@
 				67B47CFAE1D20F7281E9804A /* ColorCapture.swift in Sources */,
 				5D76D17A92F8C43BD6FE7A48 /* Clipboard.swift in Sources */,
 				5D83589871D79A3B3DD52895 /* CaptureService.swift in Sources */,
-				2B05F92C8771C012E6B6471C /* KeyboardShortcuts+Names.swift in Sources */,
+				2B05F92C8771C012E6B6471C /* KeyboardShortcuts.Name.swift in Sources */,
 				DFBABE4B702C6E373F9BBDFD /* AppDelegate.swift in Sources */,
 				4EB07972EC41D09CD486BCAD /* CaptureSound.swift in Sources */,
 				E13C4C2C5C0DAC5A8420ED74 /* PreviewCloseHeader.swift in Sources */,

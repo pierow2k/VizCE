@@ -38,8 +38,10 @@ struct UpdaterSettingsView: View {
                                 }
 
                                 Button {
-                                    NSWorkspace.shared.open(
-                                        URL(string: "https://github.com/pierow2k/VizCE/releases")!)
+                                    guard let url = URL(string: "https://github.com/pierow2k/VizCE/releases") else {
+                                        return
+                                    }
+                                    NSWorkspace.shared.open(url)
                                 } label: {
                                     Label("Releases", systemImage: "link")
                                 }

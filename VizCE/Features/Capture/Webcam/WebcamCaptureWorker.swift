@@ -10,6 +10,8 @@ final class WebcamCaptureWorker: WebcamCaptureBackend, @unchecked Sendable {
     private let queue = DispatchQueue(label: "VizCE.webcam.capture", qos: .userInitiated)
     private var session: AVCaptureSession?
     private var output: AVCaptureVideoDataOutput?
+    // The capture output weakly retains its delegate; the worker must own it until teardown.
+    // swiftlint:disable:next weak_delegate
     private var delegate: VideoSampleDelegate?
     /// The latest frame from the current output, retained and read only on the worker queue.
     private var sampleBuffer: CMSampleBuffer?
@@ -36,7 +38,8 @@ final class WebcamCaptureWorker: WebcamCaptureBackend, @unchecked Sendable {
                 self.minimumOperationID = operationID
                 self.tearDown()
                 do {
-                    let device = deviceID.isEmpty ? AVCaptureDevice.default(for: .video) : AVCaptureDevice(uniqueID: deviceID)
+                    let device =
+                        deviceID.isEmpty ? AVCaptureDevice.default(for: .video) : AVCaptureDevice(uniqueID: deviceID)
                     guard let device else { throw WebcamCaptureError.noDevice }
                     let session = AVCaptureSession()
                     self.session = session

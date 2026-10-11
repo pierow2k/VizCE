@@ -124,23 +124,30 @@ final class WebcamTests: XCTestCase {
         await coordinator.waitForPendingOperation()
         XCTAssertTrue(coordinator.permissionDenied)
         XCTAssertFalse(coordinator.isStarting)
-        let failing = WebcamCaptureCoordinator(authorization: AllowedAuthorization(), backend: FakeWebcamBackend(failStart: true))
+        let failing = WebcamCaptureCoordinator(
+            authorization: AllowedAuthorization(),
+            backend: FakeWebcamBackend(failStart: true)
+        )
         failing.start(deviceID: "missing")
         await failing.waitForPendingOperation()
-        guard case .failed(let message) = failing.state else { XCTFail("Expected failure state")
-return }
+        guard case .failed(let message) = failing.state else {
+            XCTFail("Expected failure state")
+            return
+        }
         XCTAssertFalse(message.isEmpty)
         XCTAssertFalse(failing.isStarting)
         XCTAssertFalse(failing.isPreviewActive)
     }
 
-    func testDelegateDoesNotRetainWorker() {
+    func testDelegateDoesNotRetainWorker() throws {
         var worker: WebcamCaptureWorker? = WebcamCaptureWorker()
         weak let weakWorker = worker
-        let delegate = VideoSampleDelegate(worker: worker!)
+        let delegate = VideoSampleDelegate(worker: try XCTUnwrap(worker))
         worker = nil
         XCTAssertNil(weakWorker)
-        withExtendedLifetime(delegate) {}
+        withExtendedLifetime(delegate) {
+            // Keep the callback alive through the weak-worker assertion above.
+        }
     }
 
     func testStopInvalidatesStartBeforeItReachesWorkerQueue() async {
@@ -156,9 +163,20 @@ return }
 
     @MainActor
     private func fixtureImage() throws -> Data {
-        let bitmap = try XCTUnwrap(NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: 2, pixelsHigh: 2,
-            bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true, isPlanar: false,
-            colorSpaceName: .deviceRGB, bytesPerRow: 8, bitsPerPixel: 32))
+        let bitmap = try XCTUnwrap(
+            NSBitmapImageRep(
+                bitmapDataPlanes: nil,
+                pixelsWide: 2,
+                pixelsHigh: 2,
+                bitsPerSample: 8,
+                samplesPerPixel: 4,
+                hasAlpha: true,
+                isPlanar: false,
+                colorSpaceName: .deviceRGB,
+                bytesPerRow: 8,
+                bitsPerPixel: 32
+            )
+        )
         return try XCTUnwrap(bitmap.representation(using: .png, properties: [:]))
     }
 }
@@ -170,6 +188,7 @@ private struct AllowedAuthorization: WebcamAuthorizing {
 /// A permission fixture whose requests remain pending until explicitly released by index.
 private actor ControlledAuthorization: WebcamAuthorizing {
     private var requests: [CheckedContinuation<Bool, Never>] = []
+
     func isAuthorized() async -> Bool {
         await withCheckedContinuation { requests.append($0) }
     }
@@ -181,7 +200,11 @@ private actor ControlledAuthorization: WebcamAuthorizing {
 
 /// A recording backend with independently held starts and captures for stale-completion tests.
 private actor FakeWebcamBackend: WebcamCaptureBackend {
-    struct Start: Sendable { let device: String; let id: UInt64 }
+    struct Start: Sendable {
+        let device: String
+        let id: UInt64
+    }
+
     private(set) var starts: [Start] = []
     private var stops: [UInt64] = []
     private var pendingStarts: [UInt64: CheckedContinuation<Void, Never>] = [:]
@@ -225,5 +248,8 @@ private actor FakeWebcamBackend: WebcamCaptureBackend {
     func waitForCapture() async {
         while pendingCapture == nil { await Task.yield() }
     }
-    func finishCapture() { pendingCapture?.resume(); pendingCapture = nil }
+    func finishCapture() {
+        pendingCapture?.resume()
+        pendingCapture = nil
+    }
 }

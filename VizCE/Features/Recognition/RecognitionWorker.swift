@@ -18,11 +18,12 @@ struct RecognitionWorker: Sendable {
     func recognize(imageData: Data, options: RecognitionOptions) async throws -> String {
         let operation = operation
         return try await withCheckedThrowingContinuation { continuation in
-            DispatchQueue(label: "VizCE.recognition", qos: .userInitiated).async {
-                do {
-                    continuation.resume(returning: try operation(imageData, options))
-                } catch { continuation.resume(throwing: error) }
-            }
+            DispatchQueue(label: "VizCE.recognition", qos: .userInitiated)
+                .async {
+                    do {
+                        continuation.resume(returning: try operation(imageData, options))
+                    } catch { continuation.resume(throwing: error) }
+                }
         }
     }
 
@@ -53,9 +54,11 @@ struct RecognitionWorker: Sendable {
         try VNImageRequestHandler(data: imageData, options: [:]).perform([textRequest, barcodeRequest])
         let lines = (textRequest.results ?? []).compactMap { $0.topCandidates(1).first?.string }
         let barcodes = (barcodeRequest.results ?? []).map { $0.payloadStringValue ?? "Unknown value" }
-        /// Preserves line breaks with trimmed edges, or joins with spaces and a trailing space for a nonempty group.
+        // Preserves line breaks with trimmed edges, or joins with spaces and a trailing space for a nonempty group.
         func joined(_ strings: [String]) -> String {
-            if options.keepLineBreaks { return strings.joined(separator: "\n").trimmingCharacters(in: .whitespacesAndNewlines) }
+            if options.keepLineBreaks {
+                return strings.joined(separator: "\n").trimmingCharacters(in: .whitespacesAndNewlines)
+            }
             return strings.isEmpty ? "" : strings.joined(separator: " ") + " "
         }
         return [joined(lines), joined(barcodes)].filter { !$0.isEmpty }.joined(separator: "\n")
