@@ -1,0 +1,40 @@
+# VizCE SwiftLint Configuration File
+
+# ---------- Configured Rules ----------
+analyzer_rules:
+
+  - unused_declaration
+  - unused_import
+
+disabled_rules:
+  - attributes
+  - closure_body_length
+  - conditional_returns_on_newline
+  - contrasted_opening_brace
+  - discouraged_optional_boolean
+  - explicit_acl
+  - explicit_top_level_acl
+  - explicit_type_interface
+  - file_types_order
+  - no_magic_numbers
+  - one_declaration_per_file
+  - prefer_nimble
+  - required_deinit
+  - type_contents_order
+
+excluded:
+  - .build
+  - Carthage
+  - Pods
+  - support/DerivedData
+
+opt_in_rules: all
+
+# ---- Specific Rules Configuration ----
+file_length:
+  warning: 700
+  error: 1200
+
+type_body_length:
+  warning: 500
+  error: 1200
