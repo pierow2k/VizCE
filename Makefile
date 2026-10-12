@@ -1,7 +1,7 @@
 
 # --------------------------------------------------------- [PROJECT VARIABLES]
 APP_NAME := VizCE
-APP_VERSION ?= 1.2.0
+APP_VERSION ?= 3.0.0
 BUILD_NUMBER ?= 1
 
 .DEFAULT_GOAL := debug
