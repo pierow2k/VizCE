@@ -7,7 +7,9 @@ The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [UNRELEASED]
+
+## [3.0.0] - 2026-10-12
 
 ### Added
 
@@ -151,4 +153,5 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Remove the unused image-snipping view and its dormant, incorrect crop
   conversion.
 
-[unreleased]: https://github.com/pierow2k/VizCE/compare/cde5a8e24a8b...HEAD
+[unreleased]: https://github.com/pierow2k/VizCE/compare/v3.0.0...HEAD
+[3.0.0]: https://github.com/pierow2k/VizCE/releases/tag/v3.0.0
