@@ -16,7 +16,12 @@ struct UpdaterSettingsView: View {
                                 if updater.updateAvailable {
                                     Divider()
                                         .padding(.trailing, 8)
-                                    UpdateBadge(updater: updater, hideLabel: true)
+                                    Button("Update Available", systemImage: "arrow.down.app") {
+                                        updater.sheet = true
+                                    }
+                                    .labelStyle(.iconOnly)
+                                    .foregroundStyle(.green)
+                                    .help("Show Available Update")
                                 }
                             }
                             .padding()
@@ -55,5 +60,10 @@ struct UpdaterSettingsView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        // Keep the presenter installed even when Refresh finds no update.
+        // The framework badge starts another check on appearance, which can dismiss this sheet.
+        .sheet(isPresented: $updater.sheet) {
+            updater.getUpdateView()
+        }
     }
 }

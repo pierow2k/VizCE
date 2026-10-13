@@ -563,7 +563,7 @@
 			mainGroup = C7174C872BC06EE500DBEF75;
 			packageReferences = (
 				C7E780DC2BC700060053B311 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
-				C7472E9F2CD957EB00661FEA /* XCRemoteSwiftPackageReference "AlinFoundation" */,
+				C7472E9F2CD957EB00661FEA /* XCLocalSwiftPackageReference "AlinFoundation" */,
 			);
 			productRefGroup = C7174C912BC06EE500DBEF75 /* Products */;
 			projectDirPath = "";
@@ -954,15 +954,14 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		C7472E9F2CD957EB00661FEA /* XCRemoteSwiftPackageReference "AlinFoundation" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/alienator88/AlinFoundation";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
+/* Begin XCLocalSwiftPackageReference section */
+		C7472E9F2CD957EB00661FEA /* XCLocalSwiftPackageReference "AlinFoundation" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Vendor/AlinFoundation;
 		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCRemoteSwiftPackageReference section */
 		C7E780DC2BC700060053B311 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
@@ -976,7 +975,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		C7472EA02CD957EB00661FEA /* AlinFoundation */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C7472E9F2CD957EB00661FEA /* XCRemoteSwiftPackageReference "AlinFoundation" */;
+			package = C7472E9F2CD957EB00661FEA /* XCLocalSwiftPackageReference "AlinFoundation" */;
 			productName = AlinFoundation;
 		};
 		C7E780DD2BC700060053B311 /* KeyboardShortcuts */ = {

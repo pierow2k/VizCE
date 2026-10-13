@@ -2,15 +2,6 @@
   "originHash" : "7861454798881d61130c735381252e9d8d66d9fee0185bc8206e1f3ee6c2a0e3",
   "pins" : [
     {
-      "identity" : "alinfoundation",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/alienator88/AlinFoundation",
-      "state" : {
-        "branch" : "main",
-        "revision" : "f61241c2ea1856ef41cbfc965afe9d756121456f"
-      }
-    },
-    {
       "identity" : "keyboardshortcuts",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/sindresorhus/KeyboardShortcuts",

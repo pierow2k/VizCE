@@ -23,6 +23,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
+- Detect updates from GitHub release tags with a leading `v` or `V`, using
+  a patched local copy of AlinFoundation with version-comparison regression
+  tests. Keep the update dialog available after manual refresh, including
+  when no newer release exists.
 - Recognize LF and CRLF shell-template boundaries explicitly, preserving
   line endings and quoted text while rejecting missing redirection targets
   before comments and line endings.

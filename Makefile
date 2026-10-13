@@ -14,6 +14,7 @@ TEST_SCHEME ?= VizCETests
 
 XCODEBUILD ?= xcodebuild
 SWIFTLINT ?= swiftlint
+SWIFT ?= swift
 
 BUILD_DIR ?= $(CURDIR)/build
 DIST_DIR ?= $(CURDIR)/dist
@@ -49,7 +50,7 @@ define print_plist_value
 endef
 
 # ------------------------------------------------------------------- [TARGETS]
-.PHONY: build clean debug help inspect lint package release test
+.PHONY: build clean debug help inspect lint package release test test-foundation
 
 build: debug
 
@@ -133,7 +134,11 @@ release: #@HELP Build the universal release version of the app
 	mkdir -p "$(dir $(DIST_RELEASE_APP))"
 	ditto "$(RELEASE_APP)" "$(DIST_RELEASE_APP)"
 
-test: #@HELP Run unit tests
+test-foundation: #@HELP Run updater dependency regression tests
+	"$(SWIFT)" test --package-path Vendor/AlinFoundation \
+		--scratch-path "$(BUILD_DIR)/foundation-tests"
+
+test: test-foundation #@HELP Run unit tests
 	@echo "-$(MESSAGE_PREFIX) Running unit tests on $(APP_NAME)..."
 	"$(XCODEBUILD)" \
 		-project "$(TEST_PROJECT)" \
