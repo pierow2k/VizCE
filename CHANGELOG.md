@@ -21,6 +21,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Simplify shell word consumption with documented command validation,
   placeholder rendering, and assignment/redirection position updates.
 
+### Fixed
+
+- Recognize LF and CRLF shell-template boundaries explicitly, preserving
+  line endings and quoted text while rejecting missing redirection targets
+  before comments and line endings.
+
 ## [3.0.0] - 2026-10-12
 
 ### Added

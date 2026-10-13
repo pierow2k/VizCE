@@ -44,9 +44,9 @@ enum ShellTemplate {
             return output
         }
 
-        /// Copies a comment verbatim, leaving its terminating newline for the next scan step.
+        /// Copies a comment verbatim, leaving its terminating LF or CRLF for the next scan step.
         private mutating func consumeComment() {
-            while index < input.count, input[index] != "\n" {
+            while index < input.count, !lineEndings.contains(input[index]) {
                 output.append(input[index])
                 index += 1
             }
@@ -79,7 +79,7 @@ enum ShellTemplate {
         /// Copies a grammar boundary, resetting command position only for command separators.
         private mutating func consumeBoundary(_ character: Character) throws -> Bool {
             guard boundaries.contains(character) else { return false }
-            if ";|&\n".contains(character) {
+            if commandSeparators.contains(character) {
                 guard !needsRedirectionTarget else { throw unsupported() }
                 needsCommand = true
             }
@@ -136,7 +136,12 @@ enum ShellTemplate {
     ]
 
     /// Unquoted characters that delimit words, commands, or redirections in the supported grammar.
-    private static let boundaries = " \t\r\n;|&<>"
+    /// Separate entries keep Swift's CRLF grapheme clustering from hiding standalone LF and CR.
+    private static let boundaries: Set<Character> = [" ", "\t", "\r", "\n", "\r\n", ";", "|", "&", "<", ">"]
+    /// LF and CRLF terminate comments and commands; standalone CR remains ordinary whitespace.
+    private static let lineEndings: Set<Character> = ["\n", "\r\n"]
+    /// Boundaries that require a complete redirection and begin a new command position.
+    private static let commandSeparators: Set<Character> = lineEndings.union([";", "|", "&"])
     /// The only complete shell words that may be replaced with the captured-text variable.
     private static let wholeArgumentPlaceholders: Set<String> = ["[ocr]", "\"[ocr]\"", "'[ocr]'"]
 

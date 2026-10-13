@@ -60,11 +60,61 @@ final class PostProcessingTests: XCTestCase {
             try ShellTemplate.compile("2>/dev/null printf '%s' [ocr]"),
             "2>/dev/null printf '%s' \"${VIZCE_OCR_TEXT}\""
         )
-        // Preserve the existing boundary handling for a final newline after a redirection comment.
+        XCTAssertThrowsError(try ShellTemplate.compile("printf '%s' [ocr] > # missing target\n"))
+    }
+
+    func testLineEndingsSeparateCommandsAndPreserveTrailingWhitespace() throws {
+        let variable = "\"${VIZCE_OCR_TEXT}\""
+        for ending in ["\n", "\r\n"] {
+            XCTAssertEqual(try ShellTemplate.compile("echo [ocr]\(ending)"), "echo \(variable)\(ending)")
+            XCTAssertEqual(
+                try ShellTemplate.compile("echo [ocr]\(ending)\(ending)printf '%s' '[ocr]'\(ending)"),
+                "echo \(variable)\(ending)\(ending)printf '%s' \(variable)\(ending)"
+            )
+            XCTAssertEqual(
+                try ShellTemplate.compile("# literal [ocr]\(ending)echo [ocr] # literal [ocr]\(ending)"),
+                "# literal [ocr]\(ending)echo \(variable) # literal [ocr]\(ending)"
+            )
+            XCTAssertThrowsError(try ShellTemplate.compile("echo [ocr]\(ending)[ocr]"))
+            XCTAssertThrowsError(try ShellTemplate.compile("# [ocr]\(ending)[ocr]"))
+        }
+        XCTAssertEqual(try ShellTemplate.compile("echo\r[ocr]\r"), "echo\r\(variable)\r")
         XCTAssertEqual(
-            try ShellTemplate.compile("printf '%s' [ocr] > # missing target\n"),
-            "printf '%s' \"${VIZCE_OCR_TEXT}\" > # missing target\n"
+            try ShellTemplate.compile("echo [ocr]\ncat [ocr]\r\nprintf '%s' [ocr]"),
+            "echo \(variable)\ncat \(variable)\r\nprintf '%s' \(variable)"
         )
+    }
+
+    func testLineEndingsStayLiteralInsideQuotes() throws {
+        for ending in ["\n", "\r\n"] {
+            for quote in ["'", "\""] {
+                let literal = "\(quote)first\(ending)second\(quote)"
+                XCTAssertEqual(
+                    try ShellTemplate.compile("printf '%s' \(literal) [ocr]"),
+                    "printf '%s' \(literal) \"${VIZCE_OCR_TEXT}\""
+                )
+            }
+        }
+    }
+
+    func testLineEndingsCannotSatisfyRedirectionTargets() {
+        for ending in ["\n", "\r\n"] {
+            for suffix in [ending, " # missing target\(ending)", " # missing target", "  \(ending)echo done"] {
+                XCTAssertThrowsError(try ShellTemplate.compile("echo [ocr] >\(suffix)"), suffix)
+            }
+        }
+    }
+
+    func testLineEndingsPreserveShellExecution() async throws {
+        for ending in ["\n", "\r\n"] {
+            let output = try await PostProcessingRunner().run(
+                template: "printf '%s' [ocr]\(ending)printf '%s' '[ocr]'\(ending)",
+                content: "café 'quoted'\n"
+            )
+            // zsh treats CR as literal argument text; the compiler preserves it without normalization.
+            let suffix = ending == "\r\n" ? "\r" : ""
+            XCTAssertEqual(output, String(repeating: "café 'quoted'\n\(suffix)", count: 2))
+        }
     }
 
     func testRenamedEnvironmentVariablePreservesPayloadWithoutPlaceholder() async throws {
