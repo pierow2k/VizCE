@@ -16,6 +16,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Simplify webcam startup with focused duplicate-request, device-resolution,
   and generation-validation helpers while preserving cancellation and
   stale-session cleanup.
+- Simplify icon-button styling with named hover and press feedback while
+  preserving appearance, accessible labels, and Reduce Motion behavior.
 
 ## [3.0.0] - 2026-10-12
 
