@@ -30,6 +30,21 @@ final class PostProcessingTests: XCTestCase {
         }
     }
 
+    func testEscapesAndMixedQuotesPreserveOriginalWords() throws {
+        for literal in [
+            #"'a"b'"#, #""a'b""#, #"'a\b'"#, #""a\"b""#,
+            #"a\;b"#, #"a\|b"#, #"a\<b"#, #"a\(b"#, #"a\`b"#, #"'${value}'"#
+        ] {
+            XCTAssertEqual(
+                try ShellTemplate.compile("printf '%s' \(literal) [ocr]"),
+                "printf '%s' \(literal) \"${VIZCE_OCR_TEXT}\""
+            )
+        }
+        for literal in [#""${value}""#, #""a(b)""#, #""a`b""#] {
+            XCTAssertThrowsError(try ShellTemplate.compile("printf '%s' \(literal) [ocr]"), literal)
+        }
+    }
+
     func testDanglingRedirectionsAndCommandPlaceholdersRemainRejected() throws {
         for template in [
             "printf '%s' [ocr] >", "printf '%s' [ocr] >   ", "printf '%s' [ocr] >; echo done",

@@ -9,6 +9,11 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [UNRELEASED]
 
+### Changed
+
+- Simplify shell word scanning with documented escape, expansion-validation,
+  and quote-state helpers while preserving template behavior.
+
 ## [3.0.0] - 2026-10-12
 
 ### Added

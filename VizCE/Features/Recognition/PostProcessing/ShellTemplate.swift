@@ -128,26 +128,60 @@ enum ShellTemplate {
         while index < input.count {
             let current = input[index]
             if quote == nil, boundaries.contains(current) { break }
-            if current == "\\", quote != "'" {
-                guard index + 1 < input.count else { throw unsupported() }
-                word.append(current)
-                word.append(input[index + 1])
-                index += 2
-                continue
-            }
-            if quote != "'", current == "$", index + 1 < input.count, input[index + 1] == "{" {
-                throw unsupported()
-            }
-            if current == "'" || current == "\"" {
-                if quote == current { quote = nil } else if quote == nil { quote = current }
-            } else if quote != "'", current == "`" || current == "(" || current == ")" {
-                throw unsupported()
-            }
+            if try consumeEscape(input, index: &index, quote: quote, word: &word) { continue }
+            try validateExpansion(input, index: index, quote: quote)
+            updateQuote(current, quote: &quote)
             word.append(current)
             index += 1
         }
         guard quote == nil else { throw unsupported() }
         return word
+    }
+
+    /// Copies an escape pair outside single quotes and advances `index` past both characters.
+    ///
+    /// - Parameters:
+    ///   - input: The original shell characters.
+    ///   - index: The current character, left unchanged when no escape is consumed.
+    ///   - quote: The active quote delimiter, or `nil` outside quotes.
+    ///   - word: The shell word receiving the unchanged escape pair.
+    /// - Returns: Whether an escape pair was consumed.
+    /// - Throws: A template error when an active escape has no following character.
+    private static func consumeEscape(
+        _ input: [Character], index: inout Int, quote: Character?, word: inout String
+    ) throws -> Bool {
+        guard input[index] == "\\", quote != "'" else { return false }
+        guard index + 1 < input.count else { throw unsupported() }
+        word.append(input[index])
+        word.append(input[index + 1])
+        index += 2
+        return true
+    }
+
+    /// Rejects braced parameters, command substitutions, and grouping outside single quotes.
+    ///
+    /// Escapes are consumed before this check so escaped operators remain literal.
+    ///
+    /// - Parameters:
+    ///   - input: The original shell characters.
+    ///   - index: The unescaped character being validated.
+    ///   - quote: The active quote delimiter, or `nil` outside quotes.
+    /// - Throws: A template error for an unsupported expansion or grouping character.
+    private static func validateExpansion(_ input: [Character], index: Int, quote: Character?) throws {
+        guard quote != "'" else { return }
+        let current = input[index]
+        if current == "$", index + 1 < input.count, input[index + 1] == "{" { throw unsupported() }
+        if "`()".contains(current) { throw unsupported() }
+    }
+
+    /// Opens or closes matching quotes, leaving the other quote kind literal inside an active quote.
+    private static func updateQuote(_ current: Character, quote: inout Character?) {
+        guard current == "'" || current == "\"" else { return }
+        if quote == current {
+            quote = nil
+        } else if quote == nil {
+            quote = current
+        }
     }
 
     /// Creates the template-validation error describing the supported placeholder contexts.
