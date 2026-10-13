@@ -81,6 +81,25 @@ final class PostProcessingTests: XCTestCase {
         }
     }
 
+    func testAssignmentsAndFileDescriptorsPreserveCommandPosition() throws {
+        for template in [
+            "X=1 Y=2 printf '%s' [ocr]", "X=1 2>/dev/null printf '%s' [ocr]",
+            "2>/dev/null X=1 printf '%s' [ocr]", "2> [ocr] printf '%s' [ocr]",
+            "printf '%s' [ocr] > if", "printf '%s' [ocr] 2>&1"
+        ] {
+            XCTAssertEqual(
+                try ShellTemplate.compile(template),
+                template.replacing("[ocr]", with: "\"${VIZCE_OCR_TEXT}\"")
+            )
+        }
+        for template in [
+            "X=1 2>/dev/null [ocr]", "2>/dev/null X=1 [ocr]", "X=1 2>/dev/null if [ocr]",
+            "2> [ocr] [ocr]", "2> [ocr] if true", "printf '%s' prefix[ocr]"
+        ] {
+            XCTAssertThrowsError(try ShellTemplate.compile(template), template)
+        }
+    }
+
     func testLiteralArgumentsAndNoCommandExecution() async throws {
         let sentinel = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         let payloads = [

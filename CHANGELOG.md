@@ -18,6 +18,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   stale-session cleanup.
 - Simplify icon-button styling with named hover and press feedback while
   preserving appearance, accessible labels, and Reduce Motion behavior.
+- Simplify shell word consumption with documented command validation,
+  placeholder rendering, and assignment/redirection position updates.
 
 ## [3.0.0] - 2026-10-12
 

@@ -22,7 +22,9 @@ enum ShellTemplate {
         var output = ""
         /// The next unconsumed character; each helper advances past exactly the text it copies.
         var index = 0
+        /// Whether the next ordinary word must supply the command name after any assignments or redirections.
         var needsCommand = true
+        /// Whether a copied redirection still requires its target word before a command separator or end of input.
         var needsRedirectionTarget = false
 
         /// Scans in grammar precedence order, rejecting incomplete redirections at the end.
@@ -89,22 +91,41 @@ enum ShellTemplate {
         /// Copies or replaces one word, then updates its command or redirection position.
         private mutating func consumeWord() throws {
             let word = try scanWord(input, index: &index)
+            try validateCommandWord(word)
+            output += try renderedWord(word)
+            updatePosition(after: word)
+        }
+
+        /// Rejects compound keywords only where an ordinary command name is required.
+        private func validateCommandWord(_ word: String) throws {
             if needsCommand, !needsRedirectionTarget, compoundKeywords.contains(word) { throw unsupported() }
+        }
+
+        /// Quotes a complete argument placeholder or preserves a literal word, rejecting embedded placeholders.
+        ///
+        /// A placeholder can supply a redirection target, but cannot supply the command name.
+        private func renderedWord(_ word: String) throws -> String {
             if wholeArgumentPlaceholders.contains(word) {
                 guard !needsCommand || needsRedirectionTarget else { throw unsupported() }
                 // Quoting the environment reference keeps captured text inside one shell argument.
-                output += "\"${VIZCE_OCR_TEXT}\""
-            } else {
-                guard !word.contains("[ocr]") else { throw unsupported() }
-                output += word
+                return "\"${VIZCE_OCR_TEXT}\""
             }
+            guard !word.contains("[ocr]") else { throw unsupported() }
+            return word
+        }
+
+        /// Satisfies a pending redirection target or consumes a command word after assignments and descriptors.
+        private mutating func updatePosition(after word: String) {
             if needsRedirectionTarget {
                 needsRedirectionTarget = false
             } else if !word.contains("=") {
-                // A leading file descriptor belongs to a redirection, not the command word.
-                let isFileDescriptor = word.allSatisfy(\.isNumber) && index < input.count && "<>".contains(input[index])
-                if !isFileDescriptor { needsCommand = false }
+                if !isFileDescriptor(word) { needsCommand = false }
             }
+        }
+
+        /// Recognizes a numeric word immediately followed by a redirection, which cannot supply the command name.
+        private func isFileDescriptor(_ word: String) -> Bool {
+            word.allSatisfy(\.isNumber) && index < input.count && "<>".contains(input[index])
         }
     }
 
