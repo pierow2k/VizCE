@@ -3,15 +3,13 @@
 
 <br>
 <p align="center">
-  <img src="./VizCE/Assets.xcassets/AppIcon.appiconset/icon_128x128.png" width="128" height="128" alt="logo"/>
-   <br />
-   <strong>Status: </strong>Maintained
-   <br />
-   <strong>Version: </strong>3.0.0
-   <br />
-   <a href="https://github.com/pierow2k/VizCE/releases"><strong>Download</strong></a>
-    · 
-   <a href="https://github.com/pierow2k/VizCE/commits">Commits</a>
+  <img src="./VizCE/Assets.xcassets/AppIcon.appiconset/icon_128x128.png" width="128" height="128" alt="logo"/><br>
+  <img src="https://img.shields.io/badge/status-Maintained-1BCB1B" alt="status: Maintained">
+  <a href="https://app.codacy.com/gh/pierow2k/VizCE/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade"><img src="https://app.codacy.com/project/badge/Grade/81a211fc56c74d4a99183741cc51907f" alt="Codacy Badge"></a><br>
+  <a href="https://github.com/pierow2k/VizCE/commits"><img src="https://img.shields.io/github/commits-difference/pierow2k/VizCE?base=2.3.3&head=64f56a1&label=commits%20ahead%20of%20upstream&color=1BCB1B" alt="commits ahead"></a><br>
+  <a href="https://github.com/pierow2k/VizCE/releases"><img src="https://img.shields.io/github/v/release/pierow2k/VizCE?label=version&color=1BCB1B" alt="release version"></a><br>
+  <!-- <strong>Version: </strong>3.0.0<br> -->
+  <a href="https://github.com/pierow2k/VizCE/releases"><strong>Download</strong></a> · <a href="https://github.com/pierow2k/VizCE/commits">Commits</a>
 </p>
 
 Extract text from images, videos, QR codes, barcodes and colors with a
@@ -52,6 +50,10 @@ continues development of the application, preserving its core functionality
 while addressing bugs, improving reliability and usability, and maintaining
 compatibility with modern versions of macOS.
 
+*VizCE is neither affiliated with nor maintained by the original Viz author.*
+
+<details closed="closed">
+<summary>Details</summary>
 
 ### Differences from upstream
 
@@ -91,7 +93,7 @@ a few important differences:
 
 For a detailed record of changes, see the [Changelog](CHANGELOG.md).
 
-VizCE is not affiliated with or maintained by the original Viz author.
+</details>
 
 ## Features
 
