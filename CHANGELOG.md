@@ -23,6 +23,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
+- Bypass cached GitHub responses during release checks so obsolete
+  redirects do not hide available updates. Show request failures in the
+  Updates tab and clear them after a successful retry.
 - Detect updates from GitHub release tags with a leading `v` or `V`, using
   a patched local copy of AlinFoundation with version-comparison regression
   tests. Keep the update dialog available after manual refresh, including

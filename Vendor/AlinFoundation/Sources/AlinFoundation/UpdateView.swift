@@ -118,7 +118,7 @@ struct UpdateContentView: View {
 
             Spacer()
 
-            Text("GitHub: v\(updaterService.releases.first?.tagName ?? "")")
+            Text("GitHub: \(updaterService.releases.first?.tagName ?? "")")
                 .font(.title3)
                 .fontWeight(.semibold)
                 .opacity(0.5)

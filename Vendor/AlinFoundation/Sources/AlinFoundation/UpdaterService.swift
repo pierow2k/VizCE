@@ -11,6 +11,8 @@ import AppKit
 
 class UpdaterService: ObservableObject {
     @Published var releases: [Release] = []
+    /// The latest release-request failure; previous releases remain available until a successful retry.
+    @Published var releaseFetchError: String?
     @Published var updateAvailable: Bool = false
     @Published var sheet: Bool = false
     @Published var force: Bool = false
@@ -21,6 +23,8 @@ class UpdaterService: ObservableObject {
     public let owner: String
     public let repo: String
     private let token: String
+    /// Identifies the most recently started request so older responses cannot overwrite its result.
+    @MainActor private var releaseRequestID: UUID?
 
     init(owner: String, repo: String, token: String) {
         self.owner = owner
@@ -48,25 +52,15 @@ class UpdaterService: ObservableObject {
         }
     }
 
+    /// Updates availability and presentation after a successful release fetch, including an empty list.
+    @MainActor
     private func checkForUpdate(sheet: Bool, force: Bool = false, forceUpdate: Bool = false) {
-        guard let latestRelease = releases.first else { return }
         let currentVersion = updater?.currentVersion ?? "0.0.0"
 
-        updateAvailable = latestRelease.tagName > currentVersion
-
-        // Set the sheet behavior
-        DispatchQueue.main.async() {
-            if sheet {
-                self.sheet = true
-                self.force = force && !self.updateAvailable
-                self.forceUpdate = forceUpdate
-            } else {
-                self.sheet = false
-                self.force = false
-                self.forceUpdate = false
-            }
-        }
-
+        updateAvailable = releases.first.map { $0.tagName > currentVersion } ?? false
+        self.force = sheet && force && !updateAvailable
+        self.forceUpdate = sheet && forceUpdate
+        self.sheet = sheet
     }
 
     func ensureAppIsInApplicationsFolder() -> Bool {
@@ -255,26 +249,43 @@ class UpdaterService: ObservableObject {
         }
     }
 
-    private func fetchReleases(completion: @escaping ([Release]) -> Void) {
+    /// Fetches releases without cached redirects and publishes the latest request's result on the main actor.
+    ///
+    /// A failed request preserves previously loaded releases and reports its error instead of completing.
+    private func fetchReleases(completion: @escaping @MainActor ([Release]) -> Void) {
         let url = URL(string: "https://api.github.com/repos/\(owner)/\(repo)/releases")!
         var request = makeRequest(url: url, token: token)
-        URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
-            guard let self = self else { return }
-
-            if handleGitHubResponseErrors(response: response, error: error) {
-                return
-            }
-
-            guard let data = data,
-                  let decodedResponse = try? JSONDecoder().decode([Release].self, from: data) else {
-                return
-            }
-
-            let releases = Array(decodedResponse.prefix(3))
-            DispatchQueue.main.async {
+        // A cached permanent redirect can refer to a deleted repository even after the name is reused.
+        request.cachePolicy = .reloadIgnoringLocalCacheData
+        Task { @MainActor [weak self, request] in
+            guard let self else { return }
+            let requestID = UUID()
+            self.releaseRequestID = requestID
+            do {
+                let (data, response) = try await URLSession.shared.data(for: request)
+                guard self.releaseRequestID == requestID else { return }
+                guard let response = response as? HTTPURLResponse else {
+                    throw ReleaseFetchError.invalidResponse
+                }
+                guard response.statusCode == 200 else {
+                    throw ReleaseFetchError.httpStatus(response.statusCode)
+                }
+                let decodedResponse: [Release]
+                do {
+                    decodedResponse = try JSONDecoder().decode([Release].self, from: data)
+                } catch {
+                    printOS("Updater release decoding error: \(error)", category: LogCategory.updater)
+                    throw ReleaseFetchError.invalidReleaseData
+                }
+                self.releaseFetchError = nil
+                let releases = Array(decodedResponse.prefix(3))
                 completion(releases)
+            } catch {
+                guard self.releaseRequestID == requestID else { return }
+                self.releaseFetchError = error.localizedDescription
+                printOS("Updater release request failed: \(error.localizedDescription)", category: LogCategory.updater)
             }
-        }.resume()
+        }
     }
 }
 

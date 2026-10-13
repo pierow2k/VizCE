@@ -30,9 +30,25 @@ struct UpdaterSettingsView: View {
                                     .fill(Color.primary.opacity(0.05))
                             }
 
-                            RecentReleasesView(updater: updater)
-                                .frame(height: max(120, viewport.size.height * 0.6))
-                                .frame(maxWidth: .infinity)
+                            if let error = updater.releaseFetchError {
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Label("Could not load releases", systemImage: "exclamationmark.triangle")
+                                        .font(.headline)
+                                        .foregroundStyle(.red)
+                                    Text(error)
+                                        .textSelection(.enabled)
+                                    Text("Press Refresh to try again.")
+                                        .foregroundStyle(.secondary)
+                                }
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding()
+                            }
+
+                            if updater.releaseFetchError == nil || !updater.releases.isEmpty {
+                                RecentReleasesView(updater: updater)
+                                    .frame(height: max(120, viewport.size.height * 0.6))
+                                    .frame(maxWidth: .infinity)
+                            }
 
                             HStack(alignment: .center, spacing: 20) {
                                 Spacer()

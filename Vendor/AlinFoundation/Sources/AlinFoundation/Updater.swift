@@ -21,6 +21,8 @@ public class Updater: ObservableObject {
     @Published public var updateAvailable: Bool = false
     @Published public var sheet: Bool = false
     @Published public var releases: [Release] = []
+    /// The latest release-request failure, cleared after a successful response is decoded.
+    @Published public var releaseFetchError: String?
     @Published public var announcementAvailable: Bool = false
     @Published public var showAnnouncementSheet: Bool = false
     @Published public var progressBar: (String, Double) = ("", 0.0)
@@ -165,6 +167,10 @@ public class Updater: ObservableObject {
         
         service.$releases
             .assign(to: \.releases, on: self)
+            .store(in: &cancellables)
+
+        service.$releaseFetchError
+            .assign(to: \.releaseFetchError, on: self)
             .store(in: &cancellables)
 
         service.$updateAvailable
