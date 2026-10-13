@@ -13,6 +13,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Simplify shell word scanning with documented escape, expansion-validation,
   and quote-state helpers while preserving template behavior.
+- Simplify webcam startup with focused duplicate-request, device-resolution,
+  and generation-validation helpers while preserving cancellation and
+  stale-session cleanup.
 
 ## [3.0.0] - 2026-10-12
 

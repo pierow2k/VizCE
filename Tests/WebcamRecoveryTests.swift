@@ -31,6 +31,29 @@ final class WebcamRecoveryTests: XCTestCase {
     }
 
     @MainActor
+    func testSameDeviceRetryAfterStartupFailureStartsAgain() async {
+        let backend = RecoveryWebcamBackend(error: .startFailed)
+        let coordinator = WebcamCaptureCoordinator(
+            authorization: RecoveryAuthorization(allowed: true),
+            backend: backend
+        )
+        coordinator.start(deviceID: "camera")
+        await coordinator.waitForPendingOperation()
+        guard case .failed = coordinator.state else {
+            XCTFail("Expected startup failure")
+            return
+        }
+        await backend.setError(nil)
+        coordinator.restart(deviceID: "camera")
+        await coordinator.waitForPendingOperation()
+        let starts = await backend.started
+        XCTAssertEqual(starts, ["camera", "camera"])
+        XCTAssertEqual(coordinator.state, .previewing)
+        coordinator.stop()
+        await coordinator.waitForPendingOperation()
+    }
+
+    @MainActor
     func testEverySetupFailureFinishesStartingState() async {
         for error in [WebcamCaptureError.unsupportedInput, .unsupportedOutput, .startFailed] {
             let coordinator = WebcamCaptureCoordinator(

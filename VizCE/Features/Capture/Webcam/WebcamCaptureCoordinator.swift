@@ -21,8 +21,9 @@ final class WebcamCaptureCoordinator: ObservableObject {
     private let identity = OperationIdentity()
     /// The active operation generation; zero precedes the first camera start.
     private var currentID: UInt64 = 0
-    /// The last requested camera, used to coalesce duplicate starts while authorization or preview is active.
+    /// The last requested camera, used to coalesce duplicate starts during startup, preview, or capture.
     private var requestedDeviceID: String?
+    /// The latest startup, capture, or stop task, canceled when an operation supersedes it.
     private var task: Task<Void, Never>?
 
     /// Creates camera state with injectable permission, capture, and device discovery services.
@@ -48,10 +49,7 @@ final class WebcamCaptureCoordinator: ObservableObject {
     ///
     /// - Parameter deviceID: The requested camera identifier, or an empty string to resolve the preferred default.
     func start(deviceID: String) {
-        guard
-            requestedDeviceID != deviceID
-                || (!isStarting && !isPreviewActive && state != .capturing)
-        else { return }
+        guard !isDuplicateStart(deviceID: deviceID) else { return }
         requestedDeviceID = deviceID
         let previousID = currentID
         task?.cancel()
@@ -62,36 +60,61 @@ final class WebcamCaptureCoordinator: ObservableObject {
         previewLayer = nil
         capturedImage = nil
         state = .authorizing
-        let devices = devices
         task = Task { @MainActor [weak self] in
             await backend.stop(operationID: previousID)
-            guard !Task.isCancelled, self?.identity.isCurrent(id) == true else { return }
+            guard self?.canPublish(operationID: id) == true else { return }
             let authorized = await authorization.isAuthorized()
-            guard !Task.isCancelled, let self, identity.isCurrent(id) else { return }
+            guard let self, canPublish(operationID: id) else { return }
             guard authorized else {
                 state = .permissionDenied
                 return
             }
-            do {
-                let resolvedID: String
-                if deviceID.isEmpty {
-                    resolvedID = await devices.snapshot().defaultID ?? ""
-                } else {
-                    resolvedID = deviceID
-                }
-                guard !Task.isCancelled, identity.isCurrent(id) else { return }
-                state = .starting
-                let source = try await backend.start(deviceID: resolvedID, operationID: id)
-                guard !Task.isCancelled, identity.isCurrent(id) else {
-                    await backend.stop(operationID: id)
-                    return
-                }
-                previewLayer = source.makeLayer()
-                state = .previewing
-            } catch {
-                guard !Task.isCancelled, identity.isCurrent(id) else { return }
-                state = .failed(error.localizedDescription)
+            await startAuthorizedPreview(deviceID: deviceID, operationID: id)
+        }
+    }
+
+    /// Coalesces the same device only while its startup, preview, or still capture remains active.
+    private func isDuplicateStart(deviceID: String) -> Bool {
+        requestedDeviceID == deviceID && (isStarting || isPreviewActive || state == .capturing)
+    }
+
+    /// Allows publication only from the uncanceled task for the current camera generation.
+    ///
+    /// Call after each suspension before changing UI state or starting another backend operation.
+    private func canPublish(operationID: UInt64) -> Bool {
+        !Task.isCancelled && identity.isCurrent(operationID)
+    }
+
+    /// Resolves an empty selection to the preferred default without replacing explicit missing devices.
+    ///
+    /// An empty result is passed to the backend when the catalog has no default camera.
+    private func resolvedDeviceID(_ deviceID: String) async -> String {
+        guard deviceID.isEmpty else { return deviceID }
+        return await devices.snapshot().defaultID ?? ""
+    }
+
+    /// Starts an authorized generation and publishes its preview or failure only while it remains current.
+    ///
+    /// A successful stale startup is stopped before returning to release its session.
+    ///
+    /// - Parameters:
+    ///   - deviceID: The selected camera identifier, or an empty string to resolve the default.
+    ///   - operationID: The authorized generation whose results may be published.
+    private func startAuthorizedPreview(deviceID: String, operationID: UInt64) async {
+        do {
+            let resolvedID = await resolvedDeviceID(deviceID)
+            guard canPublish(operationID: operationID) else { return }
+            state = .starting
+            let source = try await backend.start(deviceID: resolvedID, operationID: operationID)
+            guard canPublish(operationID: operationID) else {
+                await backend.stop(operationID: operationID)
+                return
             }
+            previewLayer = source.makeLayer()
+            state = .previewing
+        } catch {
+            guard canPublish(operationID: operationID) else { return }
+            state = .failed(error.localizedDescription)
         }
     }
 

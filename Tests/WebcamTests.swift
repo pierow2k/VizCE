@@ -1,4 +1,5 @@
 import AppKit
+import AVFoundation
 import XCTest
 
 final class WebcamTests: XCTestCase {
@@ -14,6 +15,52 @@ final class WebcamTests: XCTestCase {
         await coordinator.waitForPendingOperation()
         let starts = await backend.starts
         XCTAssertEqual(starts.count, 1)
+        coordinator.stop()
+        await coordinator.waitForPendingOperation()
+    }
+
+    @MainActor
+    func testDuplicateStartsDuringPreviewAndCaptureAreIgnored() async {
+        let backend = FakeWebcamBackend(holdCapture: true)
+        let coordinator = WebcamCaptureCoordinator(authorization: AllowedAuthorization(), backend: backend)
+        coordinator.start(deviceID: "A")
+        await coordinator.waitForPendingOperation()
+        coordinator.start(deviceID: "A")
+        await coordinator.waitForPendingOperation()
+        XCTAssertEqual(coordinator.state, .previewing)
+        coordinator.capturePhoto()
+        await backend.waitForCapture()
+        coordinator.start(deviceID: "A")
+        XCTAssertEqual(coordinator.state, .capturing)
+        let starts = await backend.starts
+        XCTAssertEqual(starts.map(\.device), ["A"])
+        await backend.finishCapture()
+        await coordinator.waitForPendingOperation()
+        coordinator.stop()
+        await coordinator.waitForPendingOperation()
+    }
+
+    @MainActor
+    func testLateStartupFailureCannotReplaceNewerPreview() async {
+        let backend = FakeWebcamBackend(
+            holdStarts: true,
+            previewSource: WebcamPreviewSource(session: AVCaptureSession())
+        )
+        let coordinator = WebcamCaptureCoordinator(authorization: AllowedAuthorization(), backend: backend)
+        coordinator.start(deviceID: "A")
+        await backend.waitForStarts(1)
+        coordinator.start(deviceID: "B")
+        await backend.waitForStarts(2)
+        await backend.finishStart(1)
+        await coordinator.waitForPendingOperation()
+        let currentLayer = coordinator.previewLayer
+        XCTAssertNotNil(currentLayer)
+        await backend.finishStart(0, failing: true)
+        // Wait for the backend failure, then let the old task handle it before checking publication.
+        await backend.waitForStartFailure()
+        for _ in 0..<20 { await Task.yield() }
+        XCTAssertEqual(coordinator.state, .previewing)
+        XCTAssertIdentical(coordinator.previewLayer, currentLayer)
         coordinator.stop()
         await coordinator.waitForPendingOperation()
     }
@@ -209,10 +256,13 @@ private actor FakeWebcamBackend: WebcamCaptureBackend {
     private var stops: [UInt64] = []
     private var pendingStarts: [UInt64: CheckedContinuation<Void, Never>] = [:]
     private var pendingCapture: CheckedContinuation<Void, Never>?
+    private var failingStarts: Set<UInt64> = []
+    private var didFailStart = false
     private let holdStarts: Bool
     private let imageData: Data
     private let holdCapture: Bool
     private let failStart: Bool
+    private let previewSource: WebcamPreviewSource
 
     /// Configures held operations, captured bytes, and camera setup failure for lifecycle tests.
     ///
@@ -221,17 +271,28 @@ private actor FakeWebcamBackend: WebcamCaptureBackend {
     ///   - imageData: The encoded still image returned by capture.
     ///   - holdCapture: Whether capture waits for `finishCapture()`.
     ///   - failStart: Whether startup throws after any held wait is released.
-    init(holdStarts: Bool = false, imageData: Data = Data(), holdCapture: Bool = false, failStart: Bool = false) {
+    ///   - previewSource: The session reference used by successful starts, without opening a camera.
+    init(
+        holdStarts: Bool = false,
+        imageData: Data = Data(),
+        holdCapture: Bool = false,
+        failStart: Bool = false,
+        previewSource: WebcamPreviewSource = WebcamPreviewSource()
+    ) {
         self.holdStarts = holdStarts
         self.imageData = imageData
         self.holdCapture = holdCapture
         self.failStart = failStart
+        self.previewSource = previewSource
     }
     func start(deviceID: String, operationID: UInt64) async throws -> WebcamPreviewSource {
         starts.append(Start(device: deviceID, id: operationID))
         if holdStarts { await withCheckedContinuation { pendingStarts[operationID] = $0 } }
-        if failStart { throw WebcamCaptureError.noDevice }
-        return WebcamPreviewSource()
+        if failStart || failingStarts.contains(operationID) {
+            didFailStart = true
+            throw WebcamCaptureError.noDevice
+        }
+        return previewSource
     }
     func capture(operationID _: UInt64) async -> Data {
         if holdCapture { await withCheckedContinuation { pendingCapture = $0 } }
@@ -241,7 +302,16 @@ private actor FakeWebcamBackend: WebcamCaptureBackend {
     func waitForStarts(_ count: Int) async {
         while starts.count < count { await Task.yield() }
     }
-    func finishStart(_ index: Int) { pendingStarts.removeValue(forKey: starts[index].id)?.resume() }
+    /// Releases a held startup, optionally failing just that generation after it resumes.
+    func finishStart(_ index: Int, failing: Bool = false) {
+        let id = starts[index].id
+        if failing { failingStarts.insert(id) }
+        pendingStarts.removeValue(forKey: id)?.resume()
+    }
+    /// Waits until a released startup has reached its configured failure.
+    func waitForStartFailure() async {
+        while !didFailStart { await Task.yield() }
+    }
     func waitForStop(of id: UInt64, count: Int = 1) async {
         while stops.filter({ $0 == id }).count < count { await Task.yield() }
     }
