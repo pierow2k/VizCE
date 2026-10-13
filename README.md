@@ -1,15 +1,23 @@
-<!-- markdownlint-disable no-inline-html -->
+<!-- markdownlint-disable no-inline-html descriptive-link-text -->
 # VizCE
 
-<br>
 <p align="center">
-  <img src="./VizCE/Assets.xcassets/AppIcon.appiconset/icon_128x128.png" width="128" height="128" alt="logo"/><br>
   <img src="https://img.shields.io/badge/status-Maintained-1BCB1B" alt="status: Maintained">
-  <a href="https://app.codacy.com/gh/pierow2k/VizCE/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade"><img src="https://app.codacy.com/project/badge/Grade/81a211fc56c74d4a99183741cc51907f" alt="Codacy Badge"></a><br>
-  <a href="https://github.com/pierow2k/VizCE/commits"><img src="https://img.shields.io/github/commits-difference/pierow2k/VizCE?base=2.3.3&head=64f56a1&label=commits%20ahead%20of%20upstream&color=1BCB1B" alt="commits ahead"></a><br>
-  <a href="https://github.com/pierow2k/VizCE/releases"><img src="https://img.shields.io/github/v/release/pierow2k/VizCE?label=version&color=1BCB1B" alt="release version"></a><br>
-  <!-- <strong>Version: </strong>3.0.0<br> -->
-  <a href="https://github.com/pierow2k/VizCE/releases"><strong>Download</strong></a> · <a href="https://github.com/pierow2k/VizCE/commits">Commits</a>
+  <a href="https://app.codacy.com/gh/pierow2k/VizCE/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade">
+    <img src="https://app.codacy.com/project/badge/Grade/81a211fc56c74d4a99183741cc51907f" alt="Codacy Badge">
+  </a>
+  <a href="https://github.com/pierow2k/VizCE/commits">
+    <img src="https://img.shields.io/github/commits-difference/pierow2k/VizCE?base=2.3.3&head=c4eff68&label=commits%20ahead%20of%20upstream&color=1BCB1B" alt="commits ahead">
+  </a>
+  <a href="https://github.com/pierow2k/VizCE/releases">
+    <img src="https://img.shields.io/github/v/release/pierow2k/VizCE?label=version&color=1BCB1B" alt="release version">
+  </a>
+  <br>
+  <img src="./VizCE/Assets.xcassets/AppIcon.appiconset/icon_128x128.png" width="128" height="128" alt="logo">
+  <br>
+  <a href="https://github.com/pierow2k/VizCE/releases">
+    <strong>Download</strong>
+  </a> · <a href="https://github.com/pierow2k/VizCE/commits">Commits</a>
 </p>
 
 Extract text from images, videos, QR codes, barcodes and colors with a
@@ -93,6 +101,10 @@ a few important differences:
 
 For a detailed record of changes, see the [Changelog](CHANGELOG.md).
 
+### Missing Icons Example
+
+![Viz vs. VizCE Menu on macOS 27.png](https://github.com/user-attachments/assets/0610d8fc-be18-416e-b2d1-aa862e86fa26)
+
 </details>
 
 ## Features
@@ -130,24 +142,23 @@ For a detailed record of changes, see the [Changelog](CHANGELOG.md).
 
 ## Preview
 
-<!-- ![Menu Screenshot](./assets/menu.png) -->
-![Screenshot 2025-03-28 at 4 01 31 PM](https://github.com/user-attachments/assets/fdf8c000-b892-4632-8404-b985931f418f)
+![VizCE Menu Screenshot](https://github.com/user-attachments/assets/44334880-373a-4b49-b8f6-bd6e6cc842dc)
 
 ### Text Extraction Demo
 
-https://github.com/user-attachments/assets/409044dd-3765-48df-9017-0f6376ed11f8
+https://github.com/user-attachments/assets/b3faf621-6283-4657-a43e-28eb2555ce56
 
 ### QR/Barcode Extraction Demo
 
-https://github.com/user-attachments/assets/c75c9b47-9724-4b5a-ab51-363e8249fabb
+https://github.com/user-attachments/assets/09be00cf-5568-4a8c-a3c3-349b5288420a
 
 ### Color Picker Demo
 
-https://github.com/user-attachments/assets/bacbf405-d2e4-496c-b79e-fde000361962
+https://github.com/user-attachments/assets/1e4d7331-0cf6-4467-9977-22b63a593d87
 
 ### History View
 
-![history](https://github.com/user-attachments/assets/66c7c6f7-60e0-49fd-8050-0741e829aa6f)
+![VizCE History Screenshot](https://github.com/user-attachments/assets/e7bf8001-2cd2-42ea-89ea-70596e2ae948)
 
 ## Requirements
 
@@ -177,5 +188,5 @@ Refer to [BUILDING.md](BUILDING.md)
 
 The original project's license notice and attribution are retained below.
 
-[!IMPORTANT]
-Viz is licensed under Apache 2.0 with [Commons Clause](https://commonsclause.com/). This means that you can do anything you'd like with the source, modify it, contribute to it, etc., but the license explicitly prohibits any form of monetization for Viz or any modified versions of it. See full license [HERE](https://github.com/alienator88/Sentinel/blob/main/LICENSE.md)
+> [!IMPORTANT]
+> Viz is licensed under Apache 2.0 with [Commons Clause](https://commonsclause.com/). This means that you can do anything you'd like with the source, modify it, contribute to it, etc., but the license explicitly prohibits any form of monetization for Viz or any modified versions of it. See full license [HERE](https://github.com/alienator88/Sentinel/blob/main/LICENSE.md)
