@@ -1,0 +1,8 @@
+
+---
+# Exclude vendored third-party source code from quality analysis.
+# Changes to this code are maintained locally, but it is not subject
+# to the project's coding standards.
+exclude_paths:
+  - "Vendor/**"
+

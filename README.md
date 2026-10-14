@@ -101,6 +101,12 @@ a few important differences:
 
 For a detailed record of changes, see the [Changelog](CHANGELOG.md).
 
+### Code Quality
+
+Code quality is monitored using Codacy and SwiftLint. Vendored third-party
+source code is excluded from quality analysis because it is maintained
+separately from the project's own source.
+
 ### Missing Icons Example
 
 ![Viz vs. VizCE Menu on macOS 27.png](https://github.com/user-attachments/assets/0610d8fc-be18-416e-b2d1-aa862e86fa26)
