@@ -9,7 +9,9 @@ struct ModernSettingsTabs: View {
         TabView(selection: $selection) {
             Tab("General", systemImage: "gear", value: .general) { GeneralSettingsTab() }
             Tab("Shortcuts", systemImage: "keyboard", value: .shortcuts) { ShortcutsSettingsView() }
-            Tab("Updates", systemImage: "arrow.down.circle", value: .updates) { UpdaterSettingsView() }
+            Tab("Updates", systemImage: "arrow.down.circle", value: .updates) {
+                UpdaterSettingsView()
+            }
             Tab("About", systemImage: "info.circle", value: .about) { ScrollView { AboutView() } }
         }
     }

@@ -12,7 +12,8 @@ final class CaptureService {
     /// Requests cancellation of the tracked screen acquisition task.
     func cancelCapture() { task?.cancel() }
 
-    /// Replaces screen acquisition, checks recording permission, and starts recognition for a current image.
+    /// Replaces screen acquisition, checks recording permission, and starts recognition for a
+    /// current image.
     func captureContent() {
         cancelCapture()
         let state = AppState.shared

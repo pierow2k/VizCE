@@ -5,7 +5,8 @@ struct PostProcessingRunner: Sendable {
     /// The shell executable used to evaluate templates with `-c`, defaulting to `/bin/zsh`.
     var executableURL = URL(fileURLWithPath: "/bin/zsh")
 
-    /// Runs a template with captured text passed through the environment and returns combined output.
+    /// Runs a template with captured text passed through the environment and returns combined
+    /// output.
     ///
     /// A nonzero exit status is reported in the returned text. Canceling the calling task
     /// does not terminate the subprocess.
@@ -13,7 +14,8 @@ struct PostProcessingRunner: Sendable {
     /// - Parameters:
     ///   - template: Shell commands accepted by `ShellTemplate.compile(_:)`.
     ///   - content: Captured text supplied as `VIZCE_OCR_TEXT`, without shell interpolation.
-    /// - Returns: Standard output and standard error, prefixed by status text on an unsuccessful exit.
+    /// - Returns: Standard output and standard error, prefixed by status text on an unsuccessful
+    ///   exit.
     /// - Throws: Template validation, NUL encoding, or process launch errors.
     func run(template: String, content: String) async throws -> String {
         guard !content.contains("\0") else {
@@ -35,16 +37,22 @@ struct PostProcessingRunner: Sendable {
                     process.standardError = pipe
                     do {
                         try process.run()
-                        // Reading concurrently with the child avoids filling its stdout/stderr pipe.
+                        // Reading concurrently with the child avoids filling its stdout/stderr
+                        // pipe.
                         try pipe.fileHandleForWriting.close()
                         let data = pipe.fileHandleForReading.readDataToEndOfFile()
                         process.waitUntilExit()
-                        // Preserve readable output by replacing malformed UTF-8 bytes with replacement characters.
+                        // Preserve readable output by replacing malformed UTF-8 bytes with
+                        // replacement characters.
                         // swiftlint:disable:next optional_data_string_conversion
                         let output = String(decoding: data, as: UTF8.self)
                         continuation.resume(
                             returning: process.terminationStatus == 0
-                                ? output : "Command exited with status \(process.terminationStatus).\n\(output)"
+                                ? output
+                                : """
+                                Command exited with status \(process.terminationStatus).\n\
+                                \(output)
+                                """
                         )
                     } catch {
                         continuation.resume(throwing: error)

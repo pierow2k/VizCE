@@ -2,7 +2,13 @@ import Foundation
 
 /// Localized camera setup and capture failures, including superseded operation identifiers.
 enum WebcamCaptureError: LocalizedError, Equatable, Sendable {
-    case conversionFailed, noDevice, noFrame, staleOperation, startFailed, unsupportedInput, unsupportedOutput
+    case conversionFailed
+    case noDevice
+    case noFrame
+    case staleOperation
+    case startFailed
+    case unsupportedInput
+    case unsupportedOutput
 
     var errorDescription: String? {
         switch self {
@@ -19,7 +25,9 @@ enum WebcamCaptureError: LocalizedError, Equatable, Sendable {
             return String(localized: "No camera frame is available yet. Try Capture again.")
 
         case .conversionFailed:
-            return String(localized: "The captured camera frame could not be converted to an image.")
+            return String(
+                localized: "The captured camera frame could not be converted to an image."
+            )
 
         case .staleOperation:
             return String(localized: "The camera operation was superseded.")

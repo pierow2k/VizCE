@@ -20,7 +20,8 @@ struct WebcamCaptureView: View {
     @State private var isSnipping: Bool = false
     @State private var selection = ImageSelectionState()
 
-    /// The saved camera if still available, or the preferred default only when no identifier is saved.
+    /// The saved camera if still available, or the preferred default only when no identifier is
+    /// saved.
     var selectedWebcam: WebcamDevice? {
         if selectedWebcamID.isEmpty {
             return webcamManager.defaultDevice
@@ -110,7 +111,8 @@ struct WebcamCaptureView: View {
         TextRecognition.recognizeAndPreview(image)
     }
 
-    /// Recognizes a valid selected crop and returns to the still-image controls after a successful crop.
+    /// Recognizes a valid selected crop and returns to the still-image controls after a successful
+    /// crop.
     private func extractFromSelection() {
         guard let image = captureManager.capturedImage, selection.rect != .zero else { return }
 
@@ -122,7 +124,8 @@ struct WebcamCaptureView: View {
         }
     }
 
-    /// The valid pixel crop for the current viewport selection, or `nil` when extraction is unavailable.
+    /// The valid pixel crop for the current viewport selection, or `nil` when extraction is
+    /// unavailable.
     private var selectionCropRect: CGRect? {
         guard let image = captureManager.capturedImage,
             let pixels = image.cgImage(forProposedRect: nil, context: nil, hints: nil)
@@ -134,7 +137,8 @@ struct WebcamCaptureView: View {
         )
     }
 
-    /// Converts a viewport selection to a centered aspect-fill pixel crop and creates a still image.
+    /// Converts a viewport selection to a centered aspect-fill pixel crop and creates a still
+    /// image.
     ///
     /// - Parameters:
     ///   - image: The source still image whose pixel dimensions define the crop bounds.

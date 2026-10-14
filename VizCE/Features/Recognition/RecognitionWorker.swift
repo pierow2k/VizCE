@@ -27,7 +27,8 @@ struct RecognitionWorker: Sendable {
         }
     }
 
-    /// Converts recognition output and errors into typed outcomes, checking cancellation before and after work.
+    /// Converts recognition output and errors into typed outcomes, checking cancellation before and
+    /// after work.
     ///
     /// - Parameters:
     ///   - imageData: Encoded image bytes to recognize.
@@ -40,7 +41,8 @@ struct RecognitionWorker: Sendable {
             guard !Task.isCancelled else { return .cancelled }
             return text.isEmpty ? .noContent : .content(text)
         } catch {
-            return Task.isCancelled ? .cancelled : .failure(.recognition(error.localizedDescription))
+            return Task.isCancelled
+                ? .cancelled : .failure(.recognition(error.localizedDescription))
         }
     }
 
@@ -51,13 +53,20 @@ struct RecognitionWorker: Sendable {
         textRequest.usesLanguageCorrection = true
         if let language = options.languageCode { textRequest.recognitionLanguages = [language] }
         let barcodeRequest = VNDetectBarcodesRequest()
-        try VNImageRequestHandler(data: imageData, options: [:]).perform([textRequest, barcodeRequest])
+        try VNImageRequestHandler(data: imageData, options: [:]).perform([
+            textRequest,
+            barcodeRequest,
+        ])
         let lines = (textRequest.results ?? []).compactMap { $0.topCandidates(1).first?.string }
-        let barcodes = (barcodeRequest.results ?? []).map { $0.payloadStringValue ?? "Unknown value" }
-        // Preserves line breaks with trimmed edges, or joins with spaces and a trailing space for a nonempty group.
+        let barcodes = (barcodeRequest.results ?? []).map { barcode in
+            barcode.payloadStringValue ?? "Unknown value"
+        }
+        // Preserves line breaks with trimmed edges, or joins with spaces and a trailing space for a
+        // nonempty group.
         func joined(_ strings: [String]) -> String {
             if options.keepLineBreaks {
-                return strings.joined(separator: "\n").trimmingCharacters(in: .whitespacesAndNewlines)
+                return strings.joined(separator: "\n")
+                    .trimmingCharacters(in: .whitespacesAndNewlines)
             }
             return strings.isEmpty ? "" : strings.joined(separator: " ") + " "
         }

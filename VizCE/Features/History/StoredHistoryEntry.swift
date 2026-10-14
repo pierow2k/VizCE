@@ -1,6 +1,7 @@
 import Foundation
 
-/// An immutable history record whose synthesized encoding preserves the existing history JSON format.
+/// An immutable history record whose synthesized encoding preserves the existing history JSON
+/// format.
 enum StoredHistoryEntry: Codable, Sendable, Equatable, Identifiable {
     /// An immutable color record using the existing associated-value JSON shape.
     case color(StoredColorItem)

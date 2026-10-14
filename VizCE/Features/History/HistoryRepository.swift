@@ -16,7 +16,8 @@ final class HistoryRepository: ObservableObject {
     private var mutations: [HistoryMutation] = []
     // nil means no queued write; an empty snapshot must still persist a history clear.
     /// The newest unsaved snapshot; `nil` means no replacement snapshot is queued.
-    private var pending: [StoredHistoryEntry]? // swiftlint:disable:this discouraged_optional_collection
+    private var pending:
+        [StoredHistoryEntry]? // swiftlint:disable:this discouraged_optional_collection
     private var loadTask: Task<Void, Never>?
     /// The sole snapshot drain task, preventing writes from competing with one another.
     private var saveTask: Task<Void, Never>?
@@ -36,7 +37,8 @@ final class HistoryRepository: ObservableObject {
     /// Clears visible history and buffers or schedules an empty snapshot.
     func clear() { mutate(.clear) }
 
-    /// Applies an edit immediately and queues it for replay until disk history has loaded successfully.
+    /// Applies an edit immediately and queues it for replay until disk history has loaded
+    /// successfully.
     private func mutate(_ mutation: HistoryMutation) {
         mutation.apply(to: &items)
         if loaded { enqueue() } else { mutations.append(mutation) }
@@ -70,14 +72,16 @@ final class HistoryRepository: ObservableObject {
         }
     }
 
-    /// Replaces the pending snapshot with current items and starts draining unless an error pauses writes.
+    /// Replaces the pending snapshot with current items and starts draining unless an error pauses
+    /// writes.
     private func enqueue() {
         pending = items
         guard lastError == nil else { return }
         drain()
     }
 
-    /// Starts one serial save loop, coalescing pending snapshots and retaining the newest snapshot on failure.
+    /// Starts one serial save loop, coalescing pending snapshots and retaining the newest snapshot
+    /// on failure.
     private func drain() {
         guard saveTask == nil else { return }
         let store = store
@@ -89,7 +93,9 @@ final class HistoryRepository: ObservableObject {
                     // A newer pending snapshot already contains all subsequent edits.
                     if pending == nil { pending = snapshot }
                     lastError = error
-                    failure = String(localized: "Unable to save history: \(error.localizedDescription)")
+                    failure = String(
+                        localized: "Unable to save history: \(error.localizedDescription)"
+                    )
                     break
                 }
             }

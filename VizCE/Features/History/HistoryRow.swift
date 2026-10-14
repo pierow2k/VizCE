@@ -74,7 +74,8 @@ struct HistoryRow: View {
 
     /// Trims captured text and adds HTTPS to recognized host-like values that lack an HTTP prefix.
     ///
-    /// - Returns: A URL only when the trimmed text matches the history link pattern and can be parsed.
+    /// - Returns: A URL only when the trimmed text matches the history link pattern and can be
+    ///   parsed.
     private func recognizedURL(_ value: String) -> URL? {
         let trimmed = value.trimmingCharacters(in: .whitespacesAndNewlines)
         guard isRecognizedURLFormat(trimmed) else { return nil }

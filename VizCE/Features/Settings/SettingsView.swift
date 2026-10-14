@@ -20,7 +20,14 @@ struct SettingsView: View {
                 LegacySettingsTabs(selection: $selectedTab)
             }
         }
-        .frame(minWidth: 400, idealWidth: 500, maxWidth: 500, minHeight: 300, idealHeight: 600, maxHeight: .infinity)
+        .frame(
+            minWidth: 400,
+            idealWidth: 500,
+            maxWidth: 500,
+            minHeight: 300,
+            idealHeight: 600,
+            maxHeight: .infinity
+        )
         .background(Color("bg"))
         .environment(\.colorScheme, .dark)
         .preferredColorScheme(.dark)

@@ -7,7 +7,8 @@ struct ColorItem: Identifiable, Codable {
     let id: String
     /// The sampled color as `#RRGGBB`, or an empty string for an unsuccessful sample.
     let hex: String
-    /// The sampled color as an integer `(red,green,blue)` tuple, or an empty string for an unsuccessful sample.
+    /// The sampled color as an integer `(red,green,blue)` tuple, or an empty string for an
+    /// unsuccessful sample.
     let rgb: String
     /// The SwiftUI color parsed from `hex`, falling back to white when parsing fails.
     var color: Color { Color(hex: hex) ?? Color.white }

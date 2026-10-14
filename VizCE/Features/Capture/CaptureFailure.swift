@@ -18,7 +18,9 @@ enum CaptureFailure: Error, LocalizedError, Sendable, Equatable {
             String(localized: "Recognition failed: \(message)")
 
         case .screenPermission:
-            String(localized: "Allow VizCE to record the screen in System Settings, then try again.")
+            String(
+                localized: "Allow VizCE to record the screen in System Settings, then try again."
+            )
 
         case .screenCapture(let message):
             String(localized: "Screen capture failed: \(message)")

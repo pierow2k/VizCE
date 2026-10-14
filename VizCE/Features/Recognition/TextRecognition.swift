@@ -3,13 +3,15 @@ import Foundation
 import SwiftUI
 import Vision
 
-/// Main-actor orchestration of recognition, clipboard delivery, history, and optional shell processing.
+/// Main-actor orchestration of recognition, clipboard delivery, history, and optional shell
+/// processing.
 @MainActor
 struct TextRecognition {
     var recognizedContent = RecognizedContent.shared
     var image: NSImage
     var historyState: HistoryState
-    /// The main-actor completion called after delivery, including empty, failed, or invalidated captures.
+    /// The main-actor completion called after delivery, including empty, failed, or invalidated
+    /// captures.
     var didFinishRecognition: @MainActor (RecognitionOutcome) -> Void
 
     /// Recognizes an image and shows a preview when delivery produces content.
@@ -43,7 +45,12 @@ struct TextRecognition {
         let token = operationID ?? state.beginCapture()
         let clearToken = state.clearGeneration
         guard let imageData = image.tiffRepresentation else {
-            finish(.failure(.imageConversion), options: options, token: token, clearToken: clearToken)
+            finish(
+                .failure(.imageConversion),
+                options: options,
+                token: token,
+                clearToken: clearToken
+            )
             return
         }
         Task { @MainActor in
@@ -61,7 +68,10 @@ struct TextRecognition {
                     processing: options.processing,
                     commandTemplate: options.commandTemplate
                 )
-                let outcome = await RecognitionWorker().outcome(imageData: imageData, options: resolved)
+                let outcome = await RecognitionWorker().outcome(
+                    imageData: imageData,
+                    options: resolved
+                )
                 finish(outcome, options: options, token: token, clearToken: clearToken)
             } catch {
                 finish(
@@ -75,7 +85,12 @@ struct TextRecognition {
     }
 
     /// Applies clear-generation and current-capture checks before delivering a recognition outcome.
-    private func finish(_ outcome: RecognitionOutcome, options: RecognitionOptions, token: UInt64, clearToken: UInt64) {
+    private func finish(
+        _ outcome: RecognitionOutcome,
+        options: RecognitionOptions,
+        token: UInt64,
+        clearToken: UInt64
+    ) {
         let state = AppState.shared
         RecognitionDelivery.finish(
             outcome,
@@ -89,17 +104,24 @@ struct TextRecognition {
 
     /// Publishes text to the clipboard and history, then optionally starts shell processing.
     ///
-    /// Only the current capture may publish processing output; captured text is snapshotted before the task starts.
+    /// Only the current capture may publish processing output; captured text is snapshotted before
+    /// the task starts.
     private func apply(text: String, options: RecognitionOptions, token: UInt64) {
         let item = TextItem(text: text)
-        if options.append { recognizedContent.items.append(item) } else { recognizedContent.items = [item] }
+        if options.append {
+            recognizedContent.items.append(item)
+        } else {
+            recognizedContent.items = [item]
+        }
         copyTextItemsToClipboard(textItems: recognizedContent.items)
         playCaptureSound()
         historyState.append(.text(item))
         guard options.processing else { return }
         let contentSnapshot = recognizedContent.items.map(\.text).joined(separator: "\n")
         let state = AppState.shared
-        if state.captureIdentity.isCurrent(token) { state.cmdOutput = "Running post-processing commands.." }
+        if state.captureIdentity.isCurrent(token) {
+            state.cmdOutput = "Running post-processing commands.."
+        }
         Task { @MainActor in
             let output: String
             do {

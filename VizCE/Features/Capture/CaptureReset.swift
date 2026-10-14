@@ -1,4 +1,5 @@
-/// Invalidates earlier captures, cancels screen acquisition, and clears clipboard, text, and history.
+/// Invalidates earlier captures, cancels screen acquisition, and clears clipboard, text, and
+/// history.
 ///
 /// Also closes notices and previews. The last sampled color remains in application state.
 ///

@@ -4,6 +4,7 @@ import Foundation
 final class ScreenCaptureOperationState: @unchecked Sendable {
     var process: Process?
     var cancelled = false
-    /// Whether lifecycle cleanup has completed, so late cancellation must not terminate the process.
+    /// Whether lifecycle cleanup has completed, so late cancellation must not terminate the
+    /// process.
     var finished = false
 }

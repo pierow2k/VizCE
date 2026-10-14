@@ -2,7 +2,8 @@ import AppKit
 import AVFoundation
 import Combine
 
-/// Main-actor camera state that gates asynchronous authorization, startup, and capture by generation.
+/// Main-actor camera state that gates asynchronous authorization, startup, and capture by
+/// generation.
 @MainActor
 final class WebcamCaptureCoordinator: ObservableObject {
     /// The published still image with point dimensions set to its pixel dimensions when available.
@@ -12,7 +13,8 @@ final class WebcamCaptureCoordinator: ObservableObject {
     var isPreviewActive: Bool { state == .previewing }
     var isStarting: Bool { state.isStarting }
     var permissionDenied: Bool { state == .permissionDenied }
-    /// The main-actor callback invoked after a current capture is decoded and its preview session is stopped.
+    /// The main-actor callback invoked after a current capture is decoded and its preview session
+    /// is stopped.
     var onCapture: (@MainActor (NSImage) -> Void)?
 
     private let authorization: any WebcamAuthorizing
@@ -21,7 +23,8 @@ final class WebcamCaptureCoordinator: ObservableObject {
     private let identity = OperationIdentity()
     /// The active operation generation; zero precedes the first camera start.
     private var currentID: UInt64 = 0
-    /// The last requested camera, used to coalesce duplicate starts during startup, preview, or capture.
+    /// The last requested camera, used to coalesce duplicate starts during startup, preview, or
+    /// capture.
     private var requestedDeviceID: String?
     /// The latest startup, capture, or stop task, canceled when an operation supersedes it.
     private var task: Task<Void, Never>?
@@ -42,12 +45,14 @@ final class WebcamCaptureCoordinator: ObservableObject {
         self.devices = devices
     }
 
-    /// Replaces camera startup, stops the previous generation, and publishes only the current result.
+    /// Replaces camera startup, stops the previous generation, and publishes only the current
+    /// result.
     ///
     /// An identical active request is ignored. A nonempty missing camera identifier is
     /// passed through rather than silently replaced with the default.
     ///
-    /// - Parameter deviceID: The requested camera identifier, or an empty string to resolve the preferred default.
+    /// - Parameter deviceID: The requested camera identifier, or an empty string to resolve the
+    ///   preferred default.
     func start(deviceID: String) {
         guard !isDuplicateStart(deviceID: deviceID) else { return }
         requestedDeviceID = deviceID
@@ -85,7 +90,8 @@ final class WebcamCaptureCoordinator: ObservableObject {
         !Task.isCancelled && identity.isCurrent(operationID)
     }
 
-    /// Resolves an empty selection to the preferred default without replacing explicit missing devices.
+    /// Resolves an empty selection to the preferred default without replacing explicit missing
+    /// devices.
     ///
     /// An empty result is passed to the backend when the catalog has no default camera.
     private func resolvedDeviceID(_ deviceID: String) async -> String {
@@ -93,7 +99,8 @@ final class WebcamCaptureCoordinator: ObservableObject {
         return await devices.snapshot().defaultID ?? ""
     }
 
-    /// Starts an authorized generation and publishes its preview or failure only while it remains current.
+    /// Starts an authorized generation and publishes its preview or failure only while it remains
+    /// current.
     ///
     /// A successful stale startup is stopped before returning to release its session.
     ///
@@ -118,7 +125,8 @@ final class WebcamCaptureCoordinator: ObservableObject {
         }
     }
 
-    /// Captures the active preview frame, stops its session, and publishes a still image or recovery failure.
+    /// Captures the active preview frame, stops its session, and publishes a still image or
+    /// recovery failure.
     ///
     /// Has no effect outside the previewing state; superseded results are discarded.
     func capturePhoto() {
@@ -153,7 +161,8 @@ final class WebcamCaptureCoordinator: ObservableObject {
         }
     }
 
-    /// Invalidates pending publication, clears the preview, and asynchronously stops the previous session.
+    /// Invalidates pending publication, clears the preview, and asynchronously stops the previous
+    /// session.
     ///
     /// The captured still image is retained until a subsequent start clears it.
     func stop() {
@@ -166,7 +175,8 @@ final class WebcamCaptureCoordinator: ObservableObject {
         task = Task { await backend.stop(operationID: previousID) }
     }
 
-    /// Requests startup for the selected device, using the same duplicate-request rules as `start(deviceID:)`.
+    /// Requests startup for the selected device, using the same duplicate-request rules as
+    /// `start(deviceID:)`.
     func restart(deviceID: String) { start(deviceID: deviceID) }
 
     /// Waits for the currently tracked startup, capture, or stop task to finish.

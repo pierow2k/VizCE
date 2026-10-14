@@ -17,7 +17,9 @@ final class WebcamWindowController: NSObject, NSWindowDelegate {
         }
         let coordinator = WebcamCaptureCoordinator()
         let window = NSWindow(
-            contentViewController: NSHostingController(rootView: WebcamCaptureView(captureManager: coordinator))
+            contentViewController: NSHostingController(
+                rootView: WebcamCaptureView(captureManager: coordinator)
+            )
         )
         window.setContentSize(NSSize(width: 650, height: 450))
         window.styleMask = [.titled, .closable, .resizable, .fullSizeContentView]
@@ -31,14 +33,17 @@ final class WebcamWindowController: NSObject, NSWindowDelegate {
         self.coordinator = coordinator
         self.window = window
         coordinator.onCapture = { [weak self, weak coordinator] image in
-            guard let self, self.coordinator === coordinator, let window = self.window else { return }
+            guard let self, self.coordinator === coordinator, let window = self.window else {
+                return
+            }
             resize(window, for: image)
         }
         NSApp.activate(ignoringOtherApps: true)
         window.makeKeyAndOrderFront(nil)
     }
 
-    /// Stops camera work and releases state only when the closing window is the owned capture window.
+    /// Stops camera work and releases state only when the closing window is the owned capture
+    /// window.
     func windowWillClose(_ notification: Notification) {
         guard let closing = notification.object as? NSWindow, closing === window else { return }
         coordinator?.stop()
@@ -48,7 +53,8 @@ final class WebcamWindowController: NSObject, NSWindowDelegate {
         window = nil
     }
 
-    /// Fits the window to half the captured image dimensions, subject to orientation-specific size caps.
+    /// Fits the window to half the captured image dimensions, subject to orientation-specific size
+    /// caps.
     ///
     /// Adds space for controls and animates unless Reduce Motion is enabled.
     private func resize(_ window: NSWindow, for image: NSImage) {

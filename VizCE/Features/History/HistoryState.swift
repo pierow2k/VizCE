@@ -12,9 +12,13 @@ final class HistoryState: ObservableObject {
 
     /// Observes stored history and republishes it as text and color interface models.
     ///
-    /// - Parameter repository: An injected repository, or `nil` to load the application support history file.
+    /// - Parameter repository: An injected repository, or `nil` to load the application support
+    ///   history file.
     init(repository: HistoryRepository? = nil) {
-        let url = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+        let url = FileManager.default.urls(
+            for: .applicationSupportDirectory,
+            in: .userDomainMask
+        )[0]
             .appendingPathComponent(Bundle.main.name)
             .appendingPathComponent("historyItems.json")
         self.repository = repository ?? HistoryRepository(store: HistoryFileStore(url: url))

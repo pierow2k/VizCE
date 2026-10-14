@@ -9,7 +9,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     /// Whether the user has explicitly allowed termination after a history save failure.
     private var quitWithoutSaving = false
 
-    /// Defers termination until history finishes saving and offers retry or discard actions on failure.
+    /// Defers termination until history finishes saving and offers retry or discard actions on
+    /// failure.
     ///
     /// Returns immediately only after the user has chosen to quit without saving.
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
@@ -44,7 +45,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         return .terminateLater
     }
 
-    /// Registers global shortcut actions and prepares application support storage in release builds.
+    /// Registers global shortcut actions and prepares application support storage in release
+    /// builds.
     func applicationDidFinishLaunching(_: Notification) {
         KeyboardShortcuts.onKeyUp(for: .captureContent) {
             CaptureService.shared.captureContent()
@@ -61,7 +63,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         KeyboardShortcuts.onKeyUp(for: .history) {
             MenuPresentationController.shared.dismiss()
-            self.windowController.open(id: "history", with: HistoryView(), width: 500, height: 600, material: .sidebar)
+            self.windowController.open(
+                id: "history",
+                with: HistoryView(),
+                width: 500,
+                height: 600,
+                material: .sidebar
+            )
         }
 
         KeyboardShortcuts.onKeyUp(for: .clear) {

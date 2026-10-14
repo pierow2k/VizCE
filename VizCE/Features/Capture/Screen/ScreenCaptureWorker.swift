@@ -12,7 +12,8 @@ final class ScreenCaptureWorker: Sendable {
     /// - Parameters:
     ///   - executable: The capture executable, defaulting to the system screen selection utility.
     ///   - temporaryDirectory: The root for each capture’s unique temporary subdirectory.
-    ///   - arguments: Builds arguments for the owned image URL; defaults to interactive PNG capture without sound.
+    ///   - arguments: Builds arguments for the owned image URL; defaults to interactive PNG capture
+    ///     without sound.
     init(
         executable: URL = URL(fileURLWithPath: "/usr/sbin/screencapture"),
         temporaryDirectory: URL = FileManager.default.temporaryDirectory,
@@ -23,7 +24,8 @@ final class ScreenCaptureWorker: Sendable {
         self.temporaryDirectory = temporaryDirectory
     }
 
-    /// Runs one screen selection and attempts to remove its owned files before returning the outcome.
+    /// Runs one screen selection and attempts to remove its owned files before returning the
+    /// outcome.
     ///
     /// Task cancellation is dispatched to the worker queue and terminates an unfinished subprocess.
     func capture() async -> ScreenCaptureOutcome {
@@ -41,7 +43,8 @@ final class ScreenCaptureWorker: Sendable {
         }
     }
 
-    /// Launches the capture subprocess on the worker queue and completes through shared cleanup paths.
+    /// Launches the capture subprocess on the worker queue and completes through shared cleanup
+    /// paths.
     private func launch(
         state: ScreenCaptureOperationState,
         continuation: CheckedContinuation<ScreenCaptureOutcome, Never>
@@ -81,7 +84,8 @@ final class ScreenCaptureWorker: Sendable {
         }
     }
 
-    /// Classifies owned output and diagnostics, treating quiet fileless exits with status zero or one as cancellation.
+    /// Classifies owned output and diagnostics, treating quiet fileless exits with status zero or
+    /// one as cancellation.
     private func outcome(for process: Process, files: ScreenCaptureFiles) -> ScreenCaptureOutcome {
         let diagnostics =
             (try? String(contentsOf: files.diagnosticsURL, encoding: .utf8))?
@@ -97,11 +101,13 @@ final class ScreenCaptureWorker: Sendable {
         }
         let detail =
             diagnostics.isEmpty
-            ? String(localized: "Process exited with status \(process.terminationStatus).") : diagnostics
+            ? String(localized: "Process exited with status \(process.terminationStatus).")
+            : diagnostics
         return .failure(.screenCapture(detail))
     }
 
-    /// Closes diagnostics, breaks the process handler reference, and removes files after evaluating the outcome.
+    /// Closes diagnostics, breaks the process handler reference, and removes files after evaluating
+    /// the outcome.
     ///
     /// Must run on the worker queue; the outcome closure may still read the owned files.
     private func finish(

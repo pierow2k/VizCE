@@ -4,7 +4,8 @@ import Foundation
 struct ImageSelectionState {
     /// The display dimensions in points used to clamp the current drag.
     private(set) var viewport: CGSize = .zero
-    /// The normalized viewport selection in points; `.zero` represents a cleared or empty selection.
+    /// The normalized viewport selection in points; `.zero` represents a cleared or empty
+    /// selection.
     private(set) var rect: CGRect = .zero
     private(set) var isDragging = false
     /// The clamped anchor retained until the current drag ends or is cleared.

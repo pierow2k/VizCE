@@ -7,10 +7,14 @@ enum ShellTemplate {
     /// Templates without `[ocr]` pass through unchanged after the NUL check. Templates
     /// with placeholders are scanned using the restricted syntax implemented here.
     ///
-    /// - Parameter template: Shell text with bare, single-quoted, or double-quoted whole-argument placeholders.
-    /// - Throws: An encoding error for NUL characters or a template error for unsupported placeholder syntax.
+    /// - Parameter template: Shell text with bare, single-quoted, or double-quoted whole-argument
+    ///   placeholders.
+    /// - Throws: An encoding error for NUL characters or a template error for unsupported
+    ///   placeholder syntax.
     static func compile(_ template: String) throws -> String {
-        guard !template.contains("\0") else { throw CocoaError(.fileReadInapplicableStringEncoding) }
+        guard !template.contains("\0") else {
+            throw CocoaError(.fileReadInapplicableStringEncoding)
+        }
         guard template.contains("[ocr]") else { return template }
         var scanner = Scanner(input: Array(template))
         return try scanner.compile()
@@ -22,9 +26,11 @@ enum ShellTemplate {
         var output = ""
         /// The next unconsumed character; each helper advances past exactly the text it copies.
         var index = 0
-        /// Whether the next ordinary word must supply the command name after any assignments or redirections.
+        /// Whether the next ordinary word must supply the command name after any assignments or
+        /// redirections.
         var needsCommand = true
-        /// Whether a copied redirection still requires its target word before a command separator or end of input.
+        /// Whether a copied redirection still requires its target word before a command separator
+        /// or end of input.
         var needsRedirectionTarget = false
 
         /// Scans in grammar precedence order, rejecting incomplete redirections at the end.
@@ -98,10 +104,13 @@ enum ShellTemplate {
 
         /// Rejects compound keywords only where an ordinary command name is required.
         private func validateCommandWord(_ word: String) throws {
-            if needsCommand, !needsRedirectionTarget, compoundKeywords.contains(word) { throw unsupported() }
+            if needsCommand, !needsRedirectionTarget, compoundKeywords.contains(word) {
+                throw unsupported()
+            }
         }
 
-        /// Quotes a complete argument placeholder or preserves a literal word, rejecting embedded placeholders.
+        /// Quotes a complete argument placeholder or preserves a literal word, rejecting embedded
+        /// placeholders.
         ///
         /// A placeholder can supply a redirection target, but cannot supply the command name.
         private func renderedWord(_ word: String) throws -> String {
@@ -114,7 +123,8 @@ enum ShellTemplate {
             return word
         }
 
-        /// Satisfies a pending redirection target or consumes a command word after assignments and descriptors.
+        /// Satisfies a pending redirection target or consumes a command word after assignments and
+        /// descriptors.
         private mutating func updatePosition(after word: String) {
             if needsRedirectionTarget {
                 needsRedirectionTarget = false
@@ -123,7 +133,8 @@ enum ShellTemplate {
             }
         }
 
-        /// Recognizes a numeric word immediately followed by a redirection, which cannot supply the command name.
+        /// Recognizes a numeric word immediately followed by a redirection, which cannot supply the
+        /// command name.
         private func isFileDescriptor(_ word: String) -> Bool {
             word.allSatisfy(\.isNumber) && index < input.count && "<>".contains(input[index])
         }
@@ -131,13 +142,44 @@ enum ShellTemplate {
 
     /// Compound command words rejected when a template requires an ordinary command name.
     private static let compoundKeywords: Set<String> = [
-        "if", "then", "else", "elif", "fi", "for", "while", "until", "do", "done", "case", "esac", "function",
-        "repeat", "select", "coproc", "time", "!", "{", "}", "[[", "]]",
+        "if",
+        "then",
+        "else",
+        "elif",
+        "fi",
+        "for",
+        "while",
+        "until",
+        "do",
+        "done",
+        "case",
+        "esac",
+        "function",
+        "repeat",
+        "select",
+        "coproc",
+        "time",
+        "!",
+        "{",
+        "}",
+        "[[",
+        "]]",
     ]
 
     /// Unquoted characters that delimit words, commands, or redirections in the supported grammar.
     /// Separate entries keep Swift's CRLF grapheme clustering from hiding standalone LF and CR.
-    private static let boundaries: Set<Character> = [" ", "\t", "\r", "\n", "\r\n", ";", "|", "&", "<", ">"]
+    private static let boundaries: Set<Character> = [
+        " ",
+        "\t",
+        "\r",
+        "\n",
+        "\r\n",
+        ";",
+        "|",
+        "&",
+        "<",
+        ">",
+    ]
     /// LF and CRLF terminate comments and commands; standalone CR remains ordinary whitespace.
     private static let lineEndings: Set<Character> = ["\n", "\r\n"]
     /// Boundaries that require a complete redirection and begin a new command position.
@@ -145,7 +187,8 @@ enum ShellTemplate {
     /// The only complete shell words that may be replaced with the captured-text variable.
     private static let wholeArgumentPlaceholders: Set<String> = ["[ocr]", "\"[ocr]\"", "'[ocr]'"]
 
-    /// Scans one shell word while preserving quotes and escapes and rejecting unsupported expansions.
+    /// Scans one shell word while preserving quotes and escapes and rejecting unsupported
+    /// expansions.
     ///
     /// Advances `index` to the next unquoted boundary or the end of `input`.
     private static func scanWord(_ input: [Character], index: inout Int) throws -> String {
@@ -193,14 +236,19 @@ enum ShellTemplate {
     ///   - index: The unescaped character being validated.
     ///   - quote: The active quote delimiter, or `nil` outside quotes.
     /// - Throws: A template error for an unsupported expansion or grouping character.
-    private static func validateExpansion(_ input: [Character], index: Int, quote: Character?) throws {
+    private static func validateExpansion(
+        _ input: [Character],
+        index: Int,
+        quote: Character?
+    ) throws {
         guard quote != "'" else { return }
         let current = input[index]
         if current == "$", index + 1 < input.count, input[index + 1] == "{" { throw unsupported() }
         if "`()".contains(current) { throw unsupported() }
     }
 
-    /// Opens or closes matching quotes, leaving the other quote kind literal inside an active quote.
+    /// Opens or closes matching quotes, leaving the other quote kind literal inside an active
+    /// quote.
     private static func updateQuote(_ current: Character, quote: inout Character?) {
         guard current == "'" || current == "\"" else { return }
         if quote == current {

@@ -20,7 +20,10 @@ actor HistoryFileStore: HistoryStoring {
     /// - Throws: JSON encoding, directory creation, or file write errors.
     func save(_ entries: [StoredHistoryEntry]) throws {
         let data = try JSONEncoder().encode(entries)
-        try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
+        try FileManager.default.createDirectory(
+            at: url.deletingLastPathComponent(),
+            withIntermediateDirectories: true
+        )
         try data.write(to: url, options: .atomic)
     }
 }

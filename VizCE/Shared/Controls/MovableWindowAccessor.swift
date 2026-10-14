@@ -2,7 +2,8 @@ import SwiftUI
 
 /// An AppKit bridge that requests dragging the containing window by its background.
 struct MovableWindowAccessor: NSViewRepresentable {
-    /// Creates a bridge view and attempts to enable background dragging on the next main-queue turn.
+    /// Creates a bridge view and attempts to enable background dragging on the next main-queue
+    /// turn.
     func makeNSView(context _: Context) -> NSView {
         let nsView = NSView()
 

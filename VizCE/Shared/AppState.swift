@@ -20,7 +20,8 @@ final class AppState: ObservableObject {
     @Published var cmdOutput: String = ""
     /// The generation used to reject superseded screen captures and post-processing output.
     let captureIdentity = OperationIdentity()
-    /// The reset generation that invalidates recognition and color results after history is cleared.
+    /// The reset generation that invalidates recognition and color results after history is
+    /// cleared.
     private(set) var clearGeneration: UInt64 = 0
 
     /// Clears processing output and advances the current capture generation.
@@ -48,7 +49,8 @@ final class AppState: ObservableObject {
     let languages = RecognitionLanguageSelection()
     private var languageSubscription: AnyCancellable?
 
-    /// The persisted language selection, which is retained even when unavailable at the selected quality.
+    /// The persisted language selection, which is retained even when unavailable at the selected
+    /// quality.
     var selectedLanguageCode: String {
         get { storedLanguageCode }
         set {
@@ -62,7 +64,8 @@ final class AppState: ObservableObject {
         languages.load(RecognitionConfiguration(fast: selectedQuality == .fast))
     }
 
-    /// The persisted recognition level, falling back to accurate for unknown values; setting it reloads languages.
+    /// The persisted recognition level, falling back to accurate for unknown values; setting it
+    /// reloads languages.
     var selectedQuality: TextRecognitionQuality {
         get {
             TextRecognitionQuality(rawValue: selectedQualityRaw) ?? .accurate
@@ -76,7 +79,9 @@ final class AppState: ObservableObject {
 
     /// Forwards language state changes to observers and starts initial language discovery.
     init() {
-        languageSubscription = languages.objectWillChange.sink { [weak self] _ in self?.objectWillChange.send() }
+        languageSubscription = languages.objectWillChange.sink { [weak self] _ in
+            self?.objectWillChange.send()
+        }
         refreshLanguages()
     }
 }

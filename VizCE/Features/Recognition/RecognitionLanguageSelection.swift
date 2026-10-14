@@ -10,7 +10,8 @@ final class RecognitionLanguageSelection: ObservableObject {
     @Published private(set) var failure: String?
     private let catalog: RecognitionLanguageCatalog
     private var task: Task<Void, Never>?
-    /// The load generation that prevents earlier discovery results from replacing the current selection.
+    /// The load generation that prevents earlier discovery results from replacing the current
+    /// selection.
     private var generation: UInt64 = 0
 
     /// Creates language selection state using the supplied shared discovery catalog.
@@ -33,7 +34,9 @@ final class RecognitionLanguageSelection: ObservableObject {
                 isLoading = false
             } catch {
                 guard !Task.isCancelled, let self, generation == id else { return }
-                failure = String(localized: "Unable to load recognition languages: \(error.localizedDescription)")
+                failure = String(
+                    localized: "Unable to load recognition languages: \(error.localizedDescription)"
+                )
                 isLoading = false
             }
         }

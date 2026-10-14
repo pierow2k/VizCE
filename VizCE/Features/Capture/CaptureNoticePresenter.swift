@@ -26,7 +26,9 @@ final class CaptureNoticePresenter {
             return
         }
         close()
-        let view = CaptureNoticeView(title: title, message: message) { [weak self] in self?.close() }
+        let view = CaptureNoticeView(title: title, message: message) { [weak self] in
+            self?.close()
+        }
         let window = NSWindow(contentViewController: NSHostingController(rootView: view))
         window.title = String(localized: title)
         window.styleMask = [.titled, .closable]

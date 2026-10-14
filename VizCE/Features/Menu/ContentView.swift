@@ -123,12 +123,15 @@ struct ContentView: View {
             menuRegistration = MenuPresentationController.shared.register { dismiss() }
         }
         .onDisappear {
-            if let menuRegistration { MenuPresentationController.shared.unregister(menuRegistration) }
+            if let menuRegistration {
+                MenuPresentationController.shared.unregister(menuRegistration)
+            }
             menuRegistration = nil
         }
     }
 
-    /// Selects Updates when an update is available, otherwise General, then opens settings and dismisses the menu.
+    /// Selects Updates when an update is available, otherwise General, then opens settings and
+    /// dismisses the menu.
     private func showSettings() {
         UserDefaults.standard.set(
             updater.updateAvailable ? SettingsTab.updates.rawValue : SettingsTab.general.rawValue,

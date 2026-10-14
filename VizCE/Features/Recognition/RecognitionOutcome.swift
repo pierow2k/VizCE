@@ -1,6 +1,7 @@
 import Foundation
 
-/// A recognition result that distinguishes captured content, an empty result, cancellation, and failure.
+/// A recognition result that distinguishes captured content, an empty result, cancellation, and
+/// failure.
 enum RecognitionOutcome: Sendable, Equatable {
     case cancelled
     /// Recognized text and barcode payloads suitable for clipboard delivery.

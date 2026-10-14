@@ -24,8 +24,9 @@ struct SpacedProcessingToggle: ToggleStyle {
                     Divider()
                     Text(
                         """
-                        Execute any shell commands after capture is completed. Use [ocr], \"[ocr]\", or '[ocr]' \
-                        as a whole argument. Embedded placeholders, substitutions, and heredocs are \
+                        Execute any shell commands after capture is completed. \
+                        Use [ocr], \"[ocr]\", or '[ocr]' as a whole argument. \
+                        Embedded placeholders, substitutions, and heredocs are \
                         unsupported.\nExample: say [ocr]; echo [ocr] > capture.txt
                         """
                     )

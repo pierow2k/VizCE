@@ -1,7 +1,8 @@
 import ServiceManagement
 import SwiftUI
 
-/// Login registration controls that refresh on activation and expose service errors and approval actions.
+/// Login registration controls that refresh on activation and expose service errors and approval
+/// actions.
 struct LaunchAtLoginView: View {
     @ObservedObject var controller: LaunchAtLoginController
 
@@ -14,11 +15,14 @@ struct LaunchAtLoginView: View {
                 Text("Launch at login needs approval in System Settings.").font(.caption)
                 Button("Open Login Items") { SMAppService.openSystemSettingsLoginItems() }
             } else if controller.status == .notFound {
-                Text("The login service is unavailable. Try a signed, installed build of VizCE.").font(.caption)
+                Text("The login service is unavailable. Try a signed, installed build of VizCE.")
+                    .font(.caption)
             }
         }
         .task { controller.refresh() }
-        .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
+        .onReceive(
+            NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)
+        ) { _ in
             controller.refresh()
         }
         .alert(

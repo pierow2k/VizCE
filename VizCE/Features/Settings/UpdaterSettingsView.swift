@@ -32,9 +32,12 @@ struct UpdaterSettingsView: View {
 
                             if let error = updater.releaseFetchError {
                                 VStack(alignment: .leading, spacing: 8) {
-                                    Label("Could not load releases", systemImage: "exclamationmark.triangle")
-                                        .font(.headline)
-                                        .foregroundStyle(.red)
+                                    Label(
+                                        "Could not load releases",
+                                        systemImage: "exclamationmark.triangle"
+                                    )
+                                    .font(.headline)
+                                    .foregroundStyle(.red)
                                     Text(error)
                                         .textSelection(.enabled)
                                     Text("Press Refresh to try again.")

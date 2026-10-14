@@ -8,7 +8,8 @@ final class PreviewExpiry {
 
     private let sleep: Sleep
     private var task: Task<Void, Never>?
-    /// The timer generation that invalidates callbacks even when an injected wait ignores cancellation.
+    /// The timer generation that invalidates callbacks even when an injected wait ignores
+    /// cancellation.
     private var generation: UInt64 = 0
 
     /// Creates an expiry timer with an injectable wait, using cancellable task sleep by default.

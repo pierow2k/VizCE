@@ -5,13 +5,20 @@ enum ImageCropTransform {
     /// Maps a visible selection to an outward-rounded pixel rectangle within the source image.
     ///
     /// - Parameters:
-    ///   - selection: The selection rectangle in top-left viewport points; reversed dimensions are standardized.
+    ///   - selection: The selection rectangle in top-left viewport points; reversed dimensions are
+    ///     standardized.
     ///   - viewport: Finite, positive display dimensions in points.
     ///   - pixels: Finite, positive source image dimensions in pixels.
-    /// - Returns: An integral crop including the centered aspect-fill offsets, or `nil` for invalid or empty input.
+    /// - Returns: An integral crop including the centered aspect-fill offsets, or `nil` for invalid
+    ///   or empty input.
     static func map(selection: CGRect, viewport: CGSize, pixels: CGSize) -> CGRect? {
         guard valid(viewport), valid(pixels),
-            [selection.origin.x, selection.origin.y, selection.width, selection.height].allSatisfy(\.isFinite)
+            [
+                selection.origin.x,
+                selection.origin.y,
+                selection.width,
+                selection.height,
+            ].allSatisfy(\.isFinite)
         else { return nil }
         let visible = selection.standardized.intersection(CGRect(origin: .zero, size: viewport))
         guard !visible.isNull, !visible.isEmpty else { return nil }
@@ -27,7 +34,12 @@ enum ImageCropTransform {
             [minX, minY, maxX, maxY].allSatisfy(\.isFinite)
         else { return nil }
         let bounds = CGRect(origin: .zero, size: pixels)
-        let mapped = CGRect(x: minX, y: minY, width: maxX - minX, height: maxY - minY).intersection(bounds)
+        let mapped = CGRect(
+            x: minX,
+            y: minY,
+            width: maxX - minX,
+            height: maxY - minY
+        ).intersection(bounds)
         guard !mapped.isNull, !mapped.isEmpty else { return nil }
         // Round outward to retain every selected pixel, then clip again to the source bounds.
         let rounded = mapped.integral.intersection(bounds)

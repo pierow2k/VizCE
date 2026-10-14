@@ -5,7 +5,8 @@ import Foundation
 @MainActor
 final class LaunchAtLoginController: ObservableObject {
     @Published private(set) var status = LaunchAtLoginStatus.notRegistered
-    /// Whether a status read or registration request is in flight; new operations are ignored until it finishes.
+    /// Whether a status read or registration request is in flight; new operations are ignored until
+    /// it finishes.
     @Published private(set) var isPending = false
     @Published var errorMessage: String?
     private let service: any LaunchAtLoginServicing
@@ -17,7 +18,8 @@ final class LaunchAtLoginController: ObservableObject {
         refresh()
     }
 
-    /// Whether registration is enabled; setting this requests a change rather than optimistically changing status.
+    /// Whether registration is enabled; setting this requests a change rather than optimistically
+    /// changing status.
     var isEnabled: Bool {
         get { status == .enabled }
         set { request(newValue) }
@@ -38,7 +40,8 @@ final class LaunchAtLoginController: ObservableObject {
 
     /// Requests registration or removal, then publishes actual status even if the service throws.
     ///
-    /// Ignores requests while pending and avoids re-registering a service that already awaits approval.
+    /// Ignores requests while pending and avoids re-registering a service that already awaits
+    /// approval.
     func request(_ enabled: Bool) {
         guard !isPending else { return }
         isPending = true
@@ -49,12 +52,16 @@ final class LaunchAtLoginController: ObservableObject {
             var message: String?
             do {
                 if enabled {
-                    if current != .enabled, current != .requiresApproval { try await service.register() }
+                    if current != .enabled, current != .requiresApproval {
+                        try await service.register()
+                    }
                 } else if current == .enabled || current == .requiresApproval {
                     try await service.unregister()
                 }
             } catch {
-                message = String(localized: "Unable to change launch at login: \(error.localizedDescription)")
+                message = String(
+                    localized: "Unable to change launch at login: \(error.localizedDescription)"
+                )
             }
             let actual = await service.status()
             guard let self else { return }

@@ -15,7 +15,8 @@ struct SimpleButtonStyle: ButtonStyle {
     /// Whether hovering rotates the icon by 90 degrees when Reduce Motion is disabled.
     var rotate: Bool = false
 
-    /// Builds icon feedback with optional hover rotation and an opacity-based press effect for Reduce Motion.
+    /// Builds icon feedback with optional hover rotation and an opacity-based press effect for
+    /// Reduce Motion.
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .labelStyle(.iconOnly)

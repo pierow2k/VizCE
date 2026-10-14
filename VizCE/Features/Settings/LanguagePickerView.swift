@@ -19,7 +19,10 @@ struct LanguagePickerView: View {
                 if selectionIsUnavailable {
                     Text(
                         """
-                        \(RecognitionLanguageName.displayName(for: appState.selectedLanguageCode, locale: locale)) \
+                        \(RecognitionLanguageName.displayName(
+                            for: appState.selectedLanguageCode,
+                            locale: locale
+                        )) \
                         (Unavailable)
                         """
                     )
@@ -34,8 +37,13 @@ struct LanguagePickerView: View {
                 Text(failure).font(.caption)
                 Button("Retry") { appState.refreshLanguages() }
             } else if !appState.languages.isLoading, selectionIsUnavailable {
-                Text("This language is unavailable at the selected quality. Recognition will use All languages.")
-                    .font(.caption)
+                Text(
+                    """
+                    This language is unavailable at the selected quality. \
+                    Recognition will use All languages.
+                    """
+                )
+                .font(.caption)
             }
         }
     }

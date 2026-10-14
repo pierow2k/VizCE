@@ -15,7 +15,10 @@ struct ShortcutEditorView: View {
     var body: some View {
         if let shortcut = KeyboardShortcuts.getShortcut(for: name) {
             Button {
-                UserDefaults.standard.set(SettingsTab.general.rawValue, forKey: "settingsSelectedTab")
+                UserDefaults.standard.set(
+                    SettingsTab.general.rawValue,
+                    forKey: "settingsSelectedTab"
+                )
                 NSApp.activate()
                 openSettings()
                 dismiss()

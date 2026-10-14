@@ -3,7 +3,8 @@ import CoreImage
 import ImageIO
 import UniformTypeIdentifiers
 
-/// A camera backend with session operations, callbacks, sample buffers, and encoding confined to one queue.
+/// A camera backend with session operations, callbacks, sample buffers, and encoding confined to
+/// one queue.
 ///
 /// Only encoded image data and an opaque preview source cross that queue boundary.
 final class WebcamCaptureWorker: WebcamCaptureBackend, @unchecked Sendable {
@@ -17,11 +18,13 @@ final class WebcamCaptureWorker: WebcamCaptureBackend, @unchecked Sendable {
     private var sampleBuffer: CMSampleBuffer?
     /// The current session generation, or `nil` when no session is configured.
     private var operationID: UInt64?
-    /// The oldest generation allowed to start, advanced by stops even if startup has not reached the queue.
+    /// The oldest generation allowed to start, advanced by stops even if startup has not reached
+    /// the queue.
     private var minimumOperationID: UInt64 = 0
     private lazy var context = CIContext()
 
-    /// Configures and starts the requested camera on the worker queue after rejecting invalidated generations.
+    /// Configures and starts the requested camera on the worker queue after rejecting invalidated
+    /// generations.
     ///
     /// - Parameters:
     ///   - deviceID: A camera identifier, or an empty string for the system default.
@@ -39,7 +42,9 @@ final class WebcamCaptureWorker: WebcamCaptureBackend, @unchecked Sendable {
                 self.tearDown()
                 do {
                     let device =
-                        deviceID.isEmpty ? AVCaptureDevice.default(for: .video) : AVCaptureDevice(uniqueID: deviceID)
+                        deviceID.isEmpty
+                            ? AVCaptureDevice.default(for: .video)
+                            : AVCaptureDevice(uniqueID: deviceID)
                     guard let device else { throw WebcamCaptureError.noDevice }
                     let session = AVCaptureSession()
                     self.session = session
@@ -63,7 +68,9 @@ final class WebcamCaptureWorker: WebcamCaptureBackend, @unchecked Sendable {
         try await withCheckedThrowingContinuation { continuation in
             queue.async {
                 do {
-                    guard self.operationID == operationID else { throw WebcamCaptureError.staleOperation }
+                    guard self.operationID == operationID else {
+                        throw WebcamCaptureError.staleOperation
+                    }
                     guard let buffer = self.sampleBuffer else { throw WebcamCaptureError.noFrame }
                     continuation.resume(returning: try self.encodeFrame(buffer))
                 } catch { continuation.resume(throwing: error) }
@@ -71,7 +78,8 @@ final class WebcamCaptureWorker: WebcamCaptureBackend, @unchecked Sendable {
         }
     }
 
-    /// Invalidates starts through the supplied generation and tears down any session no newer than it.
+    /// Invalidates starts through the supplied generation and tears down any session no newer than
+    /// it.
     func stop(operationID: UInt64) async {
         await withCheckedContinuation { continuation in
             queue.async {
@@ -120,21 +128,31 @@ final class WebcamCaptureWorker: WebcamCaptureBackend, @unchecked Sendable {
     /// Converts the retained video frame to immutable PNG bytes on the worker queue.
     private func encodeFrame(_ buffer: CMSampleBuffer) throws -> Data {
         dispatchPrecondition(condition: .onQueue(queue))
-        guard let pixels = CMSampleBufferGetImageBuffer(buffer) else { throw WebcamCaptureError.noFrame }
+        guard let pixels = CMSampleBufferGetImageBuffer(buffer) else {
+            throw WebcamCaptureError.noFrame
+        }
         let image = CIImage(cvImageBuffer: pixels)
         guard let cgImage = context.createCGImage(image, from: image.extent) else {
             throw WebcamCaptureError.conversionFailed
         }
         let data = NSMutableData()
-        guard let destination = CGImageDestinationCreateWithData(data, UTType.png.identifier as CFString, 1, nil) else {
+        guard let destination = CGImageDestinationCreateWithData(
+            data,
+            UTType.png.identifier as CFString,
+            1,
+            nil
+        ) else {
             throw WebcamCaptureError.conversionFailed
         }
         CGImageDestinationAddImage(destination, cgImage, nil)
-        guard CGImageDestinationFinalize(destination) else { throw WebcamCaptureError.conversionFailed }
+        guard CGImageDestinationFinalize(destination) else {
+            throw WebcamCaptureError.conversionFailed
+        }
         return data as Data
     }
 
-    /// Stops the session and detaches inputs, outputs, callbacks, and the buffered frame on the worker queue.
+    /// Stops the session and detaches inputs, outputs, callbacks, and the buffered frame on the
+    /// worker queue.
     private func tearDown() {
         dispatchPrecondition(condition: .onQueue(queue))
         output?.setSampleBufferDelegate(nil, queue: nil)

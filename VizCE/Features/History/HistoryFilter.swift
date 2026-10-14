@@ -2,7 +2,8 @@ import Foundation
 
 /// Capture-kind filters and their corresponding history labels and empty messages.
 enum HistoryFilter: String, CaseIterable, Identifiable {
-    // Keep menu order and explicit stable raw values; the redundant-value rule conflicts with explicit_enum_raw_value.
+    // Keep menu order and explicit stable raw values; the redundant-value rule conflicts with
+    // explicit_enum_raw_value.
     // swiftlint:disable sorted_enum_cases redundant_string_enum_value
     case all = "all"
     case text = "text"

@@ -11,8 +11,12 @@ actor SystemWebcamDeviceCatalog: WebcamDeviceDiscovering {
             mediaType: .video,
             position: .unspecified
         )
-        let devices = discovery.devices.map { WebcamDevice(id: $0.uniqueID, name: $0.localizedName) }
-        let preferred = discovery.devices.first { $0.deviceType == .builtInWideAngleCamera }?.uniqueID
+        let devices = discovery.devices.map { device in
+            WebcamDevice(id: device.uniqueID, name: device.localizedName)
+        }
+        let preferred = discovery.devices.first { device in
+            device.deviceType == .builtInWideAngleCamera
+        }?.uniqueID
         return WebcamDevices(devices: devices, defaultID: preferred ?? devices.first?.id)
     }
 }

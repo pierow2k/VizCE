@@ -12,7 +12,11 @@ final class CopyFeedbackController: ObservableObject {
     private var generation: UInt64 = 0
 
     /// Creates feedback with an injectable expiry wait, defaulting to one second.
-    init(sleep: @escaping @Sendable () async throws -> Void = { try await Task.sleep(for: .seconds(1)) }) {
+    init(
+        sleep: @escaping @Sendable () async throws -> Void = {
+            try await Task.sleep(for: .seconds(1))
+        }
+    ) {
         self.sleep = sleep
     }
 

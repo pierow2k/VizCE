@@ -15,7 +15,8 @@ final class PreviewWindowController {
         window = nil
     }
 
-    /// Shows a replacement floating preview if enabled and schedules dismissal using saved preferences.
+    /// Shows a replacement floating preview if enabled and schedules dismissal using saved
+    /// preferences.
     ///
     /// Text previews gain extra height when post-processing is enabled. The expiry callback
     /// closes only the window created by this presentation.

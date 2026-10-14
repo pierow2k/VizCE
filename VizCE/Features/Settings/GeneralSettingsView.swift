@@ -33,7 +33,10 @@ struct GeneralSettingsView: View {
                         Toggle("Append consecutive captures", isOn: $appendRecognizedText)
                             .toggleStyle(SpacedToggle())
                             .help(
-                                "When enabled, consecutive captures will be added on to the previous capture"
+                                """
+                                When enabled, consecutive captures will be added on \
+                                to the previous capture
+                                """
                             )
 
                         Toggle("Keep line breaks in captures", isOn: $keepLineBreaks)
