@@ -9,30 +9,45 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [UNRELEASED]
 
+## [3.0.1] - 2026-10-14
+
+### Added
+
+- Regression tests for updater version comparisons, cached redirects,
+  request failures, retry recovery, and overlapping release checks.
+- A GitHub Actions workflow for CodeQL analysis of Swift code.
+
 ### Changed
 
-- Simplify shell word scanning with documented escape, expansion-validation,
-  and quote-state helpers while preserving template behavior.
+- Simplify shell word scanning and consumption with documented escape,
+  expansion-validation, quote-state, placeholder-rendering, and
+  command-position helpers while preserving template behavior.
 - Simplify webcam startup with focused duplicate-request, device-resolution,
   and generation-validation helpers while preserving cancellation and
   stale-session cleanup.
 - Simplify icon-button styling with named hover and press feedback while
   preserving appearance, accessible labels, and Reduce Motion behavior.
-- Simplify shell word consumption with documented command validation,
-  placeholder rendering, and assignment/redirection position updates.
+- Use a patched local copy of the pinned AlinFoundation dependency and run
+  its updater regression tests with `make test`.
+- Refresh README badges, menu and history screenshots, and demo video
+  links; organize fork details in a collapsible section.
 
 ### Fixed
 
 - Bypass cached GitHub responses during release checks so obsolete
   redirects do not hide available updates. Show request failures in the
   Updates tab and clear them after a successful retry.
-- Detect updates from GitHub release tags with a leading `v` or `V`, using
-  a patched local copy of AlinFoundation with version-comparison regression
-  tests. Keep the update dialog available after manual refresh, including
-  when no newer release exists.
+- Detect updates from GitHub release tags with a leading `v` or `V` and
+  keep the update dialog available after manual refresh, including when
+  no newer release exists.
 - Recognize LF and CRLF shell-template boundaries explicitly, preserving
   line endings and quoted text while rejecting missing redirection targets
   before comments and line endings.
+
+### Removed
+
+- Remove the unused GitHub Actions workflow for automatically closing
+  empty issues and incomplete issue templates.
 
 ## [3.0.0] - 2026-10-12
 
@@ -178,5 +193,6 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Remove the unused image-snipping view and its dormant, incorrect crop
   conversion.
 
-[unreleased]: https://github.com/pierow2k/VizCE/compare/v3.0.0...HEAD
+[unreleased]: https://github.com/pierow2k/VizCE/compare/v3.0.1...HEAD
+[3.0.1]: https://github.com/pierow2k/VizCE/releases/tag/v3.0.1
 [3.0.0]: https://github.com/pierow2k/VizCE/releases/tag/v3.0.0
