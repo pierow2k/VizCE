@@ -31,7 +31,8 @@ final class HistoryActionTests: XCTestCase {
 
     @MainActor
     func testDeletionIsIndependentOfCopyFeedbackAndClearCancelsExpiry() async throws {
-        let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        let directory = FileManager.default.temporaryDirectory
+            .appendingPathComponent(UUID().uuidString)
         defer { try? FileManager.default.removeItem(at: directory) }
         let store = HistoryFileStore(url: directory.appendingPathComponent("history.json"))
         let repository = HistoryRepository(store: store)

@@ -12,7 +12,8 @@ final class CaptureOutcomeTests: XCTestCase {
     )
 
     func testEmptyRecognitionAndErrorsAreTyped() async {
-        let empty = await RecognitionWorker { _, _ in "" }.outcome(imageData: Data(), options: options)
+        let empty = await RecognitionWorker { _, _ in "" }
+            .outcome(imageData: Data(), options: options)
         XCTAssertEqual(empty, .noContent)
         let failed = await RecognitionWorker { _, _ in throw CocoaError(.fileReadCorruptFile) }
             .outcome(imageData: Data(), options: options)

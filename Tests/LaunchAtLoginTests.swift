@@ -3,7 +3,10 @@ import XCTest
 final class LaunchAtLoginTests: XCTestCase {
     @MainActor
     func testRefreshReflectsEveryStatusWithoutRegistering() async {
-        XCTAssertEqual(LaunchAtLoginStatus.allCases, [.notRegistered, .enabled, .requiresApproval, .notFound])
+        XCTAssertEqual(
+            LaunchAtLoginStatus.allCases,
+            [.notRegistered, .enabled, .requiresApproval, .notFound]
+        )
         for status in LaunchAtLoginStatus.allCases {
             let service = FakeLoginService(status: status)
             let controller = LaunchAtLoginController(service: service)

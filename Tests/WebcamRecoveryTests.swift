@@ -190,7 +190,10 @@ private actor RecoveryWebcamBackend: WebcamCaptureBackend {
 
 private struct StaticWebcamDevices: WebcamDeviceDiscovering {
     func snapshot() -> WebcamDevices {
-        WebcamDevices(devices: [WebcamDevice(id: "preferred", name: "Camera")], defaultID: "preferred")
+        WebcamDevices(
+            devices: [WebcamDevice(id: "preferred", name: "Camera")],
+            defaultID: "preferred"
+        )
     }
 }
 
@@ -198,9 +201,15 @@ private struct StaticWebcamDevices: WebcamDeviceDiscovering {
 private actor DelayedWebcamDevices: WebcamDeviceDiscovering {
     private var continuations: [CheckedContinuation<WebcamDevices, Never>] = []
 
-    func snapshot() async -> WebcamDevices { await withCheckedContinuation { continuations.append($0) } }
-    func waitForRequests(_ count: Int) async { while continuations.count < count { await Task.yield() } }
+    func snapshot() async -> WebcamDevices {
+        await withCheckedContinuation { continuations.append($0) }
+    }
+    func waitForRequests(_ count: Int) async {
+        while continuations.count < count { await Task.yield() }
+    }
     func finish(_ index: Int, id: String) {
-        continuations[index].resume(returning: WebcamDevices(devices: [WebcamDevice(id: id, name: id)], defaultID: id))
+        continuations[index].resume(
+            returning: WebcamDevices(devices: [WebcamDevice(id: id, name: id)], defaultID: id)
+        )
     }
 }

@@ -92,7 +92,11 @@ final class ImageCropTests: XCTestCase {
         ] {
             XCTAssertNil(ImageCropTransform.map(selection: rect, viewport: size, pixels: size))
         }
-        for invalid in [CGSize.zero, CGSize(width: -1, height: 100), CGSize(width: CGFloat.infinity, height: 100)] {
+        for invalid in [
+            CGSize.zero,
+            CGSize(width: -1, height: 100),
+            CGSize(width: CGFloat.infinity, height: 100),
+        ] {
             XCTAssertNil(
                 ImageCropTransform.map(
                     selection: CGRect(x: 1, y: 1, width: 10, height: 10),

@@ -22,7 +22,10 @@ final class WebcamTests: XCTestCase {
     @MainActor
     func testDuplicateStartsDuringPreviewAndCaptureAreIgnored() async {
         let backend = FakeWebcamBackend(holdCapture: true)
-        let coordinator = WebcamCaptureCoordinator(authorization: AllowedAuthorization(), backend: backend)
+        let coordinator = WebcamCaptureCoordinator(
+            authorization: AllowedAuthorization(),
+            backend: backend
+        )
         coordinator.start(deviceID: "A")
         await coordinator.waitForPendingOperation()
         coordinator.start(deviceID: "A")
@@ -46,7 +49,10 @@ final class WebcamTests: XCTestCase {
             holdStarts: true,
             previewSource: WebcamPreviewSource(session: AVCaptureSession())
         )
-        let coordinator = WebcamCaptureCoordinator(authorization: AllowedAuthorization(), backend: backend)
+        let coordinator = WebcamCaptureCoordinator(
+            authorization: AllowedAuthorization(),
+            backend: backend
+        )
         coordinator.start(deviceID: "A")
         await backend.waitForStarts(1)
         coordinator.start(deviceID: "B")
@@ -56,7 +62,8 @@ final class WebcamTests: XCTestCase {
         let currentLayer = coordinator.previewLayer
         XCTAssertNotNil(currentLayer)
         await backend.finishStart(0, failing: true)
-        // Wait for the backend failure, then let the old task handle it before checking publication.
+        // Wait for the backend failure, then let the old task handle it before checking
+        // publication.
         await backend.waitForStartFailure()
         for _ in 0..<20 { await Task.yield() }
         XCTAssertEqual(coordinator.state, .previewing)
@@ -105,7 +112,10 @@ final class WebcamTests: XCTestCase {
     @MainActor
     func testOverlappingStartsDiscardAndStopOlderCompletion() async {
         let backend = FakeWebcamBackend(holdStarts: true)
-        let coordinator = WebcamCaptureCoordinator(authorization: AllowedAuthorization(), backend: backend)
+        let coordinator = WebcamCaptureCoordinator(
+            authorization: AllowedAuthorization(),
+            backend: backend
+        )
         coordinator.start(deviceID: "A")
         await backend.waitForStarts(1)
         coordinator.start(deviceID: "B")
@@ -125,7 +135,10 @@ final class WebcamTests: XCTestCase {
     @MainActor
     func testBackClearsImageAndStartsExactlyOnce() async throws {
         let backend = FakeWebcamBackend(imageData: try fixtureImage())
-        let coordinator = WebcamCaptureCoordinator(authorization: AllowedAuthorization(), backend: backend)
+        let coordinator = WebcamCaptureCoordinator(
+            authorization: AllowedAuthorization(),
+            backend: backend
+        )
         coordinator.start(deviceID: "A")
         await coordinator.waitForPendingOperation()
         coordinator.capturePhoto()
@@ -145,7 +158,10 @@ final class WebcamTests: XCTestCase {
     @MainActor
     func testCaptureCompletingAfterCloseCannotPublishImage() async throws {
         let backend = FakeWebcamBackend(imageData: try fixtureImage(), holdCapture: true)
-        let coordinator = WebcamCaptureCoordinator(authorization: AllowedAuthorization(), backend: backend)
+        let coordinator = WebcamCaptureCoordinator(
+            authorization: AllowedAuthorization(),
+            backend: backend
+        )
         var publications = 0
         coordinator.onCapture = { _ in publications += 1 }
         coordinator.start(deviceID: "A")
@@ -164,7 +180,10 @@ final class WebcamTests: XCTestCase {
     @MainActor
     func testDeniedPermissionAndSetupErrorFinishStartup() async {
         let auth = ControlledAuthorization()
-        let coordinator = WebcamCaptureCoordinator(authorization: auth, backend: FakeWebcamBackend())
+        let coordinator = WebcamCaptureCoordinator(
+            authorization: auth,
+            backend: FakeWebcamBackend()
+        )
         coordinator.start(deviceID: "A")
         await auth.waitForRequests(1)
         await auth.finish(0, allowed: false)
@@ -271,7 +290,8 @@ private actor FakeWebcamBackend: WebcamCaptureBackend {
     ///   - imageData: The encoded still image returned by capture.
     ///   - holdCapture: Whether capture waits for `finishCapture()`.
     ///   - failStart: Whether startup throws after any held wait is released.
-    ///   - previewSource: The session reference used by successful starts, without opening a camera.
+    ///   - previewSource: The session reference used by successful starts, without opening a
+    ///     camera.
     init(
         holdStarts: Bool = false,
         imageData: Data = Data(),

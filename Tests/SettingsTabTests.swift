@@ -17,7 +17,11 @@ final class SettingsTabTests: XCTestCase {
         defer { defaults.removePersistentDomain(forName: suite) }
         for tab in SettingsTab.allCases {
             defaults.set(tab.rawValue, forKey: "settingsSelectedTab")
-            let storage = AppStorage(wrappedValue: SettingsTab.general, "settingsSelectedTab", store: defaults)
+            let storage = AppStorage(
+                wrappedValue: SettingsTab.general,
+                "settingsSelectedTab",
+                store: defaults
+            )
             XCTAssertEqual(storage.wrappedValue, tab)
             storage.wrappedValue = .updates
             XCTAssertEqual(defaults.integer(forKey: "settingsSelectedTab"), 2)
@@ -29,11 +33,19 @@ final class SettingsTabTests: XCTestCase {
         let suite = "VizCE.SettingsTabTests.\(UUID().uuidString)"
         let defaults = try XCTUnwrap(UserDefaults(suiteName: suite))
         defer { defaults.removePersistentDomain(forName: suite) }
-        let absent = AppStorage(wrappedValue: SettingsTab.general, "settingsSelectedTab", store: defaults)
+        let absent = AppStorage(
+            wrappedValue: SettingsTab.general,
+            "settingsSelectedTab",
+            store: defaults
+        )
         XCTAssertEqual(absent.wrappedValue, .general)
         for raw in [-1, 4, 999] {
             defaults.set(raw, forKey: "settingsSelectedTab")
-            let storage = AppStorage(wrappedValue: SettingsTab.general, "settingsSelectedTab", store: defaults)
+            let storage = AppStorage(
+                wrappedValue: SettingsTab.general,
+                "settingsSelectedTab",
+                store: defaults
+            )
             XCTAssertEqual(storage.wrappedValue, .general)
             XCTAssertEqual(defaults.integer(forKey: "settingsSelectedTab"), raw)
         }

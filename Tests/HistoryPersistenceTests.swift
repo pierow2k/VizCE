@@ -133,7 +133,8 @@ private actor ControlledHistoryStore: HistoryStoring {
     private var loadContinuation: CheckedContinuation<[StoredHistoryEntry], Never>?
     private var saveContinuation: CheckedContinuation<Void, Never>?
     private let holdLoad: Bool
-    /// Whether the first successful save waits for explicit release; later saves complete immediately.
+    /// Whether the first successful save waits for explicit release; later saves complete
+    /// immediately.
     private var holdSave: Bool
     private var failSave: Bool
 

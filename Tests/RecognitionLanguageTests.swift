@@ -4,7 +4,9 @@ import XCTest
 final class RecognitionLanguageTests: XCTestCase {
     func testConcurrentRequestsShareDiscoveryAndCacheConfiguration() async throws {
         let probe = LanguageDiscoveryProbe()
-        let catalog = RecognitionLanguageCatalog { configuration in await probe.discover(configuration) }
+        let catalog = RecognitionLanguageCatalog { configuration in
+            await probe.discover(configuration)
+        }
         let accurate = RecognitionConfiguration(fast: false, revision: 1)
         async let first = catalog.codes(for: accurate)
         async let second = catalog.codes(for: accurate)
@@ -30,8 +32,14 @@ final class RecognitionLanguageTests: XCTestCase {
 
     func testLocaleChangesOnlyDisplayNames() {
         let code = "vi-VT"
-        let english = RecognitionLanguageName.displayName(for: code, locale: Locale(identifier: "en"))
-        let french = RecognitionLanguageName.displayName(for: code, locale: Locale(identifier: "fr"))
+        let english = RecognitionLanguageName.displayName(
+            for: code,
+            locale: Locale(identifier: "en")
+        )
+        let french = RecognitionLanguageName.displayName(
+            for: code,
+            locale: Locale(identifier: "fr")
+        )
         XCTAssertNotEqual(english, french)
         XCTAssertFalse(english.contains("VT"))
         XCTAssertEqual(code, "vi-VT")
@@ -88,7 +96,9 @@ private actor DelayedLanguageDiscovery {
         await withCheckedContinuation { continuations[configuration.fast] = $0 }
     }
     func waitFor(_ fast: Bool) async { while continuations[fast] == nil { await Task.yield() } }
-    func finish(_ fast: Bool, codes: [String]) { continuations.removeValue(forKey: fast)?.resume(returning: codes) }
+    func finish(_ fast: Bool, codes: [String]) {
+        continuations.removeValue(forKey: fast)?.resume(returning: codes)
+    }
 }
 
 /// A discovery fixture that fails once so the catalog’s retry behavior can be exercised.

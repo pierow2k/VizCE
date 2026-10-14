@@ -66,13 +66,20 @@ final class PostProcessingTests: XCTestCase {
     func testLineEndingsSeparateCommandsAndPreserveTrailingWhitespace() throws {
         let variable = "\"${VIZCE_OCR_TEXT}\""
         for ending in ["\n", "\r\n"] {
-            XCTAssertEqual(try ShellTemplate.compile("echo [ocr]\(ending)"), "echo \(variable)\(ending)")
             XCTAssertEqual(
-                try ShellTemplate.compile("echo [ocr]\(ending)\(ending)printf '%s' '[ocr]'\(ending)"),
+                try ShellTemplate.compile("echo [ocr]\(ending)"),
+                "echo \(variable)\(ending)"
+            )
+            XCTAssertEqual(
+                try ShellTemplate.compile(
+                    "echo [ocr]\(ending)\(ending)printf '%s' '[ocr]'\(ending)"
+                ),
                 "echo \(variable)\(ending)\(ending)printf '%s' \(variable)\(ending)"
             )
             XCTAssertEqual(
-                try ShellTemplate.compile("# literal [ocr]\(ending)echo [ocr] # literal [ocr]\(ending)"),
+                try ShellTemplate.compile(
+                    "# literal [ocr]\(ending)echo [ocr] # literal [ocr]\(ending)"
+                ),
                 "# literal [ocr]\(ending)echo \(variable) # literal [ocr]\(ending)"
             )
             XCTAssertThrowsError(try ShellTemplate.compile("echo [ocr]\(ending)[ocr]"))
@@ -99,7 +106,12 @@ final class PostProcessingTests: XCTestCase {
 
     func testLineEndingsCannotSatisfyRedirectionTargets() {
         for ending in ["\n", "\r\n"] {
-            for suffix in [ending, " # missing target\(ending)", " # missing target", "  \(ending)echo done"] {
+            for suffix in [
+                ending,
+                " # missing target\(ending)",
+                " # missing target",
+                "  \(ending)echo done",
+            ] {
                 XCTAssertThrowsError(try ShellTemplate.compile("echo [ocr] >\(suffix)"), suffix)
             }
         }
@@ -111,7 +123,8 @@ final class PostProcessingTests: XCTestCase {
                 template: "printf '%s' [ocr]\(ending)printf '%s' '[ocr]'\(ending)",
                 content: "café 'quoted'\n"
             )
-            // zsh treats CR as literal argument text; the compiler preserves it without normalization.
+            // zsh treats CR as literal argument text; the compiler preserves it without
+            // normalization.
             let suffix = ending == "\r\n" ? "\r" : ""
             XCTAssertEqual(output, String(repeating: "café 'quoted'\n\(suffix)", count: 2))
         }
@@ -119,7 +132,11 @@ final class PostProcessingTests: XCTestCase {
 
     func testRenamedEnvironmentVariablePreservesPayloadWithoutPlaceholder() async throws {
         let payloads = [
-            "", "spaces and café", "line 1\nline 2\n", "'\"\\;|&<>*", "$(printf unexpected) `printf unexpected`"
+            "",
+            "spaces and café",
+            "line 1\nline 2\n",
+            "'\"\\;|&<>*",
+            "$(printf unexpected) `printf unexpected`",
         ]
         for payload in payloads {
             let output = try await PostProcessingRunner()
@@ -151,14 +168,18 @@ final class PostProcessingTests: XCTestCase {
     }
 
     func testLiteralArgumentsAndNoCommandExecution() async throws {
-        let sentinel = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        let sentinel = FileManager.default.temporaryDirectory
+            .appendingPathComponent(UUID().uuidString)
         let payloads = [
             "", "spaces and café", "line 1\nline 2\n", "'\"\\;|&<>*",
             "$(touch \(sentinel.path)) `touch \(sentinel.path)`",
         ]
         for form in ["[ocr]", "\"[ocr]\"", "'[ocr]'"] {
             for payload in payloads {
-                let output = try await PostProcessingRunner().run(template: "printf '%s' \(form)", content: payload)
+                let output = try await PostProcessingRunner().run(
+                    template: "printf '%s' \(form)",
+                    content: payload
+                )
                 XCTAssertEqual(output, payload)
             }
         }
@@ -173,10 +194,22 @@ final class PostProcessingTests: XCTestCase {
 
     func testUnsupportedContexts() {
         for template in [
-            "[ocr]", "X=1 [ocr]", "echo ok; [ocr]", "echo prefix[ocr]", "echo \"prefix [ocr]\"", "echo $(echo [ocr])",
-            "echo `[ocr]`", "cat <<EOF\n[ocr]\nEOF", "echo \\[ocr]", "echo $'[ocr]'", "echo '[ocr] suffix'",
-            "if [ocr]; then echo yes; fi", "for item in [ocr]; do echo ok; done", "echo ${value:- [ocr] }",
-            "> /dev/null [ocr]", "> /dev/null if [ocr]; then echo yes; fi",
+            "[ocr]",
+            "X=1 [ocr]",
+            "echo ok; [ocr]",
+            "echo prefix[ocr]",
+            "echo \"prefix [ocr]\"",
+            "echo $(echo [ocr])",
+            "echo `[ocr]`",
+            "cat <<EOF\n[ocr]\nEOF",
+            "echo \\[ocr]",
+            "echo $'[ocr]'",
+            "echo '[ocr] suffix'",
+            "if [ocr]; then echo yes; fi",
+            "for item in [ocr]; do echo ok; done",
+            "echo ${value:- [ocr] }",
+            "> /dev/null [ocr]",
+            "> /dev/null if [ocr]; then echo yes; fi",
         ] {
             XCTAssertThrowsError(try ShellTemplate.compile(template), template)
         }
@@ -194,7 +227,10 @@ final class PostProcessingTests: XCTestCase {
         let output = try await PostProcessingRunner()
             .run(template: "> \(file.path) printf '%s' [ocr]; cat \(file.path)", content: payload)
         XCTAssertEqual(output, payload)
-        let combined = try await PostProcessingRunner().run(template: "printf '%s' [ocr] >&2", content: payload)
+        let combined = try await PostProcessingRunner().run(
+            template: "printf '%s' [ocr] >&2",
+            content: payload
+        )
         XCTAssertEqual(combined, payload)
         let leadingFD = try await PostProcessingRunner()
             .run(template: "2>/dev/null printf '%s' '[ocr]'", content: payload)
@@ -202,16 +238,24 @@ final class PostProcessingTests: XCTestCase {
     }
 
     func testLargeOutputAndExitError() async throws {
-        let output = try await PostProcessingRunner().run(template: "head -c 1048576 /dev/zero", content: "")
+        let output = try await PostProcessingRunner().run(
+            template: "head -c 1048576 /dev/zero",
+            content: ""
+        )
         XCTAssertEqual(output.utf8.count, 1_048_576)
-        let failure = try await PostProcessingRunner().run(template: "printf failure >&2; exit 7", content: "")
+        let failure = try await PostProcessingRunner().run(
+            template: "printf failure >&2; exit 7",
+            content: ""
+        )
         XCTAssertTrue(failure.contains("status 7"))
         XCTAssertTrue(failure.contains("failure"))
     }
 
     func testLaunchAndNulFailures() async {
         do {
-            _ = try await PostProcessingRunner(executableURL: URL(fileURLWithPath: "/nonexistent/vizce-shell"))
+            _ = try await PostProcessingRunner(
+                executableURL: URL(fileURLWithPath: "/nonexistent/vizce-shell")
+            )
                 .run(template: "echo [ocr]", content: "x")
             XCTFail("Expected a launch failure for the nonexistent shell")
         } catch {
