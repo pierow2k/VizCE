@@ -59,7 +59,7 @@ struct GeneralSettingsView: View {
 
                         LaunchAtLoginView(controller: appState.launchAtLogin)
 
-                        AdaptiveSettingsRow("Capture Window Dimensions") {
+                        AdaptiveSettingsRow("History Window Dimensions") {
                             HStack {
                                 HStack {
                                     Text("W:")
@@ -85,7 +85,7 @@ struct GeneralSettingsView: View {
                                     viewHeight = 200.0
                                 } label: {
                                     Image(systemName: "arrow.counterclockwise")
-                                        .accessibilityLabel("Reset capture window dimensions")
+                                        .accessibilityLabel("Reset history window dimensions")
                                         .font(.system(size: 12))
                                 }
                                 .buttonStyle(.plain)

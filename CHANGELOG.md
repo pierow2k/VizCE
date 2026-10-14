@@ -9,6 +9,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [UNRELEASED]
 
+### Fixed
+
+- Replace "capture" with "history" in the window dimensions dialog.
+
 ## [3.0.1] - 2026-10-14
 
 ### Added
