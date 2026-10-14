@@ -11,6 +11,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- Split recognition orchestration from asynchronous language resolution and
+  recognition work to keep capture scheduling concise without changing delivery.
 - Align SwiftLint attribute placement, multiline collection commas, and the
   100-column limit with Google's Swift style guidance; wrap application and
   test source while preserving existing behavior and indentation.

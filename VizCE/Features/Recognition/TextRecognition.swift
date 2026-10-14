@@ -54,33 +54,38 @@ struct TextRecognition {
             return
         }
         Task { @MainActor in
-            do {
-                let configuration = RecognitionConfiguration(fast: options.fast)
-                let code = try await RecognitionLanguageCatalog.shared.effectiveCode(
-                    options.languageCode,
-                    for: configuration
-                )
-                let resolved = RecognitionOptions(
-                    fast: options.fast,
-                    languageCode: code,
-                    keepLineBreaks: options.keepLineBreaks,
-                    append: options.append,
-                    processing: options.processing,
-                    commandTemplate: options.commandTemplate
-                )
-                let outcome = await RecognitionWorker().outcome(
-                    imageData: imageData,
-                    options: resolved
-                )
-                finish(outcome, options: options, token: token, clearToken: clearToken)
-            } catch {
-                finish(
-                    .failure(.recognition(error.localizedDescription)),
-                    options: options,
-                    token: token,
-                    clearToken: clearToken
-                )
-            }
+            let outcome = await recognize(imageData: imageData, options: options)
+            finish(outcome, options: options, token: token, clearToken: clearToken)
+        }
+    }
+
+    /// Resolves language availability and recognizes encoded image data using frozen preferences.
+    ///
+    /// - Parameters:
+    ///   - imageData: The captured image's TIFF representation.
+    ///   - options: Capture-time preferences, including the stored language selection.
+    /// - Returns: The worker outcome, or a recognition failure if language resolution throws.
+    private func recognize(
+        imageData: Data,
+        options: RecognitionOptions
+    ) async -> RecognitionOutcome {
+        do {
+            let configuration = RecognitionConfiguration(fast: options.fast)
+            let code = try await RecognitionLanguageCatalog.shared.effectiveCode(
+                options.languageCode,
+                for: configuration
+            )
+            let resolved = RecognitionOptions(
+                fast: options.fast,
+                languageCode: code,
+                keepLineBreaks: options.keepLineBreaks,
+                append: options.append,
+                processing: options.processing,
+                commandTemplate: options.commandTemplate
+            )
+            return await RecognitionWorker().outcome(imageData: imageData, options: resolved)
+        } catch {
+            return .failure(.recognition(error.localizedDescription))
         }
     }
 
