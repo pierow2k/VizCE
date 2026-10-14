@@ -2,7 +2,8 @@ import SwiftUI
 
 /// An icon-only button with hover feedback that respects Reduce Motion.
 struct SimpleButtonStyle: ButtonStyle {
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.accessibilityReduceMotion)
+    private var reduceMotion
     @State private var hovered = false
     let help: String
     /// The full hover color, displayed at half opacity when the pointer is outside the button.

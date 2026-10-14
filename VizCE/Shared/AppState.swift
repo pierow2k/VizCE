@@ -40,8 +40,10 @@ final class AppState: ObservableObject {
     /// The last published color; empty representations indicate that no color has been captured.
     @Published var colorSample = ColorItem(hex: "", rgb: "")
     /// The persisted Vision language code, with `"All"` selecting automatic language handling.
-    @AppStorage("selectedLanguageCode") private var storedLanguageCode: String = "All"
-    @AppStorage("selectedQuality") private var selectedQualityRaw: String = TextRecognitionQuality.accurate.rawValue
+    @AppStorage("selectedLanguageCode")
+    private var storedLanguageCode: String = "All"
+    @AppStorage("selectedQuality")
+    private var selectedQualityRaw: String = TextRecognitionQuality.accurate.rawValue
 
     let languages = RecognitionLanguageSelection()
     private var languageSubscription: AnyCancellable?

@@ -26,7 +26,7 @@ final class CaptureOutcomeTests: XCTestCase {
     func testOnlyContentPublishesAndEveryOutcomeCompletesOnce() {
         let outcomes: [RecognitionOutcome] = [
             .content("Unable to extract is legitimate text"), .noContent,
-            .failure(.imageConversion), .cancelled
+            .failure(.imageConversion), .cancelled,
         ]
         var published: [String] = []
         var notices: [RecognitionOutcome] = []

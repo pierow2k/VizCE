@@ -132,7 +132,7 @@ enum ShellTemplate {
     /// Compound command words rejected when a template requires an ordinary command name.
     private static let compoundKeywords: Set<String> = [
         "if", "then", "else", "elif", "fi", "for", "while", "until", "do", "done", "case", "esac", "function",
-        "repeat", "select", "coproc", "time", "!", "{", "}", "[[", "]]"
+        "repeat", "select", "coproc", "time", "!", "{", "}", "[[", "]]",
     ]
 
     /// Unquoted characters that delimit words, commands, or redirections in the supported grammar.
@@ -219,7 +219,7 @@ enum ShellTemplate {
                 NSLocalizedDescriptionKey:
                     "Use [ocr], \"[ocr]\", or '[ocr]' as a whole argument in ordinary commands. "
                     + "Embedded placeholders, substitutions, heredocs, compound statements, "
-                    + "and braced parameter expressions are unsupported."
+                    + "and braced parameter expressions are unsupported.",
             ]
         )
     }

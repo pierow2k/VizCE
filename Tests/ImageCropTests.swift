@@ -88,7 +88,7 @@ final class ImageCropTests: XCTestCase {
         for rect in [
             CGRect.zero, CGRect(x: 150, y: 150, width: 20, height: 20),
             CGRect(x: CGFloat.nan, y: 0, width: 10, height: 10),
-            CGRect(x: 0, y: 0, width: CGFloat.infinity, height: 10)
+            CGRect(x: 0, y: 0, width: CGFloat.infinity, height: 10),
         ] {
             XCTAssertNil(ImageCropTransform.map(selection: rect, viewport: size, pixels: size))
         }

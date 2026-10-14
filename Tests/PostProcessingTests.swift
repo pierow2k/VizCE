@@ -33,7 +33,7 @@ final class PostProcessingTests: XCTestCase {
     func testEscapesAndMixedQuotesPreserveOriginalWords() throws {
         for literal in [
             #"'a"b'"#, #""a'b""#, #"'a\b'"#, #""a\"b""#,
-            #"a\;b"#, #"a\|b"#, #"a\<b"#, #"a\(b"#, #"a\`b"#, #"'${value}'"#
+            #"a\;b"#, #"a\|b"#, #"a\<b"#, #"a\(b"#, #"a\`b"#, #"'${value}'"#,
         ] {
             XCTAssertEqual(
                 try ShellTemplate.compile("printf '%s' \(literal) [ocr]"),
@@ -48,7 +48,7 @@ final class PostProcessingTests: XCTestCase {
     func testDanglingRedirectionsAndCommandPlaceholdersRemainRejected() throws {
         for template in [
             "printf '%s' [ocr] >", "printf '%s' [ocr] >   ", "printf '%s' [ocr] >; echo done",
-            "[ocr] argument", "X=1 [ocr]", "echo ok | [ocr]"
+            "[ocr] argument", "X=1 [ocr]", "echo ok | [ocr]",
         ] {
             XCTAssertThrowsError(try ShellTemplate.compile(template), template)
         }
@@ -135,7 +135,7 @@ final class PostProcessingTests: XCTestCase {
         for template in [
             "X=1 Y=2 printf '%s' [ocr]", "X=1 2>/dev/null printf '%s' [ocr]",
             "2>/dev/null X=1 printf '%s' [ocr]", "2> [ocr] printf '%s' [ocr]",
-            "printf '%s' [ocr] > if", "printf '%s' [ocr] 2>&1"
+            "printf '%s' [ocr] > if", "printf '%s' [ocr] 2>&1",
         ] {
             XCTAssertEqual(
                 try ShellTemplate.compile(template),
@@ -144,7 +144,7 @@ final class PostProcessingTests: XCTestCase {
         }
         for template in [
             "X=1 2>/dev/null [ocr]", "2>/dev/null X=1 [ocr]", "X=1 2>/dev/null if [ocr]",
-            "2> [ocr] [ocr]", "2> [ocr] if true", "printf '%s' prefix[ocr]"
+            "2> [ocr] [ocr]", "2> [ocr] if true", "printf '%s' prefix[ocr]",
         ] {
             XCTAssertThrowsError(try ShellTemplate.compile(template), template)
         }
@@ -154,7 +154,7 @@ final class PostProcessingTests: XCTestCase {
         let sentinel = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
         let payloads = [
             "", "spaces and café", "line 1\nline 2\n", "'\"\\;|&<>*",
-            "$(touch \(sentinel.path)) `touch \(sentinel.path)`"
+            "$(touch \(sentinel.path)) `touch \(sentinel.path)`",
         ]
         for form in ["[ocr]", "\"[ocr]\"", "'[ocr]'"] {
             for payload in payloads {
@@ -176,7 +176,7 @@ final class PostProcessingTests: XCTestCase {
             "[ocr]", "X=1 [ocr]", "echo ok; [ocr]", "echo prefix[ocr]", "echo \"prefix [ocr]\"", "echo $(echo [ocr])",
             "echo `[ocr]`", "cat <<EOF\n[ocr]\nEOF", "echo \\[ocr]", "echo $'[ocr]'", "echo '[ocr] suffix'",
             "if [ocr]; then echo yes; fi", "for item in [ocr]; do echo ok; done", "echo ${value:- [ocr] }",
-            "> /dev/null [ocr]", "> /dev/null if [ocr]; then echo yes; fi"
+            "> /dev/null [ocr]", "> /dev/null if [ocr]; then echo yes; fi",
         ] {
             XCTAssertThrowsError(try ShellTemplate.compile(template), template)
         }

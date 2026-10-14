@@ -9,6 +9,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [UNRELEASED]
 
+### Changed
+
+- Align SwiftLint attribute placement, multiline collection commas, and the
+  100-column limit with Google's Swift style guidance; wrap application and
+  test source while preserving existing behavior and indentation.
+
 ### Fixed
 
 - Replace "capture" with "history" in the window dimensions dialog.

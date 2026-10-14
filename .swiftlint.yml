@@ -2,35 +2,55 @@
 
 # ---------- Configured Rules ----------
 analyzer_rules:
-
+  # Identifies declarations that aren't referenced anywhere in the analyzed code.
   - unused_declaration
+  # Identifies imported modules that aren't actually needed by the source code.
   - unused_import
 
 disabled_rules:
-  - attributes
+  # Google emphasizes readability rather than a fixed maximum number of
+  # lines in a closure.
   - closure_body_length
+
+  # Google permits single-line early returns.
   - conditional_returns_on_newline
+
+  # Google uses K&R brace placement.
   - contrasted_opening_brace
-  - discouraged_optional_boolean
+
+  # Google permits implicit access levels.
   - explicit_acl
   - explicit_top_level_acl
+
+  # Google permits type inference when appropriate.
   - explicit_type_interface
+
+  # Google allows logical ordering without prescribing a fixed sequence.
   - file_types_order
-  - no_magic_numbers
-  - one_declaration_per_file
-  - prefer_nimble
-  - required_deinit
   - type_contents_order
 
-excluded:
-  - .build
-  - Carthage
-  - Pods
-  - support/DerivedData
+  # Google does not establish a blanket prohibition on numeric literals.
+  - no_magic_numbers
+
+  # Google permits related declarations in the same file.
+  - one_declaration_per_file
+
+  # Google does not require the Nimble testing framework.
+  # (All matches are in tests)
+  - prefer_nimble
+
+  # Google does not require every class to implement a deinitializer.
+  - required_deinit
 
 opt_in_rules: all
 
 # ---- Specific Rules Configuration ----
+
+# Parameterized attributes precede their declarations on a separate line.
+# SwiftLint does not enforce Google's lexicographic attribute ordering.
+attributes:
+  attributes_with_arguments_always_on_line_above: true
+
 file_length:
   warning: 700
   error: 1200
@@ -38,3 +58,17 @@ file_length:
 type_body_length:
   warning: 500
   error: 1200
+
+# Google specifies a 100-character column limit, subject to exceptions for
+# URLs, imports, and generated code.
+line_length:
+  warning: 100
+  error: 100
+  ignores_urls: true
+  excluded_lines_patterns:
+    - '^\s*(?:@\w+\s+)*import\b'
+
+# Google requires trailing commas when array or dictionary elements occupy
+# separate lines.
+trailing_comma:
+  mandatory_comma: true

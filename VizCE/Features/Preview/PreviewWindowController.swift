@@ -20,11 +20,16 @@ final class PreviewWindowController {
     /// Text previews gain extra height when post-processing is enabled. The expiry callback
     /// closes only the window created by this presentation.
     func show<Content: View>(_ content: Content) {
-        @AppStorage("previewSeconds") var seconds: Double = 5.0
-        @AppStorage("processing") var processing: Bool = false
-        @AppStorage("showPreview") var showPreview: Bool = true
-        @AppStorage("viewWidth") var width: Double = 300.0
-        @AppStorage("viewHeight") var viewHeight: Double = 200.0
+        @AppStorage("previewSeconds")
+        var seconds: Double = 5.0
+        @AppStorage("processing")
+        var processing: Bool = false
+        @AppStorage("showPreview")
+        var showPreview: Bool = true
+        @AppStorage("viewWidth")
+        var width: Double = 300.0
+        @AppStorage("viewHeight")
+        var viewHeight: Double = 200.0
         guard showPreview else { return }
         close()
         let height = (processing && content is PreviewContentView) ? viewHeight + 100 : viewHeight

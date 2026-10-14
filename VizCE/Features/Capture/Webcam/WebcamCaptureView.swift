@@ -15,7 +15,8 @@ struct WebcamCaptureView: View {
     @ObservedObject var captureManager: WebcamCaptureCoordinator
     @StateObject private var webcamManager = WebcamManager()
     /// The saved camera identifier; an empty string requests the preferred default camera.
-    @AppStorage("selectedWebcamID") private var selectedWebcamID: String = ""
+    @AppStorage("selectedWebcamID")
+    private var selectedWebcamID: String = ""
     @State private var isSnipping: Bool = false
     @State private var selection = ImageSelectionState()
 

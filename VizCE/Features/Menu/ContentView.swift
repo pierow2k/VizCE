@@ -13,8 +13,10 @@ import SwiftUI
 
 /// The menu bar controls for capture, history, settings, and application termination.
 struct ContentView: View {
-    @Environment(\.dismiss) private var dismiss
-    @Environment(\.openSettings) private var openSettings
+    @Environment(\.dismiss)
+    private var dismiss
+    @Environment(\.openSettings)
+    private var openSettings
     @EnvironmentObject var updater: Updater
     /// The registration token that allows this menu view to remove only its own dismissal action.
     @State private var menuRegistration: UUID?

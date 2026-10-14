@@ -3,7 +3,8 @@ import SwiftUI
 
 /// A capture tile with an SF Symbol, optional shortcut, and accessible press feedback.
 struct RoundedRectangleButtonStyle: ButtonStyle {
-    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @Environment(\.accessibilityReduceMotion)
+    private var reduceMotion
     @State private var isHovered = false
     let image: String
     /// The SF Symbol font size in points.

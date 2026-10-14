@@ -11,7 +11,8 @@ import SwiftUI
 /// The menu bar application and settings scene with shared capture, history, and updater state.
 @main
 struct VizCEApp: App {
-    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @NSApplicationDelegateAdaptor(AppDelegate.self)
+    var appDelegate
     @ObservedObject var appState = AppState.shared
     @StateObject private var updater = Updater(owner: "pierow2k", repo: "VizCE")
 
