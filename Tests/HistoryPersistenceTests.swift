@@ -2,6 +2,22 @@ import Foundation
 import XCTest
 
 final class HistoryPersistenceTests: XCTestCase {
+    /// Creates an isolated directory and registers best-effort removal after the test finishes.
+    ///
+    /// - Throws: The file-system error if the directory cannot be created.
+    private func makeTemporaryDirectory() throws -> URL {
+        let directory = FileManager.default.temporaryDirectory
+            .appendingPathComponent(UUID().uuidString)
+        try FileManager.default.createDirectory(
+            at: directory,
+            withIntermediateDirectories: true
+        )
+        addTeardownBlock {
+            try? FileManager.default.removeItem(at: directory)
+        }
+        return directory
+    }
+
     private func entry(_ id: String) -> StoredHistoryEntry {
         .text(StoredTextItem(id: id, text: "text \(id)"))
     }
@@ -88,9 +104,7 @@ final class HistoryPersistenceTests: XCTestCase {
 
     @MainActor
     func testReadFailureNeverOverwritesOriginalFile() async throws {
-        let dir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
-        defer { try? FileManager.default.removeItem(at: dir) }
+        let dir = try makeTemporaryDirectory()
         let url = dir.appendingPathComponent("historyItems.json")
         let original = Data("invalid json".utf8)
         try original.write(to: url)
@@ -111,9 +125,7 @@ final class HistoryPersistenceTests: XCTestCase {
     }
 
     func testAtomicWriteFailurePreservesExistingDestination() async throws {
-        let dir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-        try FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
-        defer { try? FileManager.default.removeItem(at: dir) }
+        let dir = try makeTemporaryDirectory()
         let blocked = dir.appendingPathComponent("blocked")
         try Data("unchanged".utf8).write(to: blocked)
         let store = HistoryFileStore(url: blocked.appendingPathComponent("historyItems.json"))

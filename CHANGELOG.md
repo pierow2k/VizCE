@@ -11,6 +11,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- Centralize temporary-directory creation and XCTest cleanup registration for
+  history persistence failure tests.
 - Share the overlapping webcam startup setup between stale-success and
   stale-failure tests while preserving their separate assertions.
 - Split recognition orchestration from asynchronous language resolution and
