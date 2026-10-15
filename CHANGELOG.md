@@ -11,6 +11,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- Share the overlapping webcam startup setup between stale-success and
+  stale-failure tests while preserving their separate assertions.
 - Split recognition orchestration from asynchronous language resolution and
   recognition work to keep capture scheduling concise without changing delivery.
 - Align SwiftLint attribute placement, multiline collection commas, and the

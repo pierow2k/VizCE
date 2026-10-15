@@ -49,16 +49,7 @@ final class WebcamTests: XCTestCase {
             holdStarts: true,
             previewSource: WebcamPreviewSource(session: AVCaptureSession())
         )
-        let coordinator = WebcamCaptureCoordinator(
-            authorization: AllowedAuthorization(),
-            backend: backend
-        )
-        coordinator.start(deviceID: "A")
-        await backend.waitForStarts(1)
-        coordinator.start(deviceID: "B")
-        await backend.waitForStarts(2)
-        await backend.finishStart(1)
-        await coordinator.waitForPendingOperation()
+        let coordinator = await startNewerPreviewBeforeOlderCompletes(backend: backend)
         let currentLayer = coordinator.previewLayer
         XCTAssertNotNil(currentLayer)
         await backend.finishStart(0, failing: true)
@@ -112,16 +103,7 @@ final class WebcamTests: XCTestCase {
     @MainActor
     func testOverlappingStartsDiscardAndStopOlderCompletion() async {
         let backend = FakeWebcamBackend(holdStarts: true)
-        let coordinator = WebcamCaptureCoordinator(
-            authorization: AllowedAuthorization(),
-            backend: backend
-        )
-        coordinator.start(deviceID: "A")
-        await backend.waitForStarts(1)
-        coordinator.start(deviceID: "B")
-        await backend.waitForStarts(2)
-        await backend.finishStart(1)
-        await coordinator.waitForPendingOperation()
+        let coordinator = await startNewerPreviewBeforeOlderCompletes(backend: backend)
         await backend.finishStart(0)
         await backend.waitForStop(of: 1, count: 2)
         for _ in 0..<20 { await Task.yield() }
@@ -225,6 +207,27 @@ final class WebcamTests: XCTestCase {
         } catch {
             XCTAssertEqual(error as? WebcamCaptureError, .staleOperation)
         }
+    }
+
+    /// Starts cameras A and B, completing B while A remains suspended for the caller to release.
+    ///
+    /// - Parameter backend: A fresh backend configured with `holdStarts: true`.
+    /// - Returns: The coordinator after B's startup task completes.
+    @MainActor
+    private func startNewerPreviewBeforeOlderCompletes(
+        backend: FakeWebcamBackend
+    ) async -> WebcamCaptureCoordinator {
+        let coordinator = WebcamCaptureCoordinator(
+            authorization: AllowedAuthorization(),
+            backend: backend
+        )
+        coordinator.start(deviceID: "A")
+        await backend.waitForStarts(1)
+        coordinator.start(deviceID: "B")
+        await backend.waitForStarts(2)
+        await backend.finishStart(1)
+        await coordinator.waitForPendingOperation()
+        return coordinator
     }
 
     @MainActor
